@@ -3,479 +3,411 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WIM CableSpec — Cable Material Order Generator</title>
+<title>WIM CableSpec Pro — Cable Material Order Generator</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23c8942e'/><text x='16' y='22' font-size='14' font-weight='bold' text-anchor='middle' fill='%23111'>W</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{
---bg:#0b0d13;--s1:#11141c;--s2:#171b27;--s3:#1e2333;--s4:#262c3f;
---bd:#282f45;--bd2:#343c58;
---tx:#e6e8f0;--tx2:#868ca5;--tx3:#585e78;
---gold:#c89530;--gold2:#dba83e;--gbg:rgba(200,149,48,.1);--gbd:rgba(200,149,48,.25);
---blue:#4889f0;--bbg:rgba(72,137,240,.1);
---green:#38b070;--gbg2:rgba(56,176,112,.08);--gbd2:rgba(56,176,112,.22);
---red:#d94848;--rbg:rgba(217,72,72,.08);
---cyan:#38b0b0;--cbg:rgba(56,176,176,.1);
---purple:#8b60e8;--pbg:rgba(139,96,232,.1);
---orange:#d08030;--obg:rgba(208,128,48,.1);
---r:8px;--r2:12px;
---f:'Plus Jakarta Sans',system-ui,sans-serif;
---m:'IBM Plex Mono',monospace;
-}
-html{scroll-behavior:smooth}
-body{font-family:var(--f);background:var(--bg);color:var(--tx);line-height:1.5;font-size:14px;min-height:100vh}
-::-webkit-scrollbar{width:5px;height:5px}
-::-webkit-scrollbar-track{background:var(--s1)}
-::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:3px}
-
-/* === TOP BAR === */
+:root{--bg:#0b0d13;--s1:#11141c;--s2:#171b27;--s3:#1e2333;--s4:#262c3f;--bd:#282f45;--bd2:#343c58;--tx:#e6e8f0;--tx2:#868ca5;--tx3:#585e78;--gold:#c89530;--gold2:#dba83e;--gbg:rgba(200,149,48,.1);--gbd:rgba(200,149,48,.25);--blue:#4889f0;--bbg:rgba(72,137,240,.1);--green:#38b070;--gbg2:rgba(56,176,112,.08);--gbd2:rgba(56,176,112,.22);--red:#d94848;--rbg:rgba(217,72,72,.08);--cyan:#38b0b0;--cbg:rgba(56,176,176,.1);--purple:#8b60e8;--pbg:rgba(139,96,232,.1);--orange:#d08030;--obg:rgba(208,128,48,.1);--r:8px;--r2:12px;--f:'Plus Jakarta Sans',system-ui,sans-serif;--m:'IBM Plex Mono',monospace}
+html{scroll-behavior:smooth}body{font-family:var(--f);background:var(--bg);color:var(--tx);line-height:1.5;font-size:14px;min-height:100vh}
+::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:var(--s1)}::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:3px}
 .top{background:var(--s1);border-bottom:1px solid var(--bd);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:300}
-.top-brand{display:flex;align-items:center;gap:10px}
-.top-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--gold),#a07020);border-radius:7px;display:flex;align-items:center;justify-content:center;font:700 13px var(--m);color:#0b0d13}
-.top h1{font-size:14px;font-weight:800}
-.top-sub{font:500 9px var(--m);color:var(--tx2);letter-spacing:.5px}
-.top-r{display:flex;gap:5px}
-
-/* === NAV === */
-.nav{background:var(--s1);border-bottom:1px solid var(--bd);display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:0 12px;gap:0}
-.nav-t{padding:9px 16px;font-size:11px;font-weight:600;color:var(--tx3);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:.2s}
-.nav-t:hover{color:var(--tx)}
-.nav-t.on{color:var(--gold);border-bottom-color:var(--gold)}
-
-/* === BUTTONS === */
+.top-brand{display:flex;align-items:center;gap:10px}.top-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--gold),#a07020);border-radius:7px;display:flex;align-items:center;justify-content:center;font:700 13px var(--m);color:#0b0d13}
+.top h1{font-size:14px;font-weight:800}.top-sub{font:500 9px var(--m);color:var(--tx2);letter-spacing:.5px}.top-r{display:flex;gap:5px}
+.nav{background:var(--s1);border-bottom:1px solid var(--bd);display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:0 12px}
+.nav-t{padding:9px 14px;font-size:11px;font-weight:600;color:var(--tx3);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:.2s}.nav-t:hover{color:var(--tx)}.nav-t.on{color:var(--gold);border-bottom-color:var(--gold)}
 .b{display:inline-flex;align-items:center;gap:4px;padding:6px 12px;border:none;border-radius:var(--r);font:600 11px var(--f);cursor:pointer;transition:.15s;white-space:nowrap}
 .bg{background:var(--gold);color:#0b0d13}.bg:hover{background:var(--gold2);transform:translateY(-1px)}
 .bo{background:0;color:var(--tx);border:1px solid var(--bd)}.bo:hover{border-color:var(--gold);color:var(--gold)}
 .br{background:var(--rbg);color:var(--red);border:1px solid rgba(217,72,72,.2)}.br:hover{background:rgba(217,72,72,.18)}
 .bs{padding:4px 8px;font-size:10px}
-
-/* === LAYOUT === */
-.main{max-width:1320px;margin:0 auto;padding:12px 12px 72px}
-.sec{display:none}.sec.on{display:block}
-
-/* === PROJECT BAR === */
+.main{max-width:1320px;margin:0 auto;padding:12px 12px 72px}.sec{display:none}.sec.on{display:block}
 .pbar{background:var(--s2);border:1px solid var(--bd);border-radius:var(--r2);padding:12px 14px;margin-bottom:12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px}
-
-/* === FORM === */
-.fg{display:flex;flex-direction:column;gap:2px}
-.fl{font:600 9px var(--m);color:var(--tx2);text-transform:uppercase;letter-spacing:.6px}
+.fg{display:flex;flex-direction:column;gap:2px}.fl{font:600 9px var(--m);color:var(--tx2);text-transform:uppercase;letter-spacing:.6px}
 .fi,.fs{background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 10px;color:var(--tx);font:13px var(--f);transition:.2s;width:100%}
 .fi:focus,.fs:focus{outline:0;border-color:var(--gold);box-shadow:0 0 0 3px var(--gbg)}
 .fs{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' fill='%23868ca5'%3E%3Cpath d='M4 6L0 1h8z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;padding-right:24px}
-.fr{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.fr{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
 .fi[readonly]{color:var(--gold);font-weight:700;background:var(--s2)}
-
-/* === SYSTEM CARDS === */
 .sys{background:var(--s2);border:1px solid var(--bd);border-radius:var(--r2);margin-bottom:14px;overflow:hidden}
 .sys-head{display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--s3);border-bottom:1px solid var(--bd);cursor:pointer;user-select:none}
 .sys-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.sys-info{flex:1;min-width:0}
-.sys-name{font-size:14px;font-weight:700}
-.sys-sub{font:500 10px var(--m);color:var(--tx2)}
-.sys-acts{display:flex;gap:4px;flex-shrink:0}
-.sys-chev{color:var(--tx3);transition:transform .25s;font-size:9px}
-.sys.shut .sys-chev{transform:rotate(-90deg)}
-.sys-body{padding:12px}
-.sys.shut .sys-body{display:none}
-
-/* === EQUIP CARD === */
+.sys-info{flex:1;min-width:0}.sys-name{font-size:14px;font-weight:700}.sys-sub{font:500 10px var(--m);color:var(--tx2)}
+.sys-acts{display:flex;gap:4px;flex-shrink:0}.sys-chev{color:var(--tx3);transition:transform .25s;font-size:9px}
+.sys.shut .sys-chev{transform:rotate(-90deg)}.sys-body{padding:12px}.sys.shut .sys-body{display:none}
 .eq{background:var(--s3);border:1px solid var(--bd);border-radius:var(--r);margin-bottom:8px;overflow:hidden}
 .eq-head{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--s4);border-bottom:1px solid var(--bd);cursor:pointer;user-select:none}
 .eq-num{font:700 10px var(--m);color:var(--gold);background:var(--gbg);padding:2px 7px;border-radius:4px;flex-shrink:0}
 .eq-title{flex:1;font-size:11px;color:var(--tx2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.eq-acts{display:flex;gap:3px;flex-shrink:0}
-.eq-chev{color:var(--tx3);transition:transform .2s;font-size:8px}
-.eq.shut .eq-chev{transform:rotate(-90deg)}
-.eq-body{padding:10px 12px;display:grid;gap:10px}
-.eq.shut .eq-body{display:none}
-
-/* === RESULT BOX === */
+.eq-acts{display:flex;gap:3px;flex-shrink:0}.eq-chev{color:var(--tx3);transition:transform .2s;font-size:8px}
+.eq.shut .eq-chev{transform:rotate(-90deg)}.eq-body{padding:10px 12px;display:grid;gap:10px}.eq.shut .eq-body{display:none}
 .rb{background:var(--bg);border:1px solid var(--bd);border-radius:var(--r);padding:10px;margin-top:4px}
-.rb-t{font:700 9px var(--m);color:var(--gold);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;display:flex;align-items:center;gap:5px}
-.rb-t::before{content:'';width:5px;height:5px;background:var(--gold);border-radius:2px}
-.rg{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:5px}
+.rb-t{font:700 9px var(--m);color:var(--gold);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;display:flex;align-items:center;gap:5px}.rb-t::before{content:'';width:5px;height:5px;background:var(--gold);border-radius:2px}
+.rg{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:5px}
 .ri{background:var(--s2);border:1px solid var(--bd);border-radius:6px;padding:7px 9px}
-.ri-l{font:500 8px var(--m);color:var(--tx3);text-transform:uppercase;letter-spacing:.4px}
-.ri-v{font-size:12px;font-weight:600;margin-top:1px}
-.ri-s{font-size:9px;color:var(--tx2);margin-top:1px;line-height:1.4}
-
-/* === CABLE DESC === */
-.cd{background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 10px;font-size:10px;line-height:1.55;color:var(--tx2);margin-top:4px}
-.cd strong{color:var(--tx);font-weight:600}
+.ri-l{font:500 8px var(--m);color:var(--tx3);text-transform:uppercase;letter-spacing:.4px}.ri-v{font-size:12px;font-weight:600;margin-top:1px}.ri-s{font-size:9px;color:var(--tx2);margin-top:1px;line-height:1.4}
+.cd{background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 10px;font-size:10px;line-height:1.55;color:var(--tx2);margin-top:4px}.cd strong{color:var(--tx);font-weight:600}
 .ct{display:inline-block;padding:1px 5px;border-radius:3px;font:600 9px var(--m);margin:0 2px 2px 0}
-.ct-m{background:var(--bbg);color:var(--blue)}
-.ct-s{background:var(--gbg2);color:var(--green)}
-.ct-v{background:var(--gbg);color:var(--gold)}
-.ct-t{background:var(--pbg);color:var(--purple)}
-
-/* === SUGGEST === */
+.ct-m{background:var(--bbg);color:var(--blue)}.ct-s{background:var(--gbg2);color:var(--green)}.ct-v{background:var(--gbg);color:var(--gold)}.ct-t{background:var(--pbg);color:var(--purple)}
 .sg{background:var(--gbg2);border:1px solid var(--gbd2);border-radius:6px;padding:8px 10px;margin-top:4px}
-.sg-t{font:700 9px var(--m);color:var(--green);text-transform:uppercase;letter-spacing:.6px;margin-bottom:3px}
-.sg-v{font-size:12px;color:var(--tx)}
-.sg-c{font:400 9px var(--m);color:var(--tx2);margin-top:3px;line-height:1.4}
+.sg-t{font:700 9px var(--m);color:var(--green);text-transform:uppercase;letter-spacing:.6px;margin-bottom:3px}.sg-v{font-size:12px;color:var(--tx)}.sg-c{font:400 9px var(--m);color:var(--tx2);margin-top:3px;line-height:1.4}
 .wr{background:var(--rbg);border:1px solid rgba(217,72,72,.2);border-radius:6px;padding:7px 10px;font-size:11px;color:var(--red);margin-top:4px}
-
-/* === TABLE === */
+.ok{background:var(--gbg2);border:1px solid var(--gbd2);border-radius:6px;padding:7px 10px;font-size:11px;color:var(--green);margin-top:4px}
+.lbl{background:var(--pbg);border:1px solid rgba(139,96,232,.2);border-radius:6px;padding:8px 10px;margin-top:4px;font:500 11px var(--m);color:var(--purple);line-height:1.5}
+.lbl strong{color:#b88ef8}
 .tb{width:100%;border-collapse:collapse;font-size:11px}
 .tb th{background:var(--bg);padding:7px 10px;text-align:left;font:700 8px var(--m);text-transform:uppercase;letter-spacing:.7px;color:var(--tx3);border-bottom:1px solid var(--bd);position:sticky;top:0}
-.tb td{padding:6px 10px;border-bottom:1px solid var(--bd);vertical-align:top}
-.tb tr:last-child td{border-bottom:0}
-.tb tr:hover td{background:rgba(200,149,48,.02)}
+.tb td{padding:6px 10px;border-bottom:1px solid var(--bd);vertical-align:top}.tb tr:last-child td{border-bottom:0}.tb tr:hover td{background:rgba(200,149,48,.02)}
 .tg{display:inline-block;padding:2px 6px;border-radius:3px;font:600 9px var(--m)}
-.tc{background:var(--bbg);color:var(--blue)}
-.tgl{background:var(--gbg2);color:var(--green)}
-.tlu{background:var(--gbg);color:var(--gold)}
-.tis{background:var(--rbg);color:var(--red)}
-.te{background:var(--cbg);color:var(--cyan)}
-
-/* === SYSTEM COLORS === */
-.sc-pool{background:rgba(72,137,240,.12);color:var(--blue)}
-.sc-wf{background:rgba(56,176,176,.12);color:var(--cyan)}
-.sc-jac{background:rgba(139,96,232,.12);color:var(--purple)}
-.sc-ss{background:rgba(208,128,48,.12);color:var(--orange)}
-.sc-sp{background:rgba(56,176,112,.12);color:var(--green)}
-.sc-cust{background:rgba(200,149,48,.12);color:var(--gold)}
-
-/* === CHECK === */
-.ck{display:flex;align-items:center;gap:5px;padding:3px 0}
-.ck input{width:15px;height:15px;accent-color:var(--gold);cursor:pointer}
-.ck label{font-size:11px;cursor:pointer;color:var(--tx2)}
-
-/* === DIVIDER === */
+.tc{background:var(--bbg);color:var(--blue)}.tgl{background:var(--gbg2);color:var(--green)}.tlu{background:var(--gbg);color:var(--gold)}.tis{background:var(--rbg);color:var(--red)}.te{background:var(--cbg);color:var(--cyan)}.tlb{background:var(--pbg);color:var(--purple)}
+.sc-pool{background:rgba(72,137,240,.12);color:var(--blue)}.sc-wf{background:rgba(56,176,176,.12);color:var(--cyan)}.sc-jac{background:rgba(139,96,232,.12);color:var(--purple)}.sc-ss{background:rgba(208,128,48,.12);color:var(--orange)}.sc-sp{background:rgba(56,176,112,.12);color:var(--green)}.sc-cust{background:rgba(200,149,48,.12);color:var(--gold)}
+.ck{display:flex;align-items:center;gap:5px;padding:3px 0}.ck input{width:15px;height:15px;accent-color:var(--gold);cursor:pointer}.ck label{font-size:11px;cursor:pointer;color:var(--tx2)}
 .dv{height:1px;background:var(--bd);margin:6px 0}
-
-/* === EMPTY === */
-.emp{text-align:center;padding:36px 12px;color:var(--tx3)}
-.emp-i{font-size:32px;margin-bottom:6px;opacity:.35}
-
-/* === FOOTER === */
+.emp{text-align:center;padding:36px 12px;color:var(--tx3)}.emp-i{font-size:32px;margin-bottom:6px;opacity:.35}
 .foot{position:fixed;bottom:0;left:0;right:0;background:var(--s1);border-top:1px solid var(--bd);padding:8px 14px;display:flex;align-items:center;justify-content:space-between;z-index:300}
-.fst{display:flex;gap:12px;font:500 10px var(--m);color:var(--tx2);flex-wrap:wrap}
-.fst b{color:var(--gold)}
-
-/* === ADD SYSTEM GRID === */
-.add-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-bottom:14px}
+.fst{display:flex;gap:12px;font:500 10px var(--m);color:var(--tx2);flex-wrap:wrap}.fst b{color:var(--gold)}
+.add-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:8px;margin-bottom:14px}
 .add-card{background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:12px 10px;text-align:center;cursor:pointer;transition:.2s}
 .add-card:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.3)}
-.add-card .ac-icon{font-size:24px;margin-bottom:4px}
-.add-card .ac-name{font-size:11px;font-weight:700}
-.add-card .ac-sub{font-size:9px;color:var(--tx2)}
-
-@media(max-width:768px){
-  .fr{grid-template-columns:1fr 1fr!important}
-  .rg{grid-template-columns:1fr}
-  .pbar{grid-template-columns:1fr 1fr}
-  .nav-t{padding:8px 10px;font-size:10px}
-  .add-grid{grid-template-columns:repeat(3,1fr)}
-  .foot{flex-wrap:wrap;gap:6px}
-}
-@media(max-width:480px){
-  .fr{grid-template-columns:1fr!important}
-  .pbar{grid-template-columns:1fr}
-  .add-grid{grid-template-columns:1fr 1fr}
-}
-@media print{
-  .top,.foot,.nav,.b,.eq-acts,.sys-acts,.add-grid{display:none!important}
-  .sys.shut .sys-body,.eq.shut .eq-body{display:grid!important}
-  .sec{display:block!important}
-  body{background:#fff;color:#000;font-size:10px}
-  .sys,.eq,.rb,.ri,.sg,.cd,.pbar{background:#fff;border-color:#ddd}
-  .tb th{background:#f5f5f5}
-}
+.add-card .ac-icon{font-size:24px;margin-bottom:4px}.add-card .ac-name{font-size:11px;font-weight:700}.add-card .ac-sub{font-size:9px;color:var(--tx2)}
+/* Preview modal */
+.modal-bg{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.7);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px}
+.modal{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r2);max-width:1100px;width:100%;max-height:90vh;overflow:auto;padding:0}
+.modal-head{padding:14px 18px;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--s1);z-index:1}
+.modal-head h2{font-size:15px}.modal-body{padding:14px}
+.tab-btns{display:flex;gap:4px;margin-bottom:10px;flex-wrap:wrap}
+.tab-btn{padding:5px 12px;border:1px solid var(--bd);border-radius:6px;font:600 10px var(--f);color:var(--tx2);cursor:pointer;background:0;transition:.2s}
+.tab-btn.on{background:var(--gold);color:#0b0d13;border-color:var(--gold)}
+@media(max-width:768px){.fr{grid-template-columns:1fr 1fr!important}.rg{grid-template-columns:1fr}.pbar{grid-template-columns:1fr 1fr}.nav-t{padding:8px 10px;font-size:10px}.add-grid{grid-template-columns:repeat(3,1fr)}.foot{flex-wrap:wrap;gap:6px}.modal{max-width:100%;margin:10px}}
+@media(max-width:480px){.fr{grid-template-columns:1fr!important}.pbar{grid-template-columns:1fr}.add-grid{grid-template-columns:1fr 1fr}}
+@media print{.top,.foot,.nav,.b,.eq-acts,.sys-acts,.add-grid,.modal-bg{display:none!important}.sys.shut .sys-body,.eq.shut .eq-body{display:grid!important}.sec{display:block!important}body{background:#fff;color:#000;font-size:10px}.sys,.eq,.rb,.ri,.sg,.cd,.pbar{background:#fff;border-color:#ddd}.tb th{background:#f5f5f5}}
 </style>
 </head>
 <body>
-<div class="top">
-  <div class="top-brand"><div class="top-icon">W</div><div><h1>WIM CableSpec</h1><div class="top-sub">CABLE MATERIAL ORDER • DEWA/BS STD • UAE</div></div></div>
-  <div class="top-r"><button class="b bo bs" onclick="window.print()">🖨️</button><button class="b bo bs" onclick="doExport()">📤 Export</button></div>
-</div>
-<div class="nav">
-  <div class="nav-t on" data-t="systems">🏗️ Systems</div>
-  <div class="nav-t" data-t="incomer">🔌 Main Incomer</div>
-  <div class="nav-t" data-t="summary">📋 Summary</div>
-</div>
+<div class="top"><div class="top-brand"><div class="top-icon">W</div><div><h1>WIM CableSpec Pro</h1><div class="top-sub">CABLE MATERIAL ORDER • DEWA/BS STD • UAE</div></div></div><div class="top-r"><button class="b bo bs" onclick="window.print()">🖨️</button><button class="b bg bs" onclick="showPreview()">📤 Export</button></div></div>
+<div class="nav"><div class="nav-t on" data-t="systems">🏗️ Systems</div><div class="nav-t" data-t="incomer">🔌 Incomer</div><div class="nav-t" data-t="summary">📋 Summary</div></div>
 <div class="main">
-<div class="pbar">
-  <div class="fg"><label class="fl">Project</label><input class="fi" id="pn" placeholder="South Bay Clubhouse 1"></div>
-  <div class="fg"><label class="fl">Client</label><input class="fi" id="pc" placeholder="Dubai South"></div>
-  <div class="fg"><label class="fl">Consultant</label><input class="fi" id="px" placeholder="ARTEC"></div>
-  <div class="fg"><label class="fl">Ref No.</label><input class="fi" id="pr" placeholder="WME20251031"></div>
-</div>
-<!-- SYSTEMS -->
+<div class="pbar"><div class="fg"><label class="fl">Project</label><input class="fi" id="pn" placeholder="South Bay Clubhouse 1"></div><div class="fg"><label class="fl">Client</label><input class="fi" id="pc" placeholder="Dubai South"></div><div class="fg"><label class="fl">Consultant</label><input class="fi" id="px" placeholder="ARTEC"></div><div class="fg"><label class="fl">Ref</label><input class="fi" id="pr" placeholder="WME20251031"></div></div>
 <div class="sec on" id="sec-systems">
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-    <div><div style="font-size:14px;font-weight:700">Aquatic Systems & Equipment</div><div style="font-size:10px;color:var(--tx2)">Add a system, then add equipment under each. Cables auto-sized per DEWA/BS 7671 (UAE 50°C ambient).</div></div>
-  </div>
-  <div class="add-grid" id="add-sys-grid">
-    <div class="add-card" onclick="addSys('pool')"><div class="ac-icon">🏊</div><div class="ac-name">Swimming Pool</div><div class="ac-sub">Pumps, heaters, lights</div></div>
-    <div class="add-card" onclick="addSys('wf')"><div class="ac-icon">⛲</div><div class="ac-name">Water Feature</div><div class="ac-sub">Fountain pumps, effects</div></div>
-    <div class="add-card" onclick="addSys('jac')"><div class="ac-icon">🛁</div><div class="ac-name">Jacuzzi</div><div class="ac-sub">Blowers, jets, heaters</div></div>
-    <div class="add-card" onclick="addSys('ss')"><div class="ac-icon">💺</div><div class="ac-name">Sunken Seating</div><div class="ac-sub">Lighting, accessories</div></div>
-    <div class="add-card" onclick="addSys('sp')"><div class="ac-icon">💦</div><div class="ac-name">Splash Pad</div><div class="ac-sub">Play features, valves</div></div>
-    <div class="add-card" onclick="addSys('cust')"><div class="ac-icon">⚙️</div><div class="ac-name">Custom System</div><div class="ac-sub">Other / General</div></div>
-  </div>
-  <div id="sys-con"></div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><div><div style="font-size:14px;font-weight:700">Aquatic Systems & Equipment</div><div style="font-size:10px;color:var(--tx2)">Add systems → add equipment → auto cable sizing per DEWA/BS 7671 (UAE 50°C). Supports AC & DC voltages.</div></div></div>
+<div class="add-grid">
+<div class="add-card" onclick="addSys('pool')"><div class="ac-icon">🏊</div><div class="ac-name">Swimming Pool</div></div>
+<div class="add-card" onclick="addSys('wf')"><div class="ac-icon">⛲</div><div class="ac-name">Water Feature</div></div>
+<div class="add-card" onclick="addSys('jac')"><div class="ac-icon">🛁</div><div class="ac-name">Jacuzzi</div></div>
+<div class="add-card" onclick="addSys('ss')"><div class="ac-icon">💺</div><div class="ac-name">Sunken Seating</div></div>
+<div class="add-card" onclick="addSys('sp')"><div class="ac-icon">💦</div><div class="ac-name">Splash Pad</div></div>
+<div class="add-card" onclick="addSys('cust')"><div class="ac-icon">⚙️</div><div class="ac-name">Custom</div></div>
 </div>
-
-<!-- INCOMER -->
-<div class="sec" id="sec-incomer">
-  <div style="font-size:14px;font-weight:700;margin-bottom:3px">Main Incomer — SMDB / Main Isolator → Control Panel</div>
-  <div style="font-size:10px;color:var(--tx2);margin-bottom:10px">Auto-sized from total connected equipment load across all systems. Demand factor 0.8 applied.</div>
-  <div id="inc-box"></div>
+<div id="sys-con"></div>
 </div>
-
-<!-- SUMMARY -->
-<div class="sec" id="sec-summary">
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-    <div style="font-size:14px;font-weight:700">📋 Consolidated Material Order List</div>
-    <button class="b bg bs" onclick="doExport()">📤 Export CSV</button>
-  </div>
-  <div id="sum-wrap" style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--r2);overflow:hidden">
-    <div style="overflow-x:auto"><table class="tb"><thead><tr><th>SL</th><th>System</th><th>Category</th><th>Description</th><th style="text-align:right">Qty</th><th>Unit</th></tr></thead><tbody id="sum-tb"></tbody></table></div>
-  </div>
-  <div id="sum-emp" class="emp" style="display:none"><div class="emp-i">📋</div><div style="font-weight:600">No materials — add systems and equipment first</div></div>
+<div class="sec" id="sec-incomer"><div style="font-size:14px;font-weight:700;margin-bottom:3px">Main Incomer — SMDB → Control Panel</div><div style="font-size:10px;color:var(--tx2);margin-bottom:10px">Auto-sized from total load. 0.8 demand factor. Includes earth cable.</div><div id="inc-box"></div></div>
+<div class="sec" id="sec-summary"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><div style="font-size:14px;font-weight:700">📋 Material Summary</div><button class="b bg bs" onclick="showPreview()">📤 Preview & Export</button></div><div class="tab-btns" id="sum-tabs"></div><div id="sum-content"></div></div>
 </div>
-</div><!-- /main -->
-
-<div class="foot">
-  <div class="fst"><div>Systems: <b id="z-sys">0</b></div><div>Equipment: <b id="z-eq">0</b></div><div>Materials: <b id="z-mat">0</b></div><div>Total kW: <b id="z-kw">0</b></div></div>
-  <button class="b bg bs" onclick="swTab('summary');buildSum()">📋 Summary</button>
-</div>
+<div class="foot"><div class="fst"><div>Systems: <b id="z-sys">0</b></div><div>Equip: <b id="z-eq">0</b></div><div>Load: <b id="z-kw">0</b>kW</div></div><button class="b bg bs" onclick="swTab('summary');buildSum()">📋 Summary</button></div>
+<div class="modal-bg" id="modal" style="display:none" onclick="if(event.target===this)this.style.display='none'"><div class="modal"><div class="modal-head"><h2>📤 Export Preview</h2><div style="display:flex;gap:6px"><button class="b bg bs" onclick="doExportCSV()">CSV</button><button class="b bg bs" onclick="doExportXLS()">Excel</button><button class="b bo bs" onclick="document.getElementById('modal').style.display='none'">✕ Close</button></div></div><div class="modal-body" id="modal-body"></div></div></div>
 <script>
-// =========== ENGINEERING DATA (from datasheets) ===========
-const CI={
-armoured:{nm:'Armoured Cable',fl:'CU/XLPE/SWA/PVC',mk:'Oman Cables Industry (SAOG)',st:'BS 5467 / IEC 60502-1',vt:'600/1000V',co:'Plain Annealed Copper, Class 2 Stranded',ins:'XLPE (Cross-Linked Polyethylene)',ar:'Galvanised Steel Wire Armour (SWA)',sh:'PVC Type ST-2 (Black)',tp:'90°C max conductor',fr:'FR/FRLS avail.',or:'Muscat, Oman'},
-rubber:{nm:'Rubber Flexible Cable',fl:'H07RN-F Lineax HP',mk:'Nexans (France)',st:'IEC 60245-4 / EN 50525-2-21',vt:'450/750V (0.6/1kV w/ protection)',co:'Plain Annealed Copper, Class 5 Flexible',ins:'EPR (Ethylene Propylene Rubber)',ar:'None (Unarmoured)',sh:'Polychloroprene Rubber (Black)',tp:'90°C fixed / 60°C mobile',fr:'IEC 60332-1-2',pr:'Oil resistant, Waterproof, Lead free',or:'France'},
-single_core:{nm:'Single Core PVC Wire',fl:'CU/PVC (H07V-R)',mk:'Oman Cables Industry (SAOG)',st:'BS EN 50525-2-31 / BS 6004',vt:'450/750V',co:'Plain Annealed Copper, Class 2 Stranded',ins:'PVC Type TI-1',ar:'None',sh:'Non-Sheathed',tp:'70°C max conductor',or:'Muscat, Oman'},
-earth:{nm:'Earth Wire G/Y',fl:'CU/PVC G/Y',mk:'Oman Cables Industry (SAOG)',st:'BS EN 50525-2-31',vt:'450/750V',co:'Copper Class 2',ins:'PVC Green/Yellow',tp:'70°C',or:'Muscat, Oman'}
-};
-// Armoured OD (Oman Cables)
+// ============ DATA ============
+const CI={armoured:{nm:'Armoured Cable',fl:'CU/XLPE/SWA/PVC',mk:'Oman Cables (SAOG)',st:'BS 5467/IEC 60502-1',vt:'600/1000V',co:'Cu Class 2 Stranded',ins:'XLPE',ar:'Galv. SWA',sh:'PVC ST-2 Black',tp:'90°C',fr:'FR/FRLS',or:'Oman'},rubber:{nm:'Rubber Flex',fl:'H07RN-F',mk:'Nexans',st:'IEC 60245-4/EN 50525-2-21',vt:'450/750V',co:'Cu Class 5 Flex',ins:'EPR',ar:'None',sh:'Polychloroprene Black',tp:'90°C/60°C mobile',fr:'IEC 60332-1-2',pr:'Oil/Water resist',or:'France'},single_core:{nm:'Single Core PVC',fl:'CU/PVC H07V-R',mk:'Oman Cables (SAOG)',st:'BS EN 50525-2-31',vt:'450/750V',co:'Cu Class 2',ins:'PVC TI-1',ar:'None',sh:'Non-Sheathed',tp:'70°C',or:'Oman'},earth:{nm:'Earth Wire G/Y',fl:'CU/PVC G/Y',mk:'Oman Cables (SAOG)',st:'BS EN 50525-2-31',vt:'450/750V',co:'Cu Class 2',ins:'PVC G/Y',tp:'70°C',or:'Oman'}};
 const AOD={'2C':{1.5:12.5,2.5:14,4:15,6:16,10:18,16:20,25:20,35:23,50:25,70:28,95:32,120:34,150:38,185:42,240:49,300:53,400:58},'3C':{1.5:13,2.5:14,4:15,6:17,10:19,16:21,25:23,35:25,50:28,70:32,95:36,120:40,150:45,185:48,240:54,300:60,400:64},'4C':{1.5:14,2.5:15,4:16,6:18,10:21,16:23,25:26,35:29,50:31,70:37,95:40,120:47,150:51,185:56,240:62,300:68,400:78}};
-// Rubber OD (Nexans H07RN-F)
-const ROD={'1C':{1.5:7.1,2.5:7.9,4:9,6:9.8,10:11.9,16:13.4,25:15.8,35:17.9,50:20.6,70:23.3,95:26,120:28.6,150:31.4,185:34.4,240:38.3,300:41.9,400:46.8},'2C':{1.5:11,2.5:13.2,4:15.1,6:16.8,10:22.6,16:25.7,25:30.7},'3C':{1.5:11.9,2.5:14,4:16.2,6:18,10:24.2,16:27.6,25:33,35:37.1,50:42.9,70:48.3,95:54,120:60,150:66,185:72},'4C':{1.5:13.1,2.5:15.5,4:18,6:20,10:26.5,16:30.1,25:36.6,35:41.1,50:47.5,70:54,95:61,120:66,150:73,185:80,240:91},'5C':{1.5:14.4,2.5:17,4:19.9,6:22.2,10:29.1,16:33.3,25:40.4,35:45.1,50:53,70:60,95:67}};
-// Single core OD
+const ROD={'1C':{1.5:7.1,2.5:7.9,4:9,6:9.8,10:11.9,16:13.4,25:15.8,35:17.9,50:20.6,70:23.3,95:26,120:28.6,150:31.4,185:34.4,240:38.3,300:41.9,400:46.8},'3C':{1.5:11.9,2.5:14,4:16.2,6:18,10:24.2,16:27.6,25:33,35:37.1,50:42.9,70:48.3,95:54,120:60,150:66,185:72},'4C':{1.5:13.1,2.5:15.5,4:18,6:20,10:26.5,16:30.1,25:36.6,35:41.1,50:47.5,70:54,95:61,120:66,150:73,185:80,240:91}};
 const SOD={1.5:3.3,2.5:4,4:4.6,6:5.2,10:6.7,16:7.8,25:9.7,35:10.9,50:12.8,70:14.6,95:17.1,120:18.8,150:20.9,185:23.3,240:26.6,300:29.6,400:33.2};
-// Current ratings (UAE 50°C ambient, ground install)
 const RA={1.5:28,2.5:36,4:47,6:59,10:79,16:102,25:131,35:157,50:187,70:229,95:274,120:312,150:349,185:394,240:455,300:509,400:574};
-const RS_B={1.5:18,2.5:25,4:33,6:43,10:59,16:79,25:104,35:129,50:167,70:214,95:261,120:303,150:349,185:400,240:472,300:545,400:634};
-const RS={};Object.keys(RS_B).forEach(k=>{RS[k]=Math.floor(RS_B[k]*.71)});
-const RR_B={1.5:26,2.5:36,4:49,6:63,10:86,16:115,25:149,35:185,50:225,70:289,95:352,120:410,150:473,185:542};
-const RR={};Object.keys(RR_B).forEach(k=>{RR[k]=Math.floor(RR_B[k]*.82)});
+const RS={};const RB={1.5:18,2.5:25,4:33,6:43,10:59,16:79,25:104,35:129,50:167,70:214,95:261,120:303,150:349,185:400,240:472,300:545,400:634};Object.keys(RB).forEach(k=>{RS[k]=Math.floor(RB[k]*.71)});
+const RR={};const RRB={1.5:26,2.5:36,4:49,6:63,10:86,16:115,25:149,35:185,50:225,70:289,95:352,120:410,150:473,185:542};Object.keys(RRB).forEach(k=>{RR[k]=Math.floor(RRB[k]*.82)});
 const VD={1.5:26.73,2.5:16.37,4:10.19,6:6.81,10:4.04,16:2.55,25:1.61,35:1.17,50:.866,70:.608,95:.447,120:.363,150:.305,185:.256,240:.212,300:.187,400:.167};
-// Glands
 const CWG=[{s:'20S',t:20,a:11.6,b:16},{s:'20L',t:20,a:14.5,b:20.5},{s:'25S',t:25,a:19,b:24},{s:'25L',t:25,a:20.5,b:27},{s:'32S',t:32,a:24,b:30.5},{s:'32L',t:32,a:27,b:33},{s:'40S',t:40,a:30,b:37},{s:'40L',t:40,a:33.5,b:41},{s:'50S',t:50,a:40,b:47.5},{s:'50L',t:50,a:44,b:52.6},{s:'63S',t:63,a:50.5,b:60},{s:'63L',t:63,a:56,b:66},{s:'75S',t:75,a:62,b:72},{s:'75L',t:75,a:68,b:78},{s:'90L',t:90,a:79,b:90}];
 const PGG=[{s:'PG7',l:3,h:6.5},{s:'PG9',l:4,h:8},{s:'PG11',l:5,h:10},{s:'PG13.5',l:6,h:12},{s:'PG16',l:10,h:14},{s:'PG21',l:13,h:18},{s:'PG29',l:18,h:25},{s:'PG36',l:22,h:32},{s:'PG42',l:32,h:38},{s:'PG48',l:37,h:44}];
-const ISO=[{m:'KSE325TPN',a:25,kw:'7.5 kW'},{m:'KSE340TPN',a:40,kw:'11 kW'},{m:'KSE363TPN',a:63,kw:'22 kW'}];
-const STD=[1.5,2.5,4,6,10,16,25,35,50,70,95,120,150,185,240,300,400];
-
-// System definitions
-const SYS_DEF={
-  pool:{nm:'Swimming Pool',icon:'🏊',cls:'sc-pool',sub:'Circulation pumps, heat pumps, UW lights, dosing, filtration'},
-  wf:{nm:'Water Feature',icon:'⛲',cls:'sc-wf',sub:'Fountain pumps, nozzle effects, DMX controllers, UW lights'},
-  jac:{nm:'Jacuzzi',icon:'🛁',cls:'sc-jac',sub:'Blowers, jet pumps, heaters, lights, controls'},
-  ss:{nm:'Sunken Seating',icon:'💺',cls:'sc-ss',sub:'Lighting, drainage pumps, accessories'},
-  sp:{nm:'Splash Pad',icon:'💦',cls:'sc-sp',sub:'Play features, solenoid valves, filtration, dosing'},
-  cust:{nm:'Custom System',icon:'⚙️',cls:'sc-cust',sub:'General / other equipment'}
+// Full isolator range from uploaded datasheets
+const ISOS={
+  '3P':[{m:'KSE325TPN',a:25,kw:'7.5kW',cs:'0.75-10mm²',entry:'2xM25'},{m:'KSE340TPN',a:40,kw:'11kW',cs:'0.75-10mm²',entry:'2xM32'},{m:'KSE363TPN',a:63,kw:'22kW',cs:'1.5-35mm²',entry:'2xM40'},{m:'KSE380TPN',a:80,kw:'30kW',cs:'1.5-35mm²',entry:'2xM40'},{m:'KSE3125TPN',a:125,kw:'55kW',cs:'1.5-35mm²',entry:'2xM40'}],
+  '4P':[{m:'KSE425TPSN',a:25,kw:'7.5kW',cs:'0.75-10mm²',entry:'2xM25'},{m:'KSE440TPSN',a:40,kw:'11kW',cs:'0.75-10mm²',entry:'2xM32'},{m:'KSE463TPSN',a:63,kw:'22kW',cs:'1.5-35mm²',entry:'2xM40'},{m:'KSE480TPSN',a:80,kw:'30kW',cs:'1.5-35mm²',entry:'2xM40'}],
+  '6P':[{m:'BW625TPN',a:25,kw:'7.5kW',cs:'2xØ25',entry:'2xØ25+Ø16'},{m:'BW640TPN',a:40,kw:'11kW',cs:'2xØ25',entry:'2xØ25+Ø16'}]
 };
+const STD=[1.5,2.5,4,6,10,16,25,35,50,70,95,120,150,185,240,300,400];
+const VOLTAGES=[{v:'230',l:'230V AC 1Ø 50Hz',ph:'1',ac:true},{v:'400',l:'400V AC 3Ø 50Hz',ph:'3',ac:true},{v:'690',l:'690V AC 3Ø 50Hz',ph:'3',ac:true},{v:'12DC',l:'12V DC',ph:'dc',ac:false},{v:'24DC',l:'24V DC',ph:'dc',ac:false},{v:'48DC',l:'48V DC',ph:'dc',ac:false}];
+const SYS_DEF={pool:{nm:'Swimming Pool',icon:'🏊',cls:'sc-pool'},wf:{nm:'Water Feature',icon:'⛲',cls:'sc-wf'},jac:{nm:'Jacuzzi',icon:'🛁',cls:'sc-jac'},ss:{nm:'Sunken Seating',icon:'💺',cls:'sc-ss'},sp:{nm:'Splash Pad',icon:'💦',cls:'sc-sp'},cust:{nm:'Custom System',icon:'⚙️',cls:'sc-cust'}};
 
-// =========== HELPERS ===========
+// ============ HELPERS ============
 function pCW(od){for(const g of CWG)if(od>=g.a*.65&&od<=g.b)return g;return CWG[CWG.length-1]}
 function pPG(od){for(const g of PGG)if(od>=g.l&&od<=g.h)return g;for(const g of PGG)if(od<=g.h)return g;return PGG[PGG.length-1]}
-function pIs(a){for(const i of ISO)if(a<=i.a)return i;return{m:'>63A Refer Eng.',a:'>63',kw:'—'}}
+function pIso(amps,poles){const list=ISOS[poles]||ISOS['3P'];for(const i of list)if(amps<=i.a)return i;return{m:`>${list[list.length-1]?.a||63}A Refer Eng.`,a:'>rated',kw:'—',cs:'—',entry:'—'}}
 function mLug(sz){if(sz<=6)return{st:'M6',c:'AT '+sz+'-6'};if(sz<=16)return{st:'M8',c:'AT '+sz+'-8'};if(sz<=50)return{st:'M10',c:'AT '+sz+'-10'};if(sz<=120)return{st:'M12',c:'AT '+sz+'-12'};return{st:'M16',c:'AT '+sz+'-16'}}
-function eSz(sz){if(sz<=16)return sz;if(sz<=35)return 16;return Math.ceil(sz/2)}
+function eSzCalc(sz){if(sz<=16)return sz;if(sz<=35)return 16;return Math.ceil(sz/2)} // BS 7671 Table 54.7
 function gOD(t,c,s){if(t==='armoured')return AOD[c]?.[s]||0;if(t==='rubber')return ROD[c]?.[s]||0;return SOD[s]||0}
 function gSz(t,c){if(t==='armoured')return Object.keys(AOD[c]||{}).map(Number);if(t==='rubber')return Object.keys(ROD[c]||{}).map(Number);return Object.keys(SOD).map(Number)}
-function gCo(t){if(t==='armoured')return['2C','3C','4C'];if(t==='rubber')return['1C','2C','3C','4C','5C'];return['1C']}
+function gCo(t){if(t==='armoured')return['2C','3C','4C'];if(t==='rubber')return['1C','3C','4C'];return['1C']}
 function gR(t,s){if(t==='armoured')return RA[s]||0;if(t==='rubber')return RR[s]||0;return RS[s]||0}
 function tN(t){return{armoured:'Armoured',rubber:'Rubber Flex',single_core:'Single Core PVC',earth:'Earth G/Y'}[t]||t}
 function tS(t){return{armoured:'CU/XLPE/SWA/PVC',rubber:'H07RN-F',single_core:'CU/PVC H07V-R',earth:'CU/PVC G/Y'}[t]||''}
-function cAmp(kw,ph,pf=.85,ef=.9){const w=kw/ef;return ph==='3'?(w*1000)/(1.732*400*pf):(w*1000)/(230*pf)}
+
+function cAmp(kw,volt){
+  const v=parseFloat(volt);if(!v||!kw)return 0;
+  const pf=0.85,ef=0.9,w=kw/ef;
+  if(volt==='400'||volt==='690')return(w*1000)/(1.732*v*pf);
+  if(volt==='230')return(w*1000)/(v*pf);
+  // DC
+  return(kw*1000)/v; // DC: I=P/V (no PF/eff adjustment for transformer output)
+}
 function sug(a,t='armoured'){const r=t==='armoured'?RA:(t==='rubber'?RR:RS);for(const s of STD)if(r[s]&&r[s]>=a)return s;return 400}
-function cdH(t){const c=CI[t];if(!c)return'';let h='<div class="cd">';h+=`<span class="ct ct-m">${c.mk}</span><span class="ct ct-s">${c.st}</span><span class="ct ct-v">${c.vt}</span><span class="ct ct-t">${c.fl}</span><br>`;h+=`<strong>Conductor:</strong> ${c.co} | <strong>Insulation:</strong> ${c.ins}<br>`;if(c.ar)h+=`<strong>Armour:</strong> ${c.ar} | `;if(c.sh)h+=`<strong>Sheath:</strong> ${c.sh}<br>`;h+=`<strong>Temp:</strong> ${c.tp}`;if(c.fr)h+=` | <strong>Fire:</strong> ${c.fr}`;if(c.pr)h+=`<br><strong>Properties:</strong> ${c.pr}`;h+=`<br><strong>Origin:</strong> ${c.or}</div>`;return h}
 
-// =========== STATE ===========
-let SYS=[], INC={ct:'armoured',co:'4C',sz:'',di:30,ru:1,iso:true};
-let _sid=0,_eid=0;
+// Voltage drop calc
+function calcVD(amp,sz,dist,volt,ph){
+  const vdpkm=VD[sz]||0;
+  const vNum=parseFloat(volt)||400;
+  let vd;
+  if(ph==='3')vd=amp*vdpkm*dist/1000; // 3-phase V/A/km already in 3ph
+  else if(ph==='1')vd=amp*vdpkm*dist/1000*2/1.732;
+  else vd=amp*(0.0175/(sz*1e-6))*dist*2/1000; // DC: 2*I*R*L, R=ρL/A
+  const pct=(vd/vNum)*100;
+  return{vd:vd,pct:pct,ok:pct<=4};
+}
 
-// =========== TABS ===========
+// Isolator pole logic
+function getIsoPoles(e){
+  const volt=e.volt||'400';
+  if(volt==='230')return '3P'; // 1-phase uses TP (L,N,E switched via 3P)
+  if(volt.includes('DC'))return '3P'; // DC uses 2-pole but we map to 3P TPN
+  // Star-delta: 2 runs of 3C cable
+  if(parseInt(e.ru)>=2 && e.co==='3C')return '6P';
+  // Heat pump or 3-phase with neutral (4C cable) → 4P
+  if(e.co==='4C' && (e.nm||'').toLowerCase().match(/heat\s*pump|hp/))return '4P';
+  if(e.co==='4C')return '4P';
+  return '3P'; // 3C cable → 3P TPN
+}
+
+// Cable label
+function cableLabel(sysName,eqName,cableDesc,from,to){
+  return `${sysName.toUpperCase().substring(0,12)} / ${(eqName||'EQUIP').toUpperCase().substring(0,15)} / ${cableDesc} / ${from} → ${to}`;
+}
+
+function cdH(t){const c=CI[t];if(!c)return'';return`<div class="cd"><span class="ct ct-m">${c.mk}</span><span class="ct ct-s">${c.st}</span><span class="ct ct-v">${c.vt}</span><span class="ct ct-t">${c.fl}</span><br><strong>Cond:</strong> ${c.co} | <strong>Ins:</strong> ${c.ins}${c.ar?' | <strong>Armour:</strong> '+c.ar:''}${c.sh?' | <strong>Sheath:</strong> '+c.sh:''}<br><strong>Temp:</strong> ${c.tp}${c.fr?' | <strong>Fire:</strong> '+c.fr:''}${c.pr?' | '+c.pr:''} | <strong>Origin:</strong> ${c.or}</div>`}
+
+// ============ STATE ============
+let SYS=[],INC={ct:'armoured',co:'4C',sz:'',di:30,ru:1,iso:true};let _sid=0,_eid=0;
+
+// ============ TABS ============
 document.querySelectorAll('.nav-t').forEach(t=>t.onclick=()=>swTab(t.dataset.t));
 function swTab(n){document.querySelectorAll('.nav-t').forEach(t=>t.classList.toggle('on',t.dataset.t===n));document.querySelectorAll('.sec').forEach(s=>s.classList.toggle('on',s.id==='sec-'+n));if(n==='summary')buildSum();if(n==='incomer')renderInc()}
 
-// =========== SYSTEMS ===========
-function addSys(type){
-  _sid++;
-  const d=SYS_DEF[type]||SYS_DEF.cust;
-  SYS.push({id:_sid,type:type,name:d.nm,icon:d.icon,cls:d.cls,sub:d.sub,equip:[],customName:''});
-  renderSys();
-}
+// ============ SYSTEMS ============
+function addSys(type){_sid++;const d=SYS_DEF[type]||SYS_DEF.cust;SYS.push({id:_sid,type,name:d.nm,icon:d.icon,cls:d.cls,equip:[],cn:''});renderSys()}
 function rmSys(id){SYS=SYS.filter(s=>s.id!==id);renderSys()}
-function addEq(sid){
-  const s=SYS.find(x=>x.id===sid);if(!s)return;
-  _eid++;
-  s.equip.push({id:_eid,nm:'',kw:'',ph:'3',pf:.85,ct:'armoured',co:'4C',ss:'',os:'',di:20,ru:1,iso:true,ea:false});
-  renderSys();
-}
+function addEq(sid){const s=SYS.find(x=>x.id===sid);if(!s)return;_eid++;s.equip.push({id:_eid,nm:'',kw:'',volt:'400',pf:.85,ct:'armoured',co:'4C',ss:'',os:'',di:20,ru:1,iso:true,ea:true});renderSys()}
 function rmEq(sid,eid){const s=SYS.find(x=>x.id===sid);if(s)s.equip=s.equip.filter(e=>e.id!==eid);renderSys()}
 function dpEq(sid,eid){const s=SYS.find(x=>x.id===sid);if(!s)return;const src=s.equip.find(e=>e.id===eid);if(!src)return;_eid++;s.equip.push({...src,id:_eid,nm:src.nm+' (copy)'});renderSys()}
 function uEq(sid,eid,f,v){
-  const s=SYS.find(x=>x.id===sid);if(!s)return;
-  const e=s.equip.find(x=>x.id===eid);if(!e)return;
+  const s=SYS.find(x=>x.id===sid);if(!s)return;const e=s.equip.find(x=>x.id===eid);if(!e)return;
   e[f]=v;
-  if(f==='ct'){e.co=e.ct==='armoured'?(e.ph==='3'?'4C':'2C'):(e.ct==='single_core'?'1C':(e.ph==='3'?'4C':'2C'));e.os='';}
-  if(f==='ph'&&e.ct!=='single_core')e.co=v==='3'?'4C':'2C';
+  if(f==='ct'){const co=gCo(v);e.co=co.includes(e.co)?e.co:co[co.length-1];e.os='';}
+  if(f==='volt'){const vi=VOLTAGES.find(x=>x.v===v);if(vi){if(vi.ph==='1')e.co=e.ct==='armoured'?'2C':'1C';else if(vi.ph==='3')e.co=e.ct==='armoured'?'4C':(e.ct==='rubber'?'4C':'1C');else e.co=e.ct==='armoured'?'2C':'1C';}}
   if(f==='co')e.os='';
-  if(e.kw&&e.ph){const a=cAmp(parseFloat(e.kw),e.ph,parseFloat(e.pf)||.85);e.ss=sug(a,e.ct);if(!e.os)e.os=e.ss;}
+  if(e.kw&&e.volt){const a=cAmp(parseFloat(e.kw),e.volt);e.ss=sug(a,e.ct);if(!e.os)e.os=e.ss;}
   renderSys();
 }
-function uSysName(id,v){const s=SYS.find(x=>x.id===id);if(s)s.customName=v;renderSys()}
-function togSys(id){const el=document.getElementById('sys-'+id);if(el)el.classList.toggle('shut')}
-function togEq(sid,eid){const el=document.getElementById('eq-'+sid+'-'+eid);if(el)el.classList.toggle('shut')}
+function uSN(id,v){const s=SYS.find(x=>x.id===id);if(s)s.cn=v}
+function togS(id){document.getElementById('sys-'+id)?.classList.toggle('shut')}
+function togE(s,e){document.getElementById('eq-'+s+'-'+e)?.classList.toggle('shut')}
 
 function renderSys(){
   const con=document.getElementById('sys-con');
-  if(!SYS.length){con.innerHTML='';zSt();return}
   con.innerHTML=SYS.map((s,si)=>{
-    const dn=s.customName||s.name;
-    const tkw=s.equip.reduce((a,e)=>a+(parseFloat(e.kw)||0),0);
-    return`<div class="sys" id="sys-${s.id}"><div class="sys-head" onclick="togSys(${s.id})"><div class="sys-icon ${s.cls}">${s.icon}</div><div class="sys-info"><div class="sys-name">${s.type==='cust'?`<input class="fi" value="${s.customName}" placeholder="System Name" onclick="event.stopPropagation()" onchange="uSysName(${s.id},this.value)" style="padding:4px 8px;font-size:13px;font-weight:700;max-width:260px;">`:dn}</div><div class="sys-sub">${s.sub} | ${s.equip.length} equip | ${tkw.toFixed(1)} kW</div></div><div class="sys-acts"><button class="b bg bs" onclick="event.stopPropagation();addEq(${s.id})">+ Equip</button><button class="b br bs" onclick="event.stopPropagation();rmSys(${s.id})">✕</button><span class="sys-chev">▼</span></div></div>
-    <div class="sys-body">
-    ${s.equip.length?s.equip.map((e,ei)=>renderEqCard(s,e,ei)).join(''):`<div class="emp" style="padding:20px"><div style="font-size:12px;color:var(--tx3)">No equipment yet</div><button class="b bg bs" onclick="addEq(${s.id})" style="margin-top:6px">+ Add Equipment</button></div>`}
-    </div></div>`;
-  }).join('');
-  zSt();
+    const dn=s.cn||s.name;const tkw=s.equip.reduce((a,e)=>a+(parseFloat(e.kw)||0),0);
+    return`<div class="sys" id="sys-${s.id}"><div class="sys-head" onclick="togS(${s.id})"><div class="sys-icon ${s.cls}">${s.icon}</div><div class="sys-info"><div class="sys-name">${s.type==='cust'?`<input class="fi" value="${s.cn}" placeholder="System Name" onclick="event.stopPropagation()" onchange="uSN(${s.id},this.value)" style="padding:3px 8px;font-size:13px;font-weight:700;max-width:240px">`:dn}</div><div class="sys-sub">${s.equip.length} equip | ${tkw.toFixed(1)}kW</div></div><div class="sys-acts"><button class="b bg bs" onclick="event.stopPropagation();addEq(${s.id})">+ Equip</button><button class="b br bs" onclick="event.stopPropagation();rmSys(${s.id})">✕</button><span class="sys-chev">▼</span></div></div>
+    <div class="sys-body">${s.equip.length?s.equip.map((e,ei)=>rEqCard(s,e,ei)).join(''):`<div class="emp" style="padding:16px"><button class="b bg bs" onclick="addEq(${s.id})">+ Add Equipment</button></div>`}</div></div>`;
+  }).join('');zSt();
 }
 
-function renderEqCard(s,e,ei){
-  const kw=parseFloat(e.kw)||0,amp=kw?cAmp(kw,e.ph,parseFloat(e.pf)||.85):0;
-  const szs=gSz(e.ct,e.co),sz=parseFloat(e.os)||0,od=sz?gOD(e.ct,e.co,sz):0,rt=sz?gR(e.ct,sz):0;
-  const di=parseFloat(e.di)||0,ru=parseInt(e.ru)||1,tl=Math.ceil(di*1.1)*ru;
-  const vdp=VD[sz]||0,vdr=e.ph==='3'?(amp*vdp*di/1000):(amp*vdp*di/1000*2/1.732),vdpc=e.ph==='3'?(vdr/400*100):(vdr/230*100);
-  const mat=sz?calcMat(e):null;
-  const sum=e.nm?`${e.nm} — ${kw}kW ${e.ph==='3'?'3Ø':'1Ø'} → ${sz||'?'}mm²`:'Configure...';
-  const sid=s.id,eid=e.id;
+function rEqCard(s,e,ei){
+  const sid=s.id,eid=e.id,kw=parseFloat(e.kw)||0;
+  const vi=VOLTAGES.find(x=>x.v===e.volt)||VOLTAGES[1];
+  const amp=kw?cAmp(kw,e.volt):0;
+  const szs=gSz(e.ct,e.co),sz=parseFloat(e.os)||0,od=sz?gOD(e.ct,e.co,sz):0;
+  const di=parseFloat(e.di)||0,ru=parseInt(e.ru)||1;
+  const vdInfo=sz&&amp?calcVD(amp,sz,di,e.volt,vi.ph):{vd:0,pct:0,ok:true};
+  const poles=getIsoPoles(e);
+  const mat=sz?calcMat(e,s):null;
+  const sn=s.cn||s.name;
+  const cbDesc=`${tN(e.ct)} ${e.co}×${sz}mm²`;
+  const label=sz?cableLabel(sn,e.nm,cbDesc,'PANEL','EQUIP'):'';
+  const sum=e.nm?`${e.nm} — ${kw}kW ${vi.l} → ${sz||'?'}mm²`:'Configure...';
 
-  return`<div class="eq" id="eq-${sid}-${eid}"><div class="eq-head" onclick="togEq(${sid},${eid})"><span class="eq-num">E${ei+1}</span><span class="eq-title">${sum}</span><div class="eq-acts"><button class="b bo bs" onclick="event.stopPropagation();dpEq(${sid},${eid})" title="Duplicate">📋</button><button class="b br bs" onclick="event.stopPropagation();rmEq(${sid},${eid})">✕</button><span class="eq-chev">▼</span></div></div>
+  return`<div class="eq" id="eq-${sid}-${eid}"><div class="eq-head" onclick="togE(${sid},${eid})"><span class="eq-num">E${ei+1}</span><span class="eq-title">${sum}</span><div class="eq-acts"><button class="b bo bs" onclick="event.stopPropagation();dpEq(${sid},${eid})">📋</button><button class="b br bs" onclick="event.stopPropagation();rmEq(${sid},${eid})">✕</button><span class="eq-chev">▼</span></div></div>
   <div class="eq-body">
-  <div class="fr" style="grid-template-columns:1fr 90px 110px 70px 90px"><div class="fg"><label class="fl">Equipment Name / Tag</label><input class="fi" value="${e.nm}" placeholder="e.g. Circ. Pump 1" onchange="uEq(${sid},${eid},'nm',this.value)"></div><div class="fg"><label class="fl">Load (kW)</label><input class="fi" type="number" step="0.1" min="0" value="${e.kw}" onchange="uEq(${sid},${eid},'kw',this.value)"></div><div class="fg"><label class="fl">Phase</label><select class="fs" onchange="uEq(${sid},${eid},'ph',this.value)"><option value="3" ${e.ph==='3'?'selected':''}>3Ø (400V)</option><option value="1" ${e.ph==='1'?'selected':''}>1Ø (230V)</option></select></div><div class="fg"><label class="fl">PF</label><input class="fi" type="number" step="0.01" min="0.5" max="1" value="${e.pf}" onchange="uEq(${sid},${eid},'pf',this.value)"></div><div class="fg"><label class="fl">FLA</label><input class="fi" value="${amp?amp.toFixed(1)+'A':'—'}" readonly></div></div>
-  ${amp?`<div class="sg"><div class="sg-t">⚡ DEWA/BS Cable Suggestion — UAE 50°C</div><div class="sg-v">Suggested: <strong>${e.ss}mm² ${tN(e.ct)} ${e.co}</strong> — Rated ${gR(e.ct,e.ss)}A (ground)</div><div class="sg-c">Load: ${kw}kW | PF: ${e.pf} | Eff: 0.9 | FLA: ${amp.toFixed(1)}A${sz&&vdp?` | VD: ${vdr.toFixed(1)}V (${vdpc.toFixed(1)}%) ${vdpc>4?'⚠️':vdpc>3?'⚠':'✓'}`:''}</div></div>`:''}
-  ${sz&&vdpc>4?`<div class="wr">⚠️ Voltage drop ${vdpc.toFixed(1)}% exceeds 4% DEWA limit. Consider larger cable or shorter route.</div>`:''}
+  <div class="fr" style="grid-template-columns:1fr 80px 130px 60px 80px"><div class="fg"><label class="fl">Equipment Name/Tag</label><input class="fi" value="${e.nm}" placeholder="e.g. Circ Pump 1" onchange="uEq(${sid},${eid},'nm',this.value)"></div><div class="fg"><label class="fl">Load kW</label><input class="fi" type="number" step="0.1" min="0" value="${e.kw}" onchange="uEq(${sid},${eid},'kw',this.value)"></div><div class="fg"><label class="fl">Voltage/Phase</label><select class="fs" onchange="uEq(${sid},${eid},'volt',this.value)">${VOLTAGES.map(v=>`<option value="${v.v}" ${e.volt===v.v?'selected':''}>${v.l}</option>`).join('')}</select></div><div class="fg"><label class="fl">PF</label><input class="fi" type="number" step="0.01" min="0.5" max="1" value="${e.pf}" ${vi.ac?'':'disabled'} onchange="uEq(${sid},${eid},'pf',this.value)"></div><div class="fg"><label class="fl">FLA</label><input class="fi" value="${amp?amp.toFixed(1)+'A':'—'}" readonly></div></div>
+  ${amp?`<div class="sg"><div class="sg-t">⚡ DEWA Cable Suggestion — UAE 50°C</div><div class="sg-v">Suggested: <strong>${e.ss}mm² ${tN(e.ct)} ${e.co}</strong> — Rated ${gR(e.ct,e.ss)}A | Iso: ${poles}</div><div class="sg-c">Load: ${kw}kW @ ${vi.l} | FLA: ${amp.toFixed(1)}A${sz?` | VDrop: ${vdInfo.vd.toFixed(1)}V (${vdInfo.pct.toFixed(1)}%) over ${di}m`:''}</div></div>`:''}
+  ${sz&&!vdInfo.ok?`<div class="wr">⚠️ Voltage drop ${vdInfo.pct.toFixed(1)}% exceeds DEWA 4% limit (${vdInfo.vd.toFixed(1)}V over ${di}m). Use larger cable or shorter route.</div>`:''}
+  ${sz&&vdInfo.ok&&amp?`<div class="ok">✓ Voltage drop ${vdInfo.pct.toFixed(1)}% within DEWA 4% limit.</div>`:''}
   <div class="dv"></div>
-  <div class="fr" style="grid-template-columns:1fr 70px 130px 70px 60px"><div class="fg"><label class="fl">Cable Type</label><select class="fs" onchange="uEq(${sid},${eid},'ct',this.value)"><option value="armoured" ${e.ct==='armoured'?'selected':''}>Armoured (CU/XLPE/SWA/PVC)</option><option value="rubber" ${e.ct==='rubber'?'selected':''}>Rubber Flex (H07RN-F)</option><option value="single_core" ${e.ct==='single_core'?'selected':''}>Single Core PVC</option></select></div><div class="fg"><label class="fl">Cores</label><select class="fs" onchange="uEq(${sid},${eid},'co',this.value)">${gCo(e.ct).map(c=>`<option value="${c}" ${e.co===c?'selected':''}>${c}</option>`).join('')}</select></div><div class="fg"><label class="fl">Size mm² ▼</label><select class="fs" onchange="uEq(${sid},${eid},'os',this.value)"><option value="">—</option>${szs.map(x=>`<option value="${x}" ${e.os==x?'selected':''}>${x}mm² ${x==e.ss?'★':''} (${gR(e.ct,x)||'—'}A)</option>`).join('')}</select></div><div class="fg"><label class="fl">Dist (m)</label><input class="fi" type="number" min="1" value="${e.di}" onchange="uEq(${sid},${eid},'di',this.value)"></div><div class="fg"><label class="fl">Runs</label><input class="fi" type="number" min="1" value="${e.ru}" onchange="uEq(${sid},${eid},'ru',this.value)"></div></div>
-  <div style="display:flex;gap:12px;flex-wrap:wrap"><div class="ck"><input type="checkbox" id="ck${sid}${eid}" ${e.iso?'checked':''} onchange="uEq(${sid},${eid},'iso',this.checked)"><label for="ck${sid}${eid}">Isolator</label></div>${e.ct==='single_core'?`<div class="ck"><input type="checkbox" id="ce${sid}${eid}" ${e.ea?'checked':''} onchange="uEq(${sid},${eid},'ea',this.checked)"><label for="ce${sid}${eid}">Separate Earth</label></div>`:''}</div>
+  <div class="fr" style="grid-template-columns:1fr 65px 120px 65px 55px"><div class="fg"><label class="fl">Cable Type</label><select class="fs" onchange="uEq(${sid},${eid},'ct',this.value)"><option value="armoured" ${e.ct==='armoured'?'selected':''}>Armoured (CU/XLPE/SWA/PVC)</option><option value="rubber" ${e.ct==='rubber'?'selected':''}>Rubber Flex (H07RN-F)</option><option value="single_core" ${e.ct==='single_core'?'selected':''}>Single Core PVC</option></select></div><div class="fg"><label class="fl">Cores</label><select class="fs" onchange="uEq(${sid},${eid},'co',this.value)">${gCo(e.ct).map(c=>`<option value="${c}" ${e.co===c?'selected':''}>${c}</option>`).join('')}</select></div><div class="fg"><label class="fl">Size mm²</label><select class="fs" onchange="uEq(${sid},${eid},'os',this.value)"><option value="">—</option>${szs.map(x=>`<option value="${x}" ${e.os==x?'selected':''}>${x}mm² ${x==e.ss?'★':''} (${gR(e.ct,x)||'—'}A)</option>`).join('')}</select></div><div class="fg"><label class="fl">Dist m</label><input class="fi" type="number" min="1" value="${e.di}" onchange="uEq(${sid},${eid},'di',this.value)"></div><div class="fg"><label class="fl">Runs</label><input class="fi" type="number" min="1" value="${e.ru}" onchange="uEq(${sid},${eid},'ru',this.value)"></div></div>
+  <div class="ck"><input type="checkbox" id="ck${sid}${eid}" ${e.iso?'checked':''} onchange="uEq(${sid},${eid},'iso',this.checked)"><label for="ck${sid}${eid}">Include Isolator (${poles})</label></div>
   ${sz?cdH(e.ct):''}
+  ${label?`<div class="lbl"><strong>ENGRAVED LABEL:</strong> ${label}</div>`:''}
   ${mat?rMat(mat):''}
   </div></div>`;
 }
 
-// =========== MATERIAL CALC ===========
-function calcMat(e){
+// ============ MATERIAL CALC ============
+function calcMat(e,sys){
   const sz=parseFloat(e.os);if(!sz)return null;
+  const sn=(sys?.cn||sys?.name||'').toUpperCase();
   const ru=parseInt(e.ru)||1,di=parseFloat(e.di)||0,tl=Math.ceil(di*1.1)*ru,od=gOD(e.ct,e.co,sz),cn=parseInt(e.co)||1;
-  const r={cb:{t:e.ct,co:e.co,sz,od,ru,di,tl,nm:e.nm},gl:[],lu:[],iso:null,ea:null};
+  const vi=VOLTAGES.find(x=>x.v===e.volt)||VOLTAGES[1];
+  const r={cb:{t:e.ct,co:e.co,sz,od,ru,di,tl,nm:e.nm,volt:e.volt},gl:[],lu:[],iso:null,ea:null,label:cableLabel(sn,e.nm,`${tN(e.ct)} ${e.co}×${sz}mm²`,'PANEL','EQUIP')};
   const ia=e.ct==='armoured',g=ia?pCW(od):pPG(od),gt=ia?'CW Brass':'PG Nylon',gs=ia?g.s:g.s,gh=ia?'M'+g.t:g.s;
   r.gl.push({l:'Panel',t:gt,s:gs,h:gh,q:ru});
   if(e.iso){r.gl.push({l:'Iso In',t:gt,s:gs,h:gh,q:ru});r.gl.push({l:'Iso Out',t:gt,s:gs,h:gh,q:ru})}
   r.gl.push({l:'Equipment',t:gt,s:gs,h:gh,q:ru});
   const lg=mLug(sz),lp=cn*ru;
   (e.iso?['Panel','Iso In','Iso Out','Equipment']:['Panel','Equipment']).forEach(l=>{r.lu.push({l,c:lg.c,st:lg.st,sz,q:lp})});
-  if(e.iso){const am=cAmp(parseFloat(e.kw)||0,e.ph,parseFloat(e.pf)||.85);r.iso={...pIs(am),q:ru}}
-  if(e.ct==='single_core'&&e.ea){const es=eSz(sz),eo=SOD[es]||5,eg=pPG(eo),el=mLug(es);r.ea={sz:es,len:tl,gl:[{l:'Panel',t:'PG Nylon',s:eg.s,q:ru},{l:'Equipment',t:'PG Nylon',s:eg.s,q:ru}],lu:[{l:'Both Ends',c:el.c,st:el.st,q:ru*2}]}}
+  if(e.iso){const amp=cAmp(parseFloat(e.kw)||0,e.volt);const poles=getIsoPoles(e);r.iso={...pIso(amp,poles),poles,q:ru}}
+  // Earth cable — always included for armoured/rubber (via armour earth) but separate for single core
+  const esz=eSzCalc(sz);const eod=SOD[esz]||5;const eg=pPG(eod);const el=mLug(esz);
+  r.ea={sz:esz,len:tl,od:eod,gl:[{l:'Panel',t:'PG Nylon',s:eg.s,q:ru},{l:'Equipment',t:'PG Nylon',s:eg.s,q:ru}],lu:[{l:'Both Ends',c:el.c,st:el.st,q:ru*2}]};
   return r;
 }
 
 function rMat(r){
-  const c=r.cb;let h=`<div class="rb"><div class="rb-t">Auto-Selected Materials (Panel → Equipment)</div><div class="rg">`;
-  h+=`<div class="ri"><div class="ri-l">Cable</div><div class="ri-v">${tN(c.t)} ${c.co}×${c.sz}mm²</div><div class="ri-s">${tS(c.t)} | OD: ${c.od}mm<br>${c.ru}run × ${c.di}m = <b>${c.tl}m</b> (+10%)</div></div>`;
-  r.gl.forEach(g=>{h+=`<div class="ri"><div class="ri-l">Gland — ${g.l}</div><div class="ri-v">${g.t} ${g.s}</div><div class="ri-s">${g.h} | Qty: ${g.q}</div></div>`});
-  r.lu.forEach(l=>{h+=`<div class="ri"><div class="ri-l">Lug — ${l.l}</div><div class="ri-v">${l.c}</div><div class="ri-s">${l.st} | ${l.sz}mm² | Qty: ${l.q}</div></div>`});
-  if(r.iso)h+=`<div class="ri"><div class="ri-l">Isolator</div><div class="ri-v">ABB ${r.iso.m}</div><div class="ri-s">${r.iso.a}A TPN | ${r.iso.kw} | IP65 | Qty: ${r.iso.q}</div></div>`;
-  if(r.ea){h+=`<div class="ri"><div class="ri-l">Earth Cable</div><div class="ri-v">G/Y 1C×${r.ea.sz}mm²</div><div class="ri-s">${r.ea.len}m</div></div>`;r.ea.gl.forEach(g=>h+=`<div class="ri"><div class="ri-l">Earth Gland — ${g.l}</div><div class="ri-v">${g.t} ${g.s}</div><div class="ri-s">Qty: ${g.q}</div></div>`);r.ea.lu.forEach(l=>h+=`<div class="ri"><div class="ri-l">Earth Lug</div><div class="ri-v">${l.c}</div><div class="ri-s">${l.st} | Qty: ${l.q}</div></div>`)}
+  const c=r.cb;let h=`<div class="rb"><div class="rb-t">Auto-Selected Materials</div><div class="rg">`;
+  h+=`<div class="ri"><div class="ri-l">Power Cable</div><div class="ri-v">${tN(c.t)} ${c.co}×${c.sz}mm²</div><div class="ri-s">${tS(c.t)} | OD:${c.od}mm | ${c.ru}×${c.di}m=<b>${c.tl}m</b>(+10%)</div></div>`;
+  h+=`<div class="ri"><div class="ri-l">Earth Cable G/Y</div><div class="ri-v">1C×${r.ea.sz}mm² CU/PVC</div><div class="ri-s">BS 7671 T54.7 | ${r.ea.len}m</div></div>`;
+  r.gl.forEach(g=>{h+=`<div class="ri"><div class="ri-l">Gland — ${g.l}</div><div class="ri-v">${g.t} ${g.s}</div><div class="ri-s">${g.h} | Qty:${g.q}</div></div>`});
+  r.ea.gl.forEach(g=>{h+=`<div class="ri"><div class="ri-l">Earth Gland — ${g.l}</div><div class="ri-v">${g.t} ${g.s}</div><div class="ri-s">Qty:${g.q}</div></div>`});
+  r.lu.forEach(l=>{h+=`<div class="ri"><div class="ri-l">Power Lug — ${l.l}</div><div class="ri-v">${l.c}</div><div class="ri-s">${l.st}|${l.sz}mm²|Qty:${l.q}</div></div>`});
+  r.ea.lu.forEach(l=>{h+=`<div class="ri"><div class="ri-l">Earth Lug</div><div class="ri-v">${l.c}</div><div class="ri-s">${l.st}|Qty:${l.q}</div></div>`});
+  if(r.iso)h+=`<div class="ri"><div class="ri-l">Isolator ${r.iso.poles}</div><div class="ri-v">ABB ${r.iso.m}</div><div class="ri-s">${r.iso.a}A|${r.iso.kw}|IP65|Qty:${r.iso.q}</div></div>`;
+  h+=`<div class="ri"><div class="ri-l">Engraved Label</div><div class="ri-v" style="font-size:10px;color:var(--purple)">${r.label}</div><div class="ri-s">Traffolyte 1 set</div></div>`;
   return h+'</div></div>';
 }
 
-// =========== INCOMER ===========
+// ============ INCOMER ============
 function renderInc(){
   const allEq=SYS.flatMap(s=>s.equip.filter(e=>e.kw));
   const tkw=allEq.reduce((a,e)=>a+(parseFloat(e.kw)||0),0);
-  const ta=tkw?cAmp(tkw,'3'):0,da=ta*.8,ss=da?sug(da):'';
-  if(ss&&!INC._set){INC.sz=ss}
+  const ta=tkw?cAmp(tkw,'400'):0,da=ta*.8,ss=da?sug(da):'';
+  if(ss&&!INC._set)INC.sz=ss;
   const szs=gSz(INC.ct,INC.co),sz=parseFloat(INC.sz)||0,od=sz?gOD(INC.ct,INC.co,sz):0;
   const ru=parseInt(INC.ru)||1,di=parseFloat(INC.di)||30,tl=Math.ceil(di*1.1)*ru,cn=parseInt(INC.co)||1;
-  const ia=INC.ct==='armoured',gl=ia?pCW(od):pPG(od),gt=ia?'CW Brass':'PG Nylon',gs=ia?gl.s:gl.s,gh=ia?'M'+gl.t:gl.s;
-  const lg=mLug(sz),lp=cn*ru,rt=gR(INC.ct,sz),iso=INC.iso?pIs(rt):null;
+  const ia=INC.ct==='armoured',g=ia?pCW(od):pPG(od),gt=ia?'CW Brass':'PG Nylon',gs=ia?g.s:g.s,gh=ia?'M'+g.t:g.s;
+  const lg=mLug(sz),lp=cn*ru,rt=gR(INC.ct,sz);
   const locs=INC.iso?['SMDB','Main Iso In','Main Iso Out','Panel']:['SMDB','Panel'];
+  const esz=sz?eSzCalc(sz):0;const eod=esz?SOD[esz]||5:0;const eg=esz?pPG(eod):null;const el=esz?mLug(esz):null;
+  const vdI=sz&&da?calcVD(da,sz,di,'400','3'):{vd:0,pct:0,ok:true};
 
   let h=`<div class="sys"><div class="sys-body">`;
-  h+=`<div class="sg"><div class="sg-t">⚡ Auto from All Systems</div><div class="sg-v">${tkw?`Total: <b>${tkw.toFixed(1)}kW</b> | FLA: <b>${ta.toFixed(1)}A</b> | Design (×0.8): <b>${da.toFixed(1)}A</b> → Suggested: <b>${ss}mm² 4C Armoured</b>`:'Add equipment loads to auto-calculate.'}</div>${tkw?`<div class="sg-c">${tkw.toFixed(1)}kW ÷ (√3×400×0.85×0.9) × 0.8 = ${da.toFixed(1)}A</div>`:''}</div>`;
-  h+=`<div class="fr" style="grid-template-columns:1fr 70px 130px 70px 60px"><div class="fg"><label class="fl">Cable Type</label><select class="fs" onchange="INC.ct=this.value;INC.co=gCo(this.value).includes('4C')?'4C':gCo(this.value)[0];renderInc()"><option value="armoured" ${INC.ct==='armoured'?'selected':''}>Armoured (CU/XLPE/SWA/PVC)</option><option value="rubber" ${INC.ct==='rubber'?'selected':''}>Rubber Flex (H07RN-F)</option></select></div><div class="fg"><label class="fl">Cores</label><select class="fs" onchange="INC.co=this.value;renderInc()">${gCo(INC.ct).map(c=>`<option value="${c}" ${INC.co===c?'selected':''}>${c}</option>`).join('')}</select></div><div class="fg"><label class="fl">Size ▼</label><select class="fs" onchange="INC.sz=this.value;INC._set=true;renderInc()"><option value="">—</option>${szs.map(s=>`<option value="${s}" ${INC.sz==s?'selected':''}>${s}mm² ${s==ss?'★':''} (${gR(INC.ct,s)}A)</option>`).join('')}</select></div><div class="fg"><label class="fl">Dist (m)</label><input class="fi" type="number" min="1" value="${INC.di}" onchange="INC.di=this.value;renderInc()"></div><div class="fg"><label class="fl">Runs</label><input class="fi" type="number" min="1" value="${INC.ru}" onchange="INC.ru=this.value;renderInc()"></div></div>`;
-  h+=`<div class="ck"><input type="checkbox" id="iiso" ${INC.iso?'checked':''} onchange="INC.iso=this.checked;renderInc()"><label for="iiso">Main Isolator</label></div>`;
+  h+=`<div class="sg"><div class="sg-t">⚡ Auto from All Systems</div><div class="sg-v">${tkw?`Total: <b>${tkw.toFixed(1)}kW</b> | FLA: <b>${ta.toFixed(1)}A</b> | Design(×0.8): <b>${da.toFixed(1)}A</b> → <b>${ss}mm² 4C Arm</b>`:'Add equipment first.'}</div></div>`;
+  h+=`<div class="fr" style="grid-template-columns:1fr 65px 120px 65px 55px"><div class="fg"><label class="fl">Cable Type</label><select class="fs" onchange="INC.ct=this.value;renderInc()"><option value="armoured" ${INC.ct==='armoured'?'selected':''}>Armoured</option><option value="rubber" ${INC.ct==='rubber'?'selected':''}>Rubber Flex</option></select></div><div class="fg"><label class="fl">Cores</label><select class="fs" onchange="INC.co=this.value;renderInc()">${gCo(INC.ct).map(c=>`<option value="${c}" ${INC.co===c?'selected':''}>${c}</option>`).join('')}</select></div><div class="fg"><label class="fl">Size</label><select class="fs" onchange="INC.sz=this.value;INC._set=true;renderInc()"><option value="">—</option>${szs.map(s=>`<option value="${s}" ${INC.sz==s?'selected':''}>${s}mm² ${s==ss?'★':''} (${gR(INC.ct,s)}A)</option>`).join('')}</select></div><div class="fg"><label class="fl">Dist m</label><input class="fi" type="number" min="1" value="${INC.di}" onchange="INC.di=this.value;renderInc()"></div><div class="fg"><label class="fl">Runs</label><input class="fi" type="number" min="1" value="${INC.ru}" onchange="INC.ru=this.value;renderInc()"></div></div>`;
+  h+=`<div class="ck"><input type="checkbox" id="iiso" ${INC.iso?'checked':''} onchange="INC.iso=this.checked;renderInc()"><label for="iiso">Main Isolator (4P)</label></div>`;
   if(sz){
     h+=cdH(INC.ct);
-    h+=`<div class="rb"><div class="rb-t">Main Incomer Materials</div><div class="rg">`;
-    h+=`<div class="ri"><div class="ri-l">Main Cable</div><div class="ri-v">${tN(INC.ct)} ${INC.co}×${sz}mm²</div><div class="ri-s">${tS(INC.ct)} | OD: ${od}mm | ${ru}×${di}m = <b>${tl}m</b></div></div>`;
-    locs.forEach(l=>{h+=`<div class="ri"><div class="ri-l">Gland — ${l}</div><div class="ri-v">${gt} ${gs}</div><div class="ri-s">${gh} | Qty: ${ru}</div></div>`});
-    locs.forEach(l=>{h+=`<div class="ri"><div class="ri-l">Lug — ${l}</div><div class="ri-v">${lg.c}</div><div class="ri-s">${lg.st} | ${sz}mm² | Qty: ${lp}</div></div>`});
-    if(iso)h+=`<div class="ri"><div class="ri-l">Main Isolator</div><div class="ri-v">ABB ${iso.m}</div><div class="ri-s">${iso.a}A TPN | ${iso.kw} | IP65 | Qty: ${ru}</div></div>`;
+    h+=sz&&!vdI.ok?`<div class="wr">⚠️ VD ${vdI.pct.toFixed(1)}% > 4% DEWA limit</div>`:`<div class="ok">✓ VD ${vdI.pct.toFixed(1)}% OK</div>`;
+    const incLabel=cableLabel('MAIN','INCOMER',`${tN(INC.ct)} ${INC.co}×${sz}mm²`,'SMDB','PANEL');
+    h+=`<div class="lbl"><strong>LABEL:</strong> ${incLabel}</div>`;
+    h+=`<div class="rb"><div class="rb-t">Incomer Materials</div><div class="rg">`;
+    h+=`<div class="ri"><div class="ri-l">Main Cable</div><div class="ri-v">${tN(INC.ct)} ${INC.co}×${sz}mm²</div><div class="ri-s">${tS(INC.ct)}|OD:${od}mm|${ru}×${di}m=<b>${tl}m</b></div></div>`;
+    if(esz)h+=`<div class="ri"><div class="ri-l">Earth Cable</div><div class="ri-v">G/Y 1C×${esz}mm²</div><div class="ri-s">${tl}m | BS 7671</div></div>`;
+    locs.forEach(l=>{h+=`<div class="ri"><div class="ri-l">Gland — ${l}</div><div class="ri-v">${gt} ${gs}</div><div class="ri-s">${gh}|Qty:${ru}</div></div>`});
+    if(esz&&eg)locs.forEach(l=>{h+=`<div class="ri"><div class="ri-l">Earth Gland — ${l}</div><div class="ri-v">PG Nylon ${eg.s}</div><div class="ri-s">Qty:${ru}</div></div>`});
+    locs.forEach(l=>{h+=`<div class="ri"><div class="ri-l">Lug — ${l}</div><div class="ri-v">${lg.c}</div><div class="ri-s">${lg.st}|Qty:${lp}</div></div>`});
+    if(esz&&el)h+=`<div class="ri"><div class="ri-l">Earth Lug</div><div class="ri-v">${el.c}</div><div class="ri-s">${el.st}|Qty:${ru*2}</div></div>`;
+    if(INC.iso){const iso=pIso(rt,'4P');h+=`<div class="ri"><div class="ri-l">Main Isolator 4P</div><div class="ri-v">ABB ${iso.m}</div><div class="ri-s">${iso.a}A|${iso.kw}|IP65|Qty:${ru}</div></div>`}
+    h+=`<div class="ri"><div class="ri-l">Engraved Label</div><div class="ri-v" style="font-size:10px;color:var(--purple)">${incLabel}</div></div>`;
     h+=`</div></div>`;
   }
   h+=`</div></div>`;
   document.getElementById('inc-box').innerHTML=h;
 }
 
-// =========== SUMMARY ===========
-function buildSum(){
-  const tb=document.getElementById('sum-tb'),emp=document.getElementById('sum-emp'),wrap=document.getElementById('sum-wrap');
+// ============ SUMMARY ============
+function getAllRows(sysFilter){
   const R=[];let sl=0;
   // Incomer
-  const sz=parseFloat(INC.sz);
-  if(sz){
-    const od=gOD(INC.ct,INC.co,sz),ru=parseInt(INC.ru)||1,di=parseFloat(INC.di)||30,tl=Math.ceil(di*1.1)*ru,cn=parseInt(INC.co)||1;
-    const ia=INC.ct==='armoured',g=ia?pCW(od):pPG(od),gt=ia?'CW Brass':'PG Nylon',gs=ia?g.s:g.s,gh=ia?'M'+g.t:g.s;
-    const lg=mLug(sz),lp=cn*ru,locs=INC.iso?['SMDB','Main Iso In','Main Iso Out','Panel']:['SMDB','Panel'];
-    sl++;R.push([sl,'INCOMER','tc',`${tN(INC.ct)} ${INC.co}×${sz}mm² (${tS(INC.ct)}) — ${CI[INC.ct]?.mk||''}`,tl,'mtr']);
-    locs.forEach(l=>{sl++;R.push([sl,'INCOMER','tgl',`${gt} Gland ${gs} (${gh}) — ${l}`,ru,'nos'])});
-    locs.forEach(l=>{sl++;R.push([sl,'INCOMER','tlu',`Copper Lug ${lg.c} (${lg.st}) — ${l}`,lp,'nos'])});
-    if(INC.iso){const rt=gR(INC.ct,sz),iso=pIs(rt);sl++;R.push([sl,'INCOMER','tis',`ABB ${iso.m} — ${iso.a}A TPN, ${iso.kw}, IP65`,ru,'nos'])}
-  }
+  if(!sysFilter){const sz=parseFloat(INC.sz);if(sz){const od=gOD(INC.ct,INC.co,sz),ru=parseInt(INC.ru)||1,di=parseFloat(INC.di)||30,tl=Math.ceil(di*1.1)*ru,cn=parseInt(INC.co)||1;const ia=INC.ct==='armoured',g=ia?pCW(od):pPG(od),gt=ia?'CW Brass':'PG Nylon',gs=ia?g.s:g.s,gh=ia?'M'+g.t:g.s;const lg=mLug(sz),lp=cn*ru,locs=INC.iso?['SMDB','Main Iso In','Main Iso Out','Panel']:['SMDB','Panel'];const esz=eSzCalc(sz),eod=SOD[esz]||5,eg=pPG(eod),el=mLug(esz);
+  sl++;R.push({sl,sys:'INCOMER',cat:'Cable',desc:`${tN(INC.ct)} ${INC.co}×${sz}mm² (${tS(INC.ct)}) — ${CI[INC.ct]?.mk}`,q:tl,u:'mtr',key:`cable_${INC.ct}_${INC.co}_${sz}`});
+  sl++;R.push({sl,sys:'INCOMER',cat:'Earth',desc:`Earth G/Y 1C×${esz}mm² CU/PVC`,q:tl,u:'mtr',key:`earth_${esz}`});
+  locs.forEach(l=>{sl++;R.push({sl,sys:'INCOMER',cat:'Gland',desc:`${gt} ${gs} (${gh})`,q:ru,u:'nos',key:`gland_${gt}_${gs}`})});
+  locs.forEach(l=>{sl++;R.push({sl,sys:'INCOMER',cat:'Gland',desc:`PG Nylon ${eg.s} (Earth)`,q:ru,u:'nos',key:`gland_PG_${eg.s}`})});
+  locs.forEach(l=>{sl++;R.push({sl,sys:'INCOMER',cat:'Lug',desc:`${lg.c} (${lg.st}) ${sz}mm²`,q:lp,u:'nos',key:`lug_${lg.c}`})});
+  sl++;R.push({sl,sys:'INCOMER',cat:'Lug',desc:`${el.c} (${el.st}) Earth`,q:ru*2,u:'nos',key:`lug_${el.c}`});
+  if(INC.iso){const rt=gR(INC.ct,sz),iso=pIso(rt,'4P');sl++;R.push({sl,sys:'INCOMER',cat:'Isolator',desc:`ABB ${iso.m} — ${iso.a}A 4P, ${iso.kw}, IP65`,q:ru,u:'nos',key:`iso_${iso.m}`})}
+  sl++;R.push({sl,sys:'INCOMER',cat:'Label',desc:`Engraved Traffolyte Label — INCOMER`,q:1,u:'set',key:'label_incomer'});
+  }}
   // Systems
   SYS.forEach(s=>{
-    const sn=s.customName||s.name;
+    const sn=s.cn||s.name;if(sysFilter&&sn!==sysFilter)return;
     s.equip.forEach((e,ei)=>{
-      const m=calcMat(e);if(!m)return;const c=m.cb;
-      sl++;R.push([sl,sn,'tc',`E${ei+1}: ${c.nm||'Equipment'} — ${tN(c.t)} ${c.co}×${c.sz}mm² (${tS(c.t)}) — ${CI[c.t]?.mk||''}`,c.tl,'mtr']);
-      m.gl.forEach(g=>{sl++;R.push([sl,sn,'tgl',`${g.t} Gland ${g.s} (${g.h}) — ${g.l}`,g.q,'nos'])});
-      m.lu.forEach(l=>{sl++;R.push([sl,sn,'tlu',`Copper Lug ${l.c} (${l.st}) — ${l.l}`,l.q,'nos'])});
-      if(m.iso){sl++;R.push([sl,sn,'tis',`ABB ${m.iso.m} — ${m.iso.a}A TPN, ${m.iso.kw}`,m.iso.q,'nos'])}
-      if(m.ea){sl++;R.push([sl,sn,'te',`Earth G/Y 1C×${m.ea.sz}mm²`,m.ea.len,'mtr']);m.ea.gl.forEach(g=>{sl++;R.push([sl,sn,'tgl',`${g.t} Gland ${g.s} — Earth ${g.l}`,g.q,'nos'])});m.ea.lu.forEach(l=>{sl++;R.push([sl,sn,'tlu',`Copper Lug ${l.c} (${l.st}) — Earth ${l.l}`,l.q,'nos'])})}
+      const m=calcMat(e,s);if(!m)return;const c=m.cb;
+      sl++;R.push({sl,sys:sn,cat:'Cable',desc:`${tN(c.t)} ${c.co}×${c.sz}mm² (${tS(c.t)}) — ${CI[c.t]?.mk}`,q:c.tl,u:'mtr',key:`cable_${c.t}_${c.co}_${c.sz}`});
+      sl++;R.push({sl,sys:sn,cat:'Earth',desc:`Earth G/Y 1C×${m.ea.sz}mm² CU/PVC`,q:m.ea.len,u:'mtr',key:`earth_${m.ea.sz}`});
+      m.gl.forEach(g=>{sl++;R.push({sl,sys:sn,cat:'Gland',desc:`${g.t} ${g.s} (${g.h})`,q:g.q,u:'nos',key:`gland_${g.t}_${g.s}`})});
+      m.ea.gl.forEach(g=>{sl++;R.push({sl,sys:sn,cat:'Gland',desc:`PG Nylon ${g.s} (Earth)`,q:g.q,u:'nos',key:`gland_PG_${g.s}`})});
+      m.lu.forEach(l=>{sl++;R.push({sl,sys:sn,cat:'Lug',desc:`${l.c} (${l.st}) ${l.sz}mm²`,q:l.q,u:'nos',key:`lug_${l.c}`})});
+      m.ea.lu.forEach(l=>{sl++;R.push({sl,sys:sn,cat:'Lug',desc:`${l.c} (${l.st}) Earth`,q:l.q,u:'nos',key:`lug_${l.c}`})});
+      if(m.iso){sl++;R.push({sl,sys:sn,cat:'Isolator',desc:`ABB ${m.iso.m} — ${m.iso.a}A ${m.iso.poles}, ${m.iso.kw}, IP65`,q:m.iso.q,u:'nos',key:`iso_${m.iso.m}`})}
+      sl++;R.push({sl,sys:sn,cat:'Label',desc:`Engraved Traffolyte Label — ${(e.nm||'EQUIP').toUpperCase()}`,q:1,u:'set',key:`label_${s.id}_${e.id}`});
     });
   });
-  if(!R.length){tb.innerHTML='';emp.style.display='';wrap.style.display='none';return}
-  emp.style.display='none';wrap.style.display='';
-  const catN={tc:'Cable',tgl:'Gland',tlu:'Lug',tis:'Isolator',te:'Earth'};
-  tb.innerHTML=R.map(r=>`<tr><td style="font:500 9px var(--m);color:var(--tx3)">${r[0]}</td><td style="font-size:10px;color:var(--tx2)">${r[1]}</td><td><span class="tg ${r[2]}">${catN[r[2]]||'Item'}</span></td><td>${r[3]}</td><td style="text-align:right;font:600 11px var(--m)">${r[4]}</td><td style="color:var(--tx2);font-size:10px">${r[5]}</td></tr>`).join('');
-  document.getElementById('z-mat').textContent=R.length;
+  return R;
 }
 
-// =========== EXPORT ===========
-function doExport(){
-  buildSum();const trs=document.querySelectorAll('#sum-tb tr');if(!trs.length){alert('No materials.');return}
+function mergeRows(rows){
+  const map={};
+  rows.forEach(r=>{
+    if(!map[r.key])map[r.key]={...r,q:0};
+    map[r.key].q+=r.q;
+  });
+  return Object.values(map).map((r,i)=>({...r,sl:i+1}));
+}
+
+function buildSum(){
+  const sysList=['ALL',...SYS.map(s=>s.cn||s.name)];
+  document.getElementById('sum-tabs').innerHTML=sysList.map(s=>`<div class="tab-btn ${s==='ALL'?'on':''}" onclick="showSumTab('${s}')">${s}</div>`).join('')+`<div class="tab-btn" onclick="showSumTab('COMBINED')" style="border-color:var(--gold);color:var(--gold)">🔗 Combined</div>`;
+  showSumTab('ALL');
+}
+
+function showSumTab(filter){
+  document.querySelectorAll('#sum-tabs .tab-btn').forEach(b=>b.classList.toggle('on',b.textContent.includes(filter)||b.textContent===filter));
+  const con=document.getElementById('sum-content');
+  const rows=filter==='COMBINED'?mergeRows(getAllRows()):getAllRows(filter==='ALL'?null:filter);
+  if(!rows.length){con.innerHTML='<div class="emp"><div class="emp-i">📋</div><div style="font-weight:600">No materials</div></div>';return}
+  const catN={Cable:'tc',Earth:'te',Gland:'tgl',Lug:'tlu',Isolator:'tis',Label:'tlb'};
+  let html=`<div style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--r2);overflow:hidden"><div style="overflow-x:auto"><table class="tb"><thead><tr><th>SL</th>${filter!=='COMBINED'?'<th>System</th>':''}<th>Cat</th><th>Description</th><th style="text-align:right">Qty</th><th>Unit</th></tr></thead><tbody>`;
+  rows.forEach(r=>{html+=`<tr><td style="font:500 9px var(--m);color:var(--tx3)">${r.sl}</td>${filter!=='COMBINED'?`<td style="font-size:10px;color:var(--tx2)">${r.sys}</td>`:''}<td><span class="tg ${catN[r.cat]||'tc'}">${r.cat}</span></td><td>${r.desc}</td><td style="text-align:right;font:600 11px var(--m)">${r.q}</td><td style="color:var(--tx2);font-size:10px">${r.u}</td></tr>`});
+  html+=`</tbody></table></div></div>`;
+  con.innerHTML=html;
+}
+
+// ============ EXPORT ============
+function showPreview(){
+  buildSum();
+  const rows=mergeRows(getAllRows());
+  if(!rows.length){alert('No materials.');return}
   const p=document.getElementById('pn').value||'Project';
-  let csv=`"WIM CableSpec Material Order"\n"Project:","${p}"\n"Client:","${document.getElementById('pc').value}"\n"Consultant:","${document.getElementById('px').value}"\n"Ref:","${document.getElementById('pr').value}"\n"Date:","${new Date().toLocaleDateString()}"\n\n"SL","System","Category","Description","Qty","Unit"\n`;
-  trs.forEach(tr=>{csv+=Array.from(tr.querySelectorAll('td')).map(td=>`"${td.textContent.trim()}"`).join(',')+'\n'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download=`WIM_Order_${p.replace(/\s/g,'_')}_${new Date().toISOString().slice(0,10)}.csv`;a.click();
+  let html=`<h3 style="margin-bottom:8px">Combined Material Order — ${p}</h3><p style="font-size:11px;color:var(--tx2);margin-bottom:10px">Client: ${document.getElementById('pc').value} | Consultant: ${document.getElementById('px').value} | Ref: ${document.getElementById('pr').value} | Date: ${new Date().toLocaleDateString()}</p>`;
+  html+=`<table class="tb" id="export-table"><thead><tr><th>SL</th><th>Category</th><th>Description</th><th style="text-align:right">Qty</th><th>Unit</th></tr></thead><tbody>`;
+  rows.forEach(r=>{html+=`<tr><td>${r.sl}</td><td>${r.cat}</td><td>${r.desc}</td><td style="text-align:right;font-weight:600">${r.q}</td><td>${r.u}</td></tr>`});
+  html+=`</tbody></table>`;
+  document.getElementById('modal-body').innerHTML=html;
+  document.getElementById('modal').style.display='flex';
 }
 
-// =========== STATS ===========
-function zSt(){
-  document.getElementById('z-sys').textContent=SYS.length;
-  const ne=SYS.reduce((a,s)=>a+s.equip.length,0);
-  document.getElementById('z-eq').textContent=ne;
-  const kw=SYS.flatMap(s=>s.equip).reduce((a,e)=>a+(parseFloat(e.kw)||0),0);
-  document.getElementById('z-kw').textContent=kw.toFixed(1);
+function doExportCSV(){
+  const rows=mergeRows(getAllRows());const p=document.getElementById('pn').value||'Project';
+  let csv=`"WIM CableSpec Material Order"\n"Project:","${p}"\n"Client:","${document.getElementById('pc').value}"\n"Consultant:","${document.getElementById('px').value}"\n"Ref:","${document.getElementById('pr').value}"\n"Date:","${new Date().toLocaleDateString()}"\n\n"SL","Category","Description","Qty","Unit"\n`;
+  rows.forEach(r=>{csv+=`${r.sl},"${r.cat}","${r.desc}",${r.q},"${r.u}"\n`});
+  dl(csv,'text/csv',`WIM_Order_${p.replace(/\s/g,'_')}.csv`);
 }
+
+function doExportXLS(){
+  const rows=mergeRows(getAllRows());const p=document.getElementById('pn').value||'Project';
+  let x=`<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel"><head><meta charset="UTF-8"><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>Material Order</x:Name></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><style>td,th{border:1px solid #ccc;padding:4px 8px;font-size:11px;font-family:Calibri}th{background:#d4a030;color:#fff;font-weight:bold}.hdr{font-size:14px;font-weight:bold;border:none}.sub{font-size:10px;color:#666;border:none}</style></head><body><table><tr><td class="hdr" colspan="5">WIM CableSpec — Material Order</td></tr><tr><td class="sub" colspan="5">Project: ${p} | Client: ${document.getElementById('pc').value} | Consultant: ${document.getElementById('px').value} | Ref: ${document.getElementById('pr').value} | Date: ${new Date().toLocaleDateString()}</td></tr><tr><td colspan="5"></td></tr><tr><th>SL</th><th>Category</th><th>Description</th><th>Qty</th><th>Unit</th></tr>`;
+  rows.forEach(r=>{x+=`<tr><td>${r.sl}</td><td>${r.cat}</td><td>${r.desc}</td><td style="text-align:right">${r.q}</td><td>${r.u}</td></tr>`});
+  x+=`</table></body></html>`;
+  dl(x,'application/vnd.ms-excel',`WIM_Order_${p.replace(/\s/g,'_')}.xls`);
+}
+
+function dl(content,type,name){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([content],{type}));a.download=name;a.click()}
+
+function zSt(){document.getElementById('z-sys').textContent=SYS.length;document.getElementById('z-eq').textContent=SYS.reduce((a,s)=>a+s.equip.length,0);document.getElementById('z-kw').textContent=SYS.flatMap(s=>s.equip).reduce((a,e)=>a+(parseFloat(e.kw)||0),0).toFixed(1)}
 zSt();
 </script>
-</body>
-</html>
+</body></html>
