@@ -1,19 +1,22 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>WIM CableSpec Pro v4</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#0b0d13;--s1:#11141c;--s2:#171b27;--s3:#1e2333;--s4:#262c3f;--bd:#282f45;--bd2:#343c58;--tx:#e6e8f0;--tx2:#868ca5;--tx3:#585e78;--gd:#c89530;--gd2:#dba83e;--gbg:rgba(200,149,48,.1);--bl:#4889f0;--bbg:rgba(72,137,240,.1);--gn:#38b070;--gnbg:rgba(56,176,112,.08);--gnbd:rgba(56,176,112,.22);--rd:#d94848;--rbg:rgba(217,72,72,.08);--cy:#38b0b0;--cybg:rgba(56,176,176,.1);--pu:#8b60e8;--pubg:rgba(139,96,232,.1);--or:#d08030;--r:8px;--r2:12px;--f:'Plus Jakarta Sans',system-ui,sans-serif;--m:'IBM Plex Mono',monospace}
-body{font-family:var(--f);background:var(--bg);color:var(--tx);line-height:1.5;font-size:14px;min-height:100vh}
-::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:3px}
+body{font-family:var(--f);background:var(--bg);color:var(--tx);line-height:1.5;font-size:14px}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:3px}
 .top{background:var(--s1);border-bottom:1px solid var(--bd);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:300}
 .top-b{display:flex;align-items:center;gap:10px}.top-i{width:32px;height:32px;background:linear-gradient(135deg,var(--gd),#a07020);border-radius:7px;display:flex;align-items:center;justify-content:center;font:700 13px var(--m);color:#0b0d13}
-.top h1{font-size:14px;font-weight:800}.top-s{font:500 9px var(--m);color:var(--tx2)}.top-r{display:flex;gap:5px}
+.top h1{font-size:14px;font-weight:800}.top-s{font:500 9px var(--m);color:var(--tx2)}
 .nv{background:var(--s1);border-bottom:1px solid var(--bd);display:flex;overflow-x:auto;padding:0 12px}
 .nt{padding:9px 14px;font-size:11px;font-weight:600;color:var(--tx3);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:.2s}.nt:hover{color:var(--tx)}.nt.on{color:var(--gd);border-bottom-color:var(--gd)}
 .b{display:inline-flex;align-items:center;gap:4px;padding:6px 12px;border:none;border-radius:var(--r);font:600 11px var(--f);cursor:pointer;transition:.15s;white-space:nowrap}
-.bg{background:var(--gd);color:#0b0d13}.bg:hover{background:var(--gd2)}.bo{background:0;color:var(--tx);border:1px solid var(--bd)}.bo:hover{border-color:var(--gd);color:var(--gd)}.br{background:var(--rbg);color:var(--rd);border:1px solid rgba(217,72,72,.2)}.bs{padding:4px 8px;font-size:10px}
+.bg{background:var(--gd);color:#0b0d13}.bg:hover{background:var(--gd2)}.bo{background:0;color:var(--tx);border:1px solid var(--bd)}.bo:hover{border-color:var(--gd)}.br{background:var(--rbg);color:var(--rd);border:1px solid rgba(217,72,72,.2)}.bs{padding:4px 8px;font-size:10px}
 .mn{max-width:1320px;margin:0 auto;padding:12px 12px 72px}.sc{display:none}.sc.on{display:block}
 .fg{display:flex;flex-direction:column;gap:2px}.fl{font:600 9px var(--m);color:var(--tx2);text-transform:uppercase;letter-spacing:.6px}
 .fi,.fs{background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 10px;color:var(--tx);font:13px var(--f);transition:.2s;width:100%}
@@ -21,471 +24,432 @@ body{font-family:var(--f);background:var(--bg);color:var(--tx);line-height:1.5;f
 .fs{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' fill='%23868ca5'%3E%3Cpath d='M4 6L0 1h8z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;padding-right:24px}
 .fr{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}.fi[readonly]{color:var(--gd);font-weight:700;background:var(--s2)}
 .sys{background:var(--s2);border:1px solid var(--bd);border-radius:var(--r2);margin-bottom:14px;overflow:hidden}
-.sys-h{display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--s3);border-bottom:1px solid var(--bd);cursor:pointer;user-select:none}
-.sys-ic{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.sys-in{flex:1;min-width:0}.sys-nm{font-size:14px;font-weight:700}.sys-sb{font:500 10px var(--m);color:var(--tx2)}
-.sys-ac{display:flex;gap:4px;flex-shrink:0}.sys-cv{color:var(--tx3);transition:transform .25s;font-size:9px}
-.sys.shut .sys-cv{transform:rotate(-90deg)}.sys-bd{padding:12px}.sys.shut .sys-bd{display:none}
+.sh{display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--s3);border-bottom:1px solid var(--bd);cursor:pointer;user-select:none}
+.si{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.sn{flex:1}.sn b{font-size:14px}.sn small{font:500 10px var(--m);color:var(--tx2);display:block}
+.sa{display:flex;gap:4px;flex-shrink:0}.sv{color:var(--tx3);transition:transform .25s;font-size:9px}
+.sys.shut .sv{transform:rotate(-90deg)}.sb{padding:12px}.sys.shut .sb{display:none}
 .eq{background:var(--s3);border:1px solid var(--bd);border-radius:var(--r);margin-bottom:8px;overflow:hidden}
-.eq-h{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--s4);border-bottom:1px solid var(--bd);cursor:pointer;user-select:none}
-.eq-n{font:700 10px var(--m);color:var(--gd);background:var(--gbg);padding:2px 7px;border-radius:4px;flex-shrink:0}
-.eq-t{flex:1;font-size:11px;color:var(--tx2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.eq-a{display:flex;gap:3px;flex-shrink:0}.eq-cv{color:var(--tx3);transition:transform .2s;font-size:8px}
-.eq.shut .eq-cv{transform:rotate(-90deg)}.eq-bd{padding:10px 12px;display:grid;gap:10px}.eq.shut .eq-bd{display:none}
+.eh{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--s4);border-bottom:1px solid var(--bd);cursor:pointer;user-select:none}
+.en{font:700 10px var(--m);color:var(--gd);background:var(--gbg);padding:2px 7px;border-radius:4px}
+.et{flex:1;font-size:11px;color:var(--tx2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ea{display:flex;gap:3px}.ecv{color:var(--tx3);font-size:8px;transition:transform .2s}
+.eq.shut .ecv{transform:rotate(-90deg)}.ebd{padding:10px 12px;display:grid;gap:10px}.eq.shut .ebd{display:none}
 .rb{background:var(--bg);border:1px solid var(--bd);border-radius:var(--r);padding:10px;margin-top:4px}
-.rb-t{font:700 9px var(--m);color:var(--gd);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;display:flex;align-items:center;gap:5px}.rb-t::before{content:'';width:5px;height:5px;background:var(--gd);border-radius:2px}
-.rg{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:5px}
+.rbt{font:700 9px var(--m);color:var(--gd);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.rg{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:5px}
 .ri{background:var(--s2);border:1px solid var(--bd);border-radius:6px;padding:7px 9px}
-.ri-l{font:500 8px var(--m);color:var(--tx3);text-transform:uppercase;letter-spacing:.4px}.ri-v{font-size:12px;font-weight:600;margin-top:1px}.ri-s{font-size:9px;color:var(--tx2);margin-top:1px;line-height:1.4}
-.cd{background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 10px;font-size:10px;line-height:1.55;color:var(--tx2);margin-top:4px}.cd strong{color:var(--tx)}
-.ct{display:inline-block;padding:1px 5px;border-radius:3px;font:600 9px var(--m);margin:0 2px 2px 0}
-.ct-m{background:var(--bbg);color:var(--bl)}.ct-s{background:var(--gnbg);color:var(--gn)}.ct-v{background:var(--gbg);color:var(--gd)}.ct-t{background:var(--pubg);color:var(--pu)}
+.ril{font:500 8px var(--m);color:var(--tx3);text-transform:uppercase}.riv{font-size:12px;font-weight:600;margin-top:1px}.ris{font-size:9px;color:var(--tx2);margin-top:1px}
 .sg{background:var(--gnbg);border:1px solid var(--gnbd);border-radius:6px;padding:8px 10px;margin-top:4px}
-.sg-t{font:700 9px var(--m);color:var(--gn);text-transform:uppercase;letter-spacing:.6px;margin-bottom:3px}.sg-v{font-size:12px;color:var(--tx)}.sg-c{font:400 9px var(--m);color:var(--tx2);margin-top:3px;line-height:1.4}
+.sgt{font:700 9px var(--m);color:var(--gn);text-transform:uppercase;margin-bottom:3px}.sgv{font-size:12px}.sgc{font:400 9px var(--m);color:var(--tx2);margin-top:3px}
 .wr{background:var(--rbg);border:1px solid rgba(217,72,72,.2);border-radius:6px;padding:7px 10px;font-size:11px;color:var(--rd);margin-top:4px}
 .ok{background:var(--gnbg);border:1px solid var(--gnbd);border-radius:6px;padding:7px 10px;font-size:11px;color:var(--gn);margin-top:4px}
-.lbl{background:var(--pubg);border:1px solid rgba(139,96,232,.2);border-radius:6px;padding:8px 10px;margin-top:4px;font:500 10px var(--m);color:var(--pu);line-height:1.5}.lbl strong{color:#b88ef8}
-.trb{background:rgba(56,176,176,.06);border:1px solid rgba(56,176,176,.2);border-radius:6px;padding:8px 10px;margin-top:4px;font-size:11px;color:var(--cy)}.trb strong{color:#5ad8d8}
-.earth-box{background:rgba(56,176,112,.05);border:1px solid rgba(56,176,112,.18);border-radius:6px;padding:8px 10px;margin-top:4px;font-size:11px;color:var(--gn)}
-.tb{width:100%;border-collapse:collapse;font-size:11px}
-.tb th{background:var(--bg);padding:7px 10px;text-align:left;font:700 8px var(--m);text-transform:uppercase;letter-spacing:.7px;color:var(--tx3);border-bottom:1px solid var(--bd);position:sticky;top:0}
-.tb td{padding:6px 10px;border-bottom:1px solid var(--bd);vertical-align:top}.tb tr:last-child td{border-bottom:0}
-.tg{display:inline-block;padding:2px 6px;border-radius:3px;font:600 9px var(--m)}
-.tc{background:var(--bbg);color:var(--bl)}.tgl{background:var(--gnbg);color:var(--gn)}.tlu{background:var(--gbg);color:var(--gd)}.tis{background:var(--rbg);color:var(--rd)}.te{background:var(--cybg);color:var(--cy)}.tlb{background:var(--pubg);color:var(--pu)}.ttr{background:rgba(208,128,48,.1);color:var(--or)}
-.ck{display:flex;align-items:center;gap:5px;padding:3px 0}.ck input{width:15px;height:15px;accent-color:var(--gd);cursor:pointer}.ck label{font-size:11px;cursor:pointer;color:var(--tx2)}
-.dv{height:1px;background:var(--bd);margin:6px 0}.emp{text-align:center;padding:36px 12px;color:var(--tx3)}
+.lbl{background:var(--pubg);border:1px solid rgba(139,96,232,.2);border-radius:6px;padding:8px 10px;margin-top:4px;font:500 10px var(--m);color:var(--pu);line-height:1.6;white-space:pre-line}
+.trb{background:rgba(56,176,176,.06);border:1px solid rgba(56,176,176,.2);border-radius:6px;padding:8px 10px;margin-top:4px;font-size:11px;color:var(--cy)}
+.ebox{background:rgba(56,176,112,.05);border:1px solid rgba(56,176,112,.18);border-radius:6px;padding:8px 10px;margin-top:4px;font-size:11px;color:var(--gn)}
+.dv{height:1px;background:var(--bd);margin:6px 0}.emp{text-align:center;padding:30px 12px;color:var(--tx3)}
 .foot{position:fixed;bottom:0;left:0;right:0;background:var(--s1);border-top:1px solid var(--bd);padding:8px 14px;display:flex;align-items:center;justify-content:space-between;z-index:300;flex-wrap:wrap;gap:6px}
 .fst{display:flex;gap:12px;font:500 10px var(--m);color:var(--tx2);flex-wrap:wrap}.fst b{color:var(--gd)}
-.add-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(135px,1fr));gap:8px;margin-bottom:14px}
-.add-c{background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:12px 10px;text-align:center;cursor:pointer;transition:.2s}
-.add-c:hover{border-color:var(--gd);transform:translateY(-2px)}.add-c .ai{font-size:22px;margin-bottom:3px}.add-c .an{font-size:11px;font-weight:700}
-.modal-bg{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.7);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px}
+.addg{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-bottom:14px}
+.addc{background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:12px 10px;text-align:center;cursor:pointer;transition:.2s}
+.addc:hover{border-color:var(--gd);transform:translateY(-2px)}.addc .ai{font-size:22px;margin-bottom:3px}.addc .an{font-size:11px;font-weight:700}
+.ck{display:flex;align-items:center;gap:5px;padding:3px 0}.ck input{width:15px;height:15px;accent-color:var(--gd);cursor:pointer}.ck label{font-size:11px;cursor:pointer;color:var(--tx2)}
+.tb{width:100%;border-collapse:collapse;font-size:11px}
+.tb th{background:var(--bg);padding:7px 10px;text-align:left;font:700 8px var(--m);text-transform:uppercase;color:var(--tx3);border-bottom:1px solid var(--bd)}
+.tb td{padding:6px 10px;border-bottom:1px solid var(--bd)}.tb tr:last-child td{border-bottom:0}
+.tg{display:inline-block;padding:2px 6px;border-radius:3px;font:600 9px var(--m)}
+.tc{background:var(--bbg);color:var(--bl)}.tgl{background:var(--gnbg);color:var(--gn)}.tlu{background:var(--gbg);color:var(--gd)}.tis{background:var(--rbg);color:var(--rd)}.te{background:var(--cybg);color:var(--cy)}.tlb{background:var(--pubg);color:var(--pu)}.ttr{background:rgba(208,128,48,.1);color:var(--or)}
+.modalbg{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px}
 .modal{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r2);max-width:1100px;width:100%;max-height:90vh;overflow:auto}
-.modal-h{padding:14px 18px;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--s1);z-index:1}.modal-h h2{font-size:15px}
-.modal-bd{padding:14px}
-.tab-b{display:flex;gap:4px;margin-bottom:10px;flex-wrap:wrap}
-.tab-bn{padding:5px 12px;border:1px solid var(--bd);border-radius:6px;font:600 10px var(--f);color:var(--tx2);cursor:pointer;background:0;transition:.2s}
-.tab-bn.on{background:var(--gd);color:#0b0d13;border-color:var(--gd)}
-.sc-pool{background:rgba(72,137,240,.12);color:var(--bl)}.sc-wf{background:rgba(56,176,176,.12);color:var(--cy)}.sc-jac{background:rgba(139,96,232,.12);color:var(--pu)}.sc-ss{background:rgba(208,128,48,.12);color:var(--or)}.sc-sp{background:rgba(56,176,112,.12);color:var(--gn)}.sc-cust{background:var(--gbg);color:var(--gd)}
-/* Route builder */
+.mh{padding:14px 18px;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--s1);z-index:1}.mh h2{font-size:15px}
+.mbd{padding:14px}
 .route{background:var(--s3);border:1px solid var(--bd);border-radius:var(--r);padding:10px 12px;margin-bottom:8px}
-.route-h{display:flex;align-items:center;gap:8px;margin-bottom:6px}.route-n{font:700 11px var(--m);color:var(--cy)}
-.route-eq{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0}
-.route-chip{padding:3px 8px;border-radius:4px;font:500 10px var(--f);background:var(--s4);border:1px solid var(--bd);cursor:pointer;transition:.15s}
-.route-chip.sel{background:var(--gbg);border-color:var(--gd);color:var(--gd)}
-@media(max-width:768px){.fr{grid-template-columns:1fr 1fr!important}.rg{grid-template-columns:1fr}.nv .nt{padding:8px 10px;font-size:10px}.add-g{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:480px){.fr{grid-template-columns:1fr!important}.add-g{grid-template-columns:1fr 1fr}}
-@media print{.top,.foot,.nv,.b,.eq-a,.sys-ac,.add-g,.modal-bg{display:none!important}.sys.shut .sys-bd,.eq.shut .eq-bd{display:grid!important}.sc{display:block!important}body{background:#fff;color:#000;font-size:10px}.sys,.eq,.rb,.ri,.sg,.cd{background:#fff;border-color:#ddd}}
-</style></head><body>
-<div class="top"><div class="top-b"><div class="top-i">W</div><div><h1>WIM CableSpec Pro</h1><div class="top-s">CABLE MATERIAL ORDER • DEWA/BS • UAE • PF 0.9</div></div></div><div class="top-r"><button class="b bo bs" onclick="window.print()">🖨️</button><button class="b bg bs" onclick="showPrev()">📤 Export</button></div></div>
-<div class="nv"><div class="nt on" data-t="sys">🏗️ Systems</div><div class="nt" data-t="inc">🔌 Incomer</div><div class="nt" data-t="tray">📐 Tray/Trunking</div><div class="nt" data-t="sum">📋 Summary</div></div>
+.rchip{display:inline-block;padding:3px 8px;border-radius:4px;font:500 10px var(--f);background:var(--s4);border:1px solid var(--bd);cursor:pointer;margin:2px;transition:.15s}
+.rchip.sel{background:var(--gbg);border-color:var(--gd);color:var(--gd)}
+.tabb{display:flex;gap:4px;margin-bottom:10px;flex-wrap:wrap}
+.tabn{padding:5px 12px;border:1px solid var(--bd);border-radius:6px;font:600 10px var(--f);color:var(--tx2);cursor:pointer;background:0}.tabn.on{background:var(--gd);color:#0b0d13;border-color:var(--gd)}
+@media(max-width:768px){.fr{grid-template-columns:1fr 1fr!important}.rg{grid-template-columns:1fr}}
+@media(max-width:480px){.fr{grid-template-columns:1fr!important}}
+@media print{.top,.foot,.nv,.b,.ea,.sa,.addg,.modalbg{display:none!important}.sys.shut .sb,.eq.shut .ebd{display:grid!important}.sc{display:block!important}body{background:#fff;color:#000}.sys,.eq,.rb,.ri,.sg{background:#fff;border-color:#ddd}}
+</style>
+</head>
+<body>
+<div class="top"><div class="top-b"><div class="top-i">W</div><div><h1>WIM CableSpec Pro</h1><div class="top-s">CABLE MATERIAL ORDER &bull; DEWA/BS &bull; UAE PF=0.9</div></div></div><div class="top-r"><button class="b bo bs" onclick="window.print()">&#128424;</button><button class="b bg bs" onclick="showPrev()">&#128228; Export</button></div></div>
+<div class="nv"><div class="nt on" data-t="sys">&#127959; Systems</div><div class="nt" data-t="inc">&#128268; Incomer</div><div class="nt" data-t="tray">&#128208; Tray</div><div class="nt" data-t="sum">&#128203; Summary</div></div>
 <div class="mn">
-<!-- SYSTEMS -->
 <div class="sc on" id="sec-sys">
-<div style="font-size:14px;font-weight:700;margin-bottom:4px">Aquatic Systems & Equipment</div>
-<div style="font-size:10px;color:var(--tx2);margin-bottom:10px">Add systems → equipment → auto cable sizing per DEWA (UAE PF=0.9, 50°C ambient). Isolator optional per equipment.</div>
-<div class="add-g"><div class="add-c" onclick="addS('pool')"><div class="ai">🏊</div><div class="an">Swimming Pool</div></div><div class="add-c" onclick="addS('wf')"><div class="ai">⛲</div><div class="an">Water Feature</div></div><div class="add-c" onclick="addS('jac')"><div class="ai">🛁</div><div class="an">Jacuzzi</div></div><div class="add-c" onclick="addS('ss')"><div class="ai">💺</div><div class="an">Sunken Seating</div></div><div class="add-c" onclick="addS('sp')"><div class="ai">💦</div><div class="an">Splash Pad</div></div><div class="add-c" onclick="addS('cust')"><div class="ai">⚙️</div><div class="an">Custom</div></div></div>
-<div id="scon"></div></div>
-<!-- INCOMER -->
-<div class="sc" id="sec-inc">
-<div style="font-size:14px;font-weight:700;margin-bottom:3px">Main Incomer — Control Panel Supply</div>
-<div style="font-size:10px;color:var(--tx2);margin-bottom:10px">Enter total electrical load for control panel. Select start point: SMDB or Isolator. Main isolator auto-selected per DEWA.</div>
-<div id="ibox"></div></div>
-<!-- TRAY/TRUNKING -->
-<div class="sc" id="sec-tray">
-<div style="font-size:14px;font-weight:700;margin-bottom:3px">📐 Cable Tray & Trunking Routes</div>
-<div style="font-size:10px;color:var(--tx2);margin-bottom:10px">Create cable routes from panel to equipment groups. Select equipment per route to auto-calculate tray/trunking size. Choose tray (armoured) or trunking (single core/rubber).</div>
-<button class="b bg bs" onclick="addRoute()" style="margin-bottom:10px">+ Add Route</button>
-<div id="rcon"></div></div>
-<!-- SUMMARY -->
-<div class="sc" id="sec-sum">
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><div style="font-size:14px;font-weight:700">📋 Material Summary</div><button class="b bg bs" onclick="showPrev()">📤 Preview & Export</button></div>
-<div class="tab-b" id="stabs"></div><div id="scon2"></div></div>
+<div style="font-size:14px;font-weight:700;margin-bottom:8px">Aquatic Systems &amp; Equipment</div>
+<div class="addg" id="addgrid"></div>
+<div id="scon"></div>
 </div>
-<div class="foot"><div class="fst"><div>Systems:<b id="zs">0</b></div><div>Equip:<b id="ze">0</b></div><div>kW:<b id="zk">0</b></div></div><button class="b bg bs" onclick="swT('sum');bSum()">📋 Summary</button></div>
-<div class="modal-bg" id="mdl" style="display:none" onclick="if(event.target===this)this.style.display='none'"><div class="modal"><div class="modal-h"><h2>📤 Export Preview</h2><div style="display:flex;gap:6px"><button class="b bg bs" onclick="xCSV()">CSV</button><button class="b bg bs" onclick="xXLS()">Excel (.xls)</button><button class="b bo bs" onclick="$('mdl').style.display='none'">✕ Close</button></div></div><div class="modal-bd" id="mbody"></div></div></div>
+<div class="sc" id="sec-inc"><div style="font-size:14px;font-weight:700;margin-bottom:8px">Main Incomer</div><div id="ibox"></div></div>
+<div class="sc" id="sec-tray"><div style="font-size:14px;font-weight:700;margin-bottom:8px">Cable Tray &amp; Trunking Routes</div><button class="b bg bs" onclick="addRoute()" style="margin-bottom:10px">+ Add Route</button><div id="rcon"></div></div>
+<div class="sc" id="sec-sum"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><div style="font-size:14px;font-weight:700">Material Summary</div><button class="b bg bs" onclick="showPrev()">&#128228; Export</button></div><div class="tabb" id="stabs"></div><div id="scon2"></div></div>
+</div>
+<div class="foot"><div class="fst"><div>Sys:<b id="zs">0</b></div><div>Eq:<b id="ze">0</b></div><div>kW:<b id="zk">0</b></div></div><button class="b bg bs" onclick="swT('sum');bSum()">Summary</button></div>
+<div class="modalbg" id="mdl" style="display:none" onclick="if(event.target===this)this.style.display='none'"><div class="modal"><div class="mh"><h2>Export Preview</h2><div style="display:flex;gap:6px"><button class="b bg bs" onclick="xCSV()">CSV</button><button class="b bg bs" onclick="xXLS()">Excel</button><button class="b bo bs" onclick="document.getElementById('mdl').style.display='none'">Close</button></div></div><div class="mbd" id="mbody"></div></div></div>
 <script>
-const $=id=>document.getElementById(id);
-// ======== ENGINEERING DATA ========
-const CI={armoured:{nm:'Armoured Cable',fl:'CU/XLPE/SWA/PVC',mk:'Oman Cables (SAOG)',st:'BS 5467/IEC 60502-1',vt:'600/1000V'},rubber:{nm:'Rubber Flex Cable',fl:'H07RN-F',mk:'Nexans',st:'IEC 60245-4/EN 50525-2-21',vt:'450/750V'},single_core:{nm:'Single Core PVC Wire',fl:'CU/PVC H07V-R',mk:'Oman Cables (SAOG)',st:'BS EN 50525-2-31',vt:'450/750V'},earth:{nm:'Earth Wire G/Y',fl:'CU/PVC G/Y',mk:'Oman Cables',st:'BS EN 50525-2-31',vt:'450/750V'}};
+"use strict";
+// ===== DATA =====
+var AOD={"2C":{1.5:12.5,2.5:14,4:15,6:16,10:18,16:20,25:20,35:23,50:25,70:28,95:32,120:34,150:38,185:42,240:49,300:53,400:58},"3C":{1.5:13,2.5:14,4:15,6:17,10:19,16:21,25:23,35:25,50:28,70:32,95:36,120:40,150:45,185:48,240:54,300:60,400:64},"4C":{1.5:14,2.5:15,4:16,6:18,10:21,16:23,25:26,35:29,50:31,70:37,95:40,120:47,150:51,185:56,240:62,300:68,400:78}};
+var ROD={"1C":{1.5:7.1,2.5:7.9,4:9,6:9.8,10:11.9,16:13.4,25:15.8,35:17.9,50:20.6,70:23.3,95:26,120:28.6},"2C":{1.5:11,2.5:13.2,4:15.1,6:16.8,10:22.6,16:25.7,25:30.7},"3C":{1.5:11.9,2.5:14,4:16.2,6:18,10:24.2,16:27.6,25:33,35:37.1,50:42.9,70:48.3,95:54,120:60},"4C":{1.5:13.1,2.5:15.5,4:18,6:20,10:26.5,16:30.1,25:36.6,35:41.1,50:47.5,70:54,95:61,120:66}};
+var SOD={1.5:3.3,2.5:4,4:4.6,6:5.2,10:6.7,16:7.8,25:9.7,35:10.9,50:12.8,70:14.6,95:17.1,120:18.8,150:20.9,185:23.3,240:26.6,300:29.6,400:33.2};
+var RA={1.5:28,2.5:36,4:47,6:59,10:79,16:102,25:131,35:157,50:187,70:229,95:274,120:312,150:349,185:394,240:455,300:509,400:574};
+var RS={};var RSB={1.5:18,2.5:25,4:33,6:43,10:59,16:79,25:104,35:129,50:167,70:214,95:261,120:303,150:349,185:400,240:472,300:545,400:634};for(var k in RSB)RS[k]=Math.floor(RSB[k]*0.71);
+var RR={};var RRB={1.5:26,2.5:36,4:49,6:63,10:86,16:115,25:149,35:185,50:225,70:289,95:352,120:410};for(var k in RRB)RR[k]=Math.floor(RRB[k]*0.82);
+var VD3={1.5:26.73,2.5:16.37,4:10.19,6:6.81,10:4.04,16:2.55,25:1.61,35:1.17,50:0.866,70:0.608,95:0.447,120:0.363,150:0.305,185:0.256,240:0.212,300:0.187,400:0.167};
+var CWG=[{s:"20S",t:20,a:11.6,b:16},{s:"20L",t:20,a:14.5,b:20.5},{s:"25S",t:25,a:19,b:24},{s:"25L",t:25,a:20.5,b:27},{s:"32S",t:32,a:24,b:30.5},{s:"32L",t:32,a:27,b:33},{s:"40S",t:40,a:30,b:37},{s:"40L",t:40,a:33.5,b:41},{s:"50S",t:50,a:40,b:47.5},{s:"50L",t:50,a:44,b:52.6},{s:"63S",t:63,a:50.5,b:60},{s:"63L",t:63,a:56,b:66},{s:"75S",t:75,a:62,b:72},{s:"75L",t:75,a:68,b:78},{s:"90L",t:90,a:79,b:90}];
+var PGG=[{s:"PG7",l:3,h:6.5},{s:"PG9",l:4,h:8},{s:"PG11",l:5,h:10},{s:"PG13.5",l:6,h:12},{s:"PG16",l:10,h:14},{s:"PG21",l:13,h:18},{s:"PG29",l:18,h:25},{s:"PG36",l:22,h:32},{s:"PG42",l:32,h:38},{s:"PG48",l:37,h:44}];
+var ISOS={"3P":[{m:"KSE325TPN",a:25},{m:"KSE340TPN",a:40},{m:"KSE363TPN",a:63},{m:"KSE380TPN",a:80},{m:"KSE3125TPN",a:125}],"4P":[{m:"KSE425TPSN",a:25},{m:"KSE440TPSN",a:40},{m:"KSE463TPSN",a:63},{m:"KSE480TPSN",a:80}],"6P":[{m:"BW625TPN",a:25},{m:"BW640TPN",a:40}]};
+var STD=[1.5,2.5,4,6,10,16,25,35,50,70,95,120,150,185,240,300,400];
+var VOLTS=[{v:"230",l:"230V AC 1P 50Hz",ph:"1"},{v:"400",l:"400V AC 3P 50Hz",ph:"3"},{v:"12DC",l:"12V DC",ph:"dc"},{v:"24DC",l:"24V DC",ph:"dc"},{v:"48DC",l:"48V DC",ph:"dc"}];
+var TRK=[{s:"50x50",c:1037},{s:"75x50",c:1555},{s:"75x75",c:2371},{s:"100x50",c:2091},{s:"100x75",c:3189},{s:"100x100",c:4252},{s:"150x50",c:3091},{s:"150x75",c:4742},{s:"150x100",c:6394},{s:"150x150",c:9697},{s:"225x100",c:9298},{s:"300x100",c:12788}];
+var TF={1.5:8.6,2.5:12.6,4:16.6,6:21.2,10:35.3,16:47.8,25:73.9,35:93.3,50:128.7,70:167.4,95:229.7,120:277.6,150:343.1,240:552};
+var TRAYW=[50,100,150,200,225,300,400,450,500,600,750,900];
+// Cable tie sizes
+var TIES={small:{sz:"100x2.5mm",desc:"Cable Tie 100x2.5mm Nylon"},medium:{sz:"200x3.6mm",desc:"Cable Tie 200x3.6mm Nylon"},large:{sz:"300x4.8mm",desc:"Cable Tie 300x4.8mm Nylon"},xlarge:{sz:"370x7.6mm",desc:"Cable Tie 370x7.6mm Nylon"}};
+function tieSize(od){if(od<=15)return TIES.small;if(od<=30)return TIES.medium;if(od<=50)return TIES.large;return TIES.xlarge}
 
-// Cable OD data from datasheets
-const AOD={‘2C’:{1.5:12.5,2.5:14,4:15,6:16,10:18,16:20,25:20,35:23,50:25,70:28,95:32,120:34,150:38,185:42,240:49,300:53,400:58},‘3C’:{1.5:13,2.5:14,4:15,6:17,10:19,16:21,25:23,35:25,50:28,70:32,95:36,120:40,150:45,185:48,240:54,300:60,400:64},‘4C’:{1.5:14,2.5:15,4:16,6:18,10:21,16:23,25:26,35:29,50:31,70:37,95:40,120:47,150:51,185:56,240:62,300:68,400:78}};
-const ROD={‘1C’:{1.5:7.1,2.5:7.9,4:9,6:9.8,10:11.9,16:13.4,25:15.8,35:17.9,50:20.6,70:23.3,95:26,120:28.6},‘2C’:{1.5:11,2.5:13.2,4:15.1,6:16.8,10:22.6,16:25.7,25:30.7},‘3C’:{1.5:11.9,2.5:14,4:16.2,6:18,10:24.2,16:27.6,25:33,35:37.1,50:42.9,70:48.3,95:54,120:60},‘4C’:{1.5:13.1,2.5:15.5,4:18,6:20,10:26.5,16:30.1,25:36.6,35:41.1,50:47.5,70:54,95:61,120:66}};
-const SOD={1.5:3.3,2.5:4,4:4.6,6:5.2,10:6.7,16:7.8,25:9.7,35:10.9,50:12.8,70:14.6,95:17.1,120:18.8,150:20.9,185:23.3,240:26.6,300:29.6,400:33.2};
+// ===== HELPERS =====
+function pCW(od){for(var i=0;i<CWG.length;i++)if(od>=CWG[i].a*0.65&&od<=CWG[i].b)return CWG[i];return CWG[CWG.length-1]}
+function pPG(od){for(var i=0;i<PGG.length;i++)if(od>=PGG[i].l&&od<=PGG[i].h)return PGG[i];for(var i=0;i<PGG.length;i++)if(od<=PGG[i].h)return PGG[i];return PGG[PGG.length-1]}
+function pIso(a,p){var l=ISOS[p]||ISOS["3P"];for(var i=0;i<l.length;i++)if(a<=l[i].a)return l[i];return{m:">"+l[l.length-1].a+"A",a:">rated"}}
+function mLug(sz){if(sz<=6)return{st:"M6",c:"AT "+sz+"-6"};if(sz<=16)return{st:"M8",c:"AT "+sz+"-8"};if(sz<=50)return{st:"M10",c:"AT "+sz+"-10"};if(sz<=120)return{st:"M12",c:"AT "+sz+"-12"};return{st:"M16",c:"AT "+sz+"-16"}}
+function eCalc(sz){if(sz<=16)return sz;if(sz<=35)return 16;return Math.ceil(sz/2)}
+function gOD(t,c,s){if(t==="armoured"&&AOD[c])return AOD[c][s]||0;if(t==="rubber"&&ROD[c])return ROD[c][s]||0;return SOD[s]||0}
+function gSz(t,c){if(t==="armoured"&&AOD[c])return Object.keys(AOD[c]).map(Number);if(t==="rubber"&&ROD[c])return Object.keys(ROD[c]).map(Number);return Object.keys(SOD).map(Number)}
+function gCo(t){if(t==="armoured")return["2C","3C","4C"];if(t==="rubber")return["1C","2C","3C","4C"];return["1C"]}
+function gR(t,s){if(t==="armoured")return RA[s]||0;if(t==="rubber")return RR[s]||0;return RS[s]||0}
+function tN(t){return{armoured:"Armoured",rubber:"Rubber Flex",single_core:"Single Core PVC",earth:"Earth G/Y"}[t]||t}
+function tSh(t){return{armoured:"CU/XLPE/SWA/PVC",rubber:"H07RN-F",single_core:"CU/PVC",earth:"CU/PVC G/Y"}[t]||""}
+function cAmp(kw,volt){var vn=parseFloat(volt);if(!vn||!kw)return 0;if(volt==="400")return(kw*1000)/(1.732*400*0.9);if(volt==="230")return(kw*1000)/(230*0.9);return(kw*1000)/vn}
+function sug(a,t){var r=t==="armoured"?RA:(t==="rubber"?RR:RS);for(var i=0;i<STD.length;i++)if(r[STD[i]]&&r[STD[i]]>=a)return STD[i];return 400}
+function cVD(amp,sz,dist,volt,ph){var vn=parseFloat(volt)||400;if(ph==="3"){var vd=amp*(VD3[sz]||0)*dist/1000;return{vd:vd,pc:(vd/vn)*100,ok:(vd/vn)*100<=4}}if(ph==="1"){var vd=amp*(VD3[sz]||0)*1.155*dist/1000;return{vd:vd,pc:(vd/vn)*100,ok:(vd/vn)*100<=4}}var R=0.0175/sz;var vd=2*amp*R*dist;return{vd:vd,pc:(vd/vn)*100,ok:(vd/vn)*100<=4}}
+function gIP(e){if((e.volt||"").indexOf("DC")>=0)return"3P";if(parseInt(e.ru)>=2&&e.co==="3C")return"6P";if(e.co==="4C")return"4P";return"3P"}
+function calcTray(cabs){var tw=0;for(var i=0;i<cabs.length;i++)tw+=cabs[i].od*cabs[i].cnt;tw*=1.35;for(var i=0;i<TRAYW.length;i++)if(TRAYW[i]>=tw)return{w:TRAYW[i],model:"HCT "+TRAYW[i]+"-50"};return{w:900,model:"HCT 900-50"}}
+function calcTrunk(cabs){var tf=0;for(var i=0;i<cabs.length;i++)tf+=(TF[cabs[i].sz]||0)*cabs[i].cnt;for(var i=0;i<TRK.length;i++)if(TRK[i].c>=tf)return{s:TRK[i].s,cap:TRK[i].c,used:tf};return{s:"300x150+",cap:19447,used:tf}}
 
-// Current ratings at UAE 50°C ambient
-const RA={1.5:28,2.5:36,4:47,6:59,10:79,16:102,25:131,35:157,50:187,70:229,95:274,120:312,150:349,185:394,240:455,300:509,400:574};
-const RS={};const RSB={1.5:18,2.5:25,4:33,6:43,10:59,16:79,25:104,35:129,50:167,70:214,95:261,120:303,150:349,185:400,240:472,300:545,400:634};Object.keys(RSB).forEach(k=>{RS[k]=Math.floor(RSB[k]*.71)});
-const RR={};const RRB={1.5:26,2.5:36,4:49,6:63,10:86,16:115,25:149,35:185,50:225,70:289,95:352,120:410};Object.keys(RRB).forEach(k=>{RR[k]=Math.floor(RRB[k]*.82)});
+// ===== STATE =====
+var SY=[],ROUTES=[],INC={ct:"armoured",co:"4C",sz:"",di:30,ru:1,iso:true,kw:"",ph:"400",src:"smdb"};
+var _si=0,_ei=0,_ri=0;
 
-// Voltage drop V/A/km from Oman Cables Table 43 (3-phase system)
-const VD3={1.5:26.73,2.5:16.37,4:10.19,6:6.81,10:4.04,16:2.55,25:1.61,35:1.17,50:.866,70:.608,95:.447,120:.363,150:.305,185:.256,240:.212,300:.187,400:.167};
-// Copper resistivity for DC: ρ = 0.0175 Ω·mm²/m at 70°C
-const RHO_CU = 0.0175;
-
-// Glands
-const CWG=[{s:‘20S’,t:20,a:11.6,b:16},{s:‘20L’,t:20,a:14.5,b:20.5},{s:‘25S’,t:25,a:19,b:24},{s:‘25L’,t:25,a:20.5,b:27},{s:‘32S’,t:32,a:24,b:30.5},{s:‘32L’,t:32,a:27,b:33},{s:‘40S’,t:40,a:30,b:37},{s:‘40L’,t:40,a:33.5,b:41},{s:‘50S’,t:50,a:40,b:47.5},{s:‘50L’,t:50,a:44,b:52.6},{s:‘63S’,t:63,a:50.5,b:60},{s:‘63L’,t:63,a:56,b:66},{s:‘75S’,t:75,a:62,b:72},{s:‘75L’,t:75,a:68,b:78},{s:‘90L’,t:90,a:79,b:90}];
-const PGG=[{s:‘PG7’,l:3,h:6.5},{s:‘PG9’,l:4,h:8},{s:‘PG11’,l:5,h:10},{s:‘PG13.5’,l:6,h:12},{s:‘PG16’,l:10,h:14},{s:‘PG21’,l:13,h:18},{s:‘PG29’,l:18,h:25},{s:‘PG36’,l:22,h:32},{s:‘PG42’,l:32,h:38},{s:‘PG48’,l:37,h:44}];
-
-// Isolators (ABB full range from datasheets)
-const ISO={‘3P’:[{m:‘KSE325TPN’,a:25,kw:‘7.5kW’},{m:‘KSE340TPN’,a:40,kw:‘11kW’},{m:‘KSE363TPN’,a:63,kw:‘22kW’},{m:‘KSE380TPN’,a:80,kw:‘30kW’},{m:‘KSE3125TPN’,a:125,kw:‘55kW’}],
-‘4P’:[{m:‘KSE425TPSN’,a:25,kw:‘7.5kW’},{m:‘KSE440TPSN’,a:40,kw:‘11kW’},{m:‘KSE463TPSN’,a:63,kw:‘22kW’},{m:‘KSE480TPSN’,a:80,kw:‘30kW’}],
-‘6P’:[{m:‘BW625TPN’,a:25,kw:‘7.5kW’},{m:‘BW640TPN’,a:40,kw:‘11kW’}]};
-
-const STD=[1.5,2.5,4,6,10,16,25,35,50,70,95,120,150,185,240,300,400];
-const VOLTS=[{v:‘230’,l:‘230V AC 1Ø 50Hz’,ph:‘1’,ac:1},{v:‘400’,l:‘400V AC 3Ø 50Hz’,ph:‘3’,ac:1},{v:‘690’,l:‘690V AC 3Ø 50Hz’,ph:‘3’,ac:1},{v:‘12DC’,l:‘12V DC (UW Lights)’,ph:‘dc’,ac:0},{v:‘24DC’,l:‘24V DC’,ph:‘dc’,ac:0},{v:‘48DC’,l:‘48V DC’,ph:‘dc’,ac:0}];
-
-// Trunking capacity factors (SFSP 45% space factor)
-const TRK=[{s:‘50×50’,c:1037},{s:‘75×50’,c:1555},{s:‘75×75’,c:2371},{s:‘100×50’,c:2091},{s:‘100×75’,c:3189},{s:‘100×100’,c:4252},{s:‘150×50’,c:3091},{s:‘150×75’,c:4742},{s:‘150×100’,c:6394},{s:‘150×150’,c:9697},{s:‘225×75’,c:7114},{s:‘225×100’,c:9298},{s:‘300×100’,c:12788},{s:‘300×150’,c:19447}];
-const TRK_F={1.5:8.6,2.5:12.6,4:16.6,6:21.2,10:35.3,16:47.8,25:73.9,35:93.3,50:128.7,70:167.4,95:229.7,120:277.6,150:343.1,240:552};
-// Cable tray widths (SFSP HCT-50)
-const TRAY_W=[50,100,150,200,225,300,400,450,500,600,750,900];
-const SD={pool:{nm:‘Swimming Pool’,icon:‘🏊’,cls:‘sc-pool’},wf:{nm:‘Water Feature’,icon:‘⛲’,cls:‘sc-wf’},jac:{nm:‘Jacuzzi’,icon:‘🛁’,cls:‘sc-jac’},ss:{nm:‘Sunken Seating’,icon:‘💺’,cls:‘sc-ss’},sp:{nm:‘Splash Pad’,icon:‘💦’,cls:‘sc-sp’},cust:{nm:‘Custom System’,icon:‘⚙️’,cls:‘sc-cust’}};
-
-// ======== HELPERS ========
-function pCW(od){for(const g of CWG)if(od>=g.a*.65&&od<=g.b)return g;return CWG[CWG.length-1]}
-function pPG(od){for(const g of PGG)if(od>=g.l&&od<=g.h)return g;for(const g of PGG)if(od<=g.h)return g;return PGG[PGG.length-1]}
-function pIso(a,p){const l=ISO[p]||ISO[‘3P’];for(const i of l)if(a<=i.a)return i;return{m:`>${l[l.length-1]?.a}A`,a:’>rated’,kw:’—’}}
-function mLug(sz){if(sz<=6)return{st:‘M6’,c:‘AT ‘+sz+’-6’};if(sz<=16)return{st:‘M8’,c:‘AT ‘+sz+’-8’};if(sz<=50)return{st:‘M10’,c:‘AT ‘+sz+’-10’};if(sz<=120)return{st:‘M12’,c:‘AT ‘+sz+’-12’};return{st:‘M16’,c:‘AT ‘+sz+’-16’}}
-function eCalc(sz){if(sz<=16)return sz;if(sz<=35)return 16;return Math.ceil(sz/2)} // BS 7671 T54.7
-function gOD(t,c,s){if(t===‘armoured’)return AOD[c]?.[s]||0;if(t===‘rubber’)return ROD[c]?.[s]||0;return SOD[s]||0}
-function gSz(t,c){if(t===‘armoured’)return Object.keys(AOD[c]||{}).map(Number);if(t===‘rubber’)return Object.keys(ROD[c]||{}).map(Number);return Object.keys(SOD).map(Number)}
-function gCo(t){if(t===‘armoured’)return[‘2C’,‘3C’,‘4C’];if(t===‘rubber’)return[‘1C’,‘2C’,‘3C’,‘4C’];return[‘1C’]}
-function gR(t,s){if(t===‘armoured’)return RA[s]||0;if(t===‘rubber’)return RR[s]||0;return RS[s]||0}
-function tN(t){return{armoured:‘Armoured’,rubber:‘Rubber Flex’,single_core:‘Single Core PVC’,earth:‘Earth G/Y’}[t]||t}
-function tSh(t){return{armoured:‘CU/XLPE/SWA/PVC’,rubber:‘H07RN-F’,single_core:‘CU/PVC’,earth:‘CU/PVC G/Y’}[t]||’’}
-
-// Current calculation: PF=0.9 for UAE
-function cAmp(kw,volt){
-const vn=parseFloat(volt);if(!vn||!kw)return 0;
-if(volt===‘400’)return(kw*1000)/(1.732*400*0.9); // 3Ø: I=P/(√3×V×PF)
-if(volt===‘690’)return(kw*1000)/(1.732*690*0.9);
-if(volt===‘230’)return(kw*1000)/(230*0.9); // 1Ø: I=P/(V×PF)
-return(kw*1000)/vn; // DC: I=P/V (no PF)
+// ===== INIT =====
+function initAddGrid(){
+  var types=[["pool","&#127946;","Swimming Pool"],["wf","&#9970;","Water Feature"],["jac","&#128705;","Jacuzzi"],["ss","&#128186;","Sunken Seating"],["sp","&#128166;","Splash Pad"],["cust","&#9881;","Custom"]];
+  var h="";for(var i=0;i<types.length;i++){h+='<div class="addc" onclick="addS(\''+types[i][0]+'\')"><div class="ai">'+types[i][1]+'</div><div class="an">'+types[i][2]+'</div></div>';}
+  document.getElementById("addgrid").innerHTML=h;
 }
-function sug(a,t=‘armoured’){const r=t===‘armoured’?RA:(t===‘rubber’?RR:RS);for(const s of STD)if(r[s]&&r[s]>=a)return s;return 400}
+initAddGrid();
 
-// VOLTAGE DROP — corrected formulas
-function cVD(amp,sz,dist,volt,ph){
-const vn=parseFloat(volt)||400;
-if(ph===‘3’){
-// 3-Phase: VD = I × mV/A/m × L / 1000 (table values are V/A/km for 3Ø)
-const vdpkm=VD3[sz]||0;
-const vd=amp*vdpkm*dist/1000;
-return{vd,pc:(vd/vn)*100,ok:(vd/vn)*100<=4};
+// ===== TABS =====
+var tabs=document.querySelectorAll(".nt");for(var i=0;i<tabs.length;i++){tabs[i].addEventListener("click",(function(t){return function(){swT(t.dataset.t)}})(tabs[i]))}
+function swT(n){var ts=document.querySelectorAll(".nt");for(var i=0;i<ts.length;i++)ts[i].classList.toggle("on",ts[i].dataset.t===n);var ss=document.querySelectorAll(".sc");for(var i=0;i<ss.length;i++)ss[i].classList.toggle("on",ss[i].id==="sec-"+n);if(n==="sum")bSum();if(n==="inc")rInc();if(n==="tray")rRoutes()}
+
+// ===== SYSTEMS =====
+var SD={pool:{nm:"Swimming Pool",icon:"&#127946;",cls:"sc-pool"},wf:{nm:"Water Feature",icon:"&#9970;",cls:"sc-wf"},jac:{nm:"Jacuzzi",icon:"&#128705;",cls:"sc-jac"},ss:{nm:"Sunken Seating",icon:"&#128186;",cls:"sc-ss"},sp:{nm:"Splash Pad",icon:"&#128166;",cls:"sc-sp"},cust:{nm:"Custom",icon:"&#9881;",cls:"sc-cust"}};
+
+function addS(type){_si++;var d=SD[type]||SD.cust;SY.push({id:_si,type:type,name:d.nm,icon:d.icon,cls:d.cls,eq:[],cn:""});rSys()}
+function rmS(id){SY=SY.filter(function(s){return s.id!==id});rSys()}
+function addE(sid){var s=SY.find(function(x){return x.id===sid});if(!s)return;_ei++;s.eq.push({id:_ei,nm:"",kw:"",volt:"400",ct:"armoured",co:"4C",ss:"",os:"",di:20,ru:1,iso:false,esz:""});rSys()}
+function rmE(si,ei){var s=SY.find(function(x){return x.id===si});if(s)s.eq=s.eq.filter(function(e){return e.id!==ei});rSys()}
+function dpE(si,ei){var s=SY.find(function(x){return x.id===si});if(!s)return;var src=s.eq.find(function(e){return e.id===ei});if(!src)return;_ei++;var cp=JSON.parse(JSON.stringify(src));cp.id=_ei;cp.nm+=" (copy)";s.eq.push(cp);rSys()}
+function uE(si,ei,f,v){
+  var s=SY.find(function(x){return x.id===si});if(!s)return;
+  var e=s.eq.find(function(x){return x.id===ei});if(!e)return;
+  e[f]=v;
+  if(f==="ct"){var co=gCo(v);if(co.indexOf(e.co)<0)e.co=co[co.length-1];e.os="";}
+  if(f==="volt"){var vi=VOLTS.find(function(x){return x.v===v});if(vi){if(vi.ph==="1")e.co=e.ct==="armoured"?"2C":(e.ct==="rubber"?"2C":"1C");else if(vi.ph==="3")e.co=e.ct==="armoured"?"4C":(e.ct==="rubber"?"4C":"1C");else e.co=e.ct==="armoured"?"2C":(e.ct==="rubber"?"2C":"1C")}}
+  if(f==="co")e.os="";
+  if(e.kw&&e.volt){var a=cAmp(parseFloat(e.kw),e.volt);e.ss=sug(a,e.ct);if(!e.os)e.os=e.ss}
+  rSys();
 }
-if(ph===‘1’){
-// 1-Phase: VD = 2×I×R×L where R=ρ/A per metre
-// Or from 3Ø table: VD_1ph = VD_3ph × 2/√3 = VD_3ph × 1.155
-const vdpkm=VD3[sz]||0;
-const vd=amp*vdpkm*1.155*dist/1000;
-return{vd,pc:(vd/vn)*100,ok:(vd/vn)*100<=4};
-}
-// DC: VD = 2×I×ρ×L/A  (2-wire, both ways)
-const R_per_m = RHO_CU / sz; // Ω/m
-const vd = 2 * amp * R_per_m * dist;
-return{vd,pc:(vd/vn)*100,ok:(vd/vn)*100<=4};
-}
-
-function gIP(e){
-if(e.volt?.includes(‘DC’))return’3P’;
-if(parseInt(e.ru)>=2&&e.co===‘3C’)return’6P’;
-if(e.co===‘4C’)return’4P’;
-return’3P’;
-}
-function cLbl(sys,nm,cd){return`${(sys||'SYS').toUpperCase().slice(0,12)} / ${(nm||'EQUIP').toUpperCase().slice(0,15)} / ${cd}`}
-function cdH(t){const c=CI[t];if(!c)return’’;return`<div class="cd"><span class="ct ct-m">${c.mk}</span><span class="ct ct-s">${c.st}</span><span class="ct ct-v">${c.vt}</span><span class="ct ct-t">${c.fl}</span></div>`}
-
-function calcTray(cables){let tw=0;cables.forEach(c=>{tw+=c.od*c.cnt});tw*=1.35;for(const w of TRAY_W)if(w>=tw)return{w,model:`HCT ${w}-50`};return{w:900,model:‘HCT 900-50 (verify)’}}
-function calcTrunk(cables){let tf=0;cables.forEach(c=>{tf+=(TRK_F[c.sz]||0)*c.cnt});for(const t of TRK)if(t.c>=tf)return{s:t.s,cap:t.c,used:tf};return{s:‘300×150+’,cap:19447,used:tf}}
-
-// ======== STATE ========
-let SY=[],ROUTES=[];
-let INC={ct:‘armoured’,co:‘4C’,sz:’’,di:30,ru:1,iso:true,kw:’’,ph:‘400’,src:‘smdb’};
-let _si=0,_ei=0,_ri=0;
-
-// ======== TABS ========
-document.querySelectorAll(’.nt’).forEach(t=>t.onclick=()=>swT(t.dataset.t));
-function swT(n){document.querySelectorAll(’.nt’).forEach(t=>t.classList.toggle(‘on’,t.dataset.t===n));document.querySelectorAll(’.sc’).forEach(s=>s.classList.toggle(‘on’,s.id===‘sec-’+n));if(n===‘sum’)bSum();if(n===‘inc’)rInc();if(n===‘tray’)rRoutes()}
-
-// ======== SYSTEMS ========
-function addS(type){_si++;const d=SD[type]||SD.cust;SY.push({id:_si,type,name:d.nm,icon:d.icon,cls:d.cls,eq:[],cn:’’});rSys()}
-function rmS(id){SY=SY.filter(s=>s.id!==id);rSys()}
-function addE(sid){const s=SY.find(x=>x.id===sid);if(!s)return;_ei++;s.eq.push({id:_ei,nm:’’,kw:’’,volt:‘400’,ct:‘armoured’,co:‘4C’,ss:’’,os:’’,di:20,ru:1,iso:false,esz:’’,routing:‘tray’});rSys()}
-function rmE(si,ei){const s=SY.find(x=>x.id===si);if(s)s.eq=s.eq.filter(e=>e.id!==ei);rSys()}
-function dpE(si,ei){const s=SY.find(x=>x.id===si);if(!s)return;const src=s.eq.find(e=>e.id===ei);if(!src)return;_ei++;s.eq.push({…src,id:_ei,nm:src.nm+’ (copy)’});rSys()}
-function uE(si,ei,f,v){const s=SY.find(x=>x.id===si);if(!s)return;const e=s.eq.find(x=>x.id===ei);if(!e)return;e[f]=v;
-if(f===‘ct’){const co=gCo(v);e.co=co.includes(e.co)?e.co:co[co.length-1];e.os=’’;}
-if(f===‘volt’){const vi=VOLTS.find(x=>x.v===v);if(vi){if(vi.ph===‘1’)e.co=e.ct===‘armoured’?‘2C’:(e.ct===‘rubber’?‘2C’:‘1C’);else if(vi.ph===‘3’)e.co=e.ct===‘armoured’?‘4C’:(e.ct===‘rubber’?‘4C’:‘1C’);else e.co=e.ct===‘armoured’?‘2C’:(e.ct===‘rubber’?‘2C’:‘1C’)}}
-if(f===‘co’)e.os=’’;
-if(e.kw&&e.volt){const a=cAmp(parseFloat(e.kw),e.volt);e.ss=sug(a,e.ct);if(!e.os)e.os=e.ss}
-rSys()}
-function togS(id){$(‘sys-’+id)?.classList.toggle(‘shut’)}
-function togE(s,e){$(‘eq-’+s+’-’+e)?.classList.toggle(‘shut’)}
+function togS(id){var el=document.getElementById("sys-"+id);if(el)el.classList.toggle("shut")}
+function togE(s,e){var el=document.getElementById("eq-"+s+"-"+e);if(el)el.classList.toggle("shut")}
 
 function rSys(){
-$(‘scon’).innerHTML=SY.map((s,si)=>{
-const dn=s.cn||s.name;const tkw=s.eq.reduce((a,e)=>a+(parseFloat(e.kw)||0),0);
-return`<div class="sys" id="sys-${s.id}"><div class="sys-h" onclick="togS(${s.id})"><div class="sys-ic ${s.cls}">${s.icon}</div><div class="sys-in"><div class="sys-nm">${s.type==='cust'?`<input class="fi" value="${s.cn}" placeholder="System Name" onclick="event.stopPropagation()" onchange="SY.find(x=>x.id===${s.id}).cn=this.value" style="padding:3px 8px;font-size:13px;font-weight:700;max-width:220px">`:dn}</div><div class="sys-sb">${s.eq.length} equip | ${tkw.toFixed(1)}kW</div></div><div class="sys-ac"><button class="b bg bs" onclick="event.stopPropagation();addE(${s.id})">+ Equip</button><button class="b br bs" onclick="event.stopPropagation();rmS(${s.id})">✕</button><span class="sys-cv">▼</span></div></div> <div class="sys-bd">${s.eq.length?s.eq.map((e,ei)=>rEq(s,e,ei)).join(''):`<div class="emp" style="padding:16px"><button class="b bg bs" onclick="addE(${s.id})">+ Add Equipment</button></div>`}</div></div>`;
-}).join(’’);zSt();
+  var h="";
+  for(var si=0;si<SY.length;si++){
+    var s=SY[si];var dn=s.cn||s.name;var tkw=0;for(var j=0;j<s.eq.length;j++)tkw+=parseFloat(s.eq[j].kw)||0;
+    h+='<div class="sys" id="sys-'+s.id+'"><div class="sh" onclick="togS('+s.id+')"><div class="si '+s.cls+'">'+s.icon+'</div><div class="sn"><b>'+dn+'</b><small>'+s.eq.length+' equip | '+tkw.toFixed(1)+'kW</small></div><div class="sa"><button class="b bg bs" onclick="event.stopPropagation();addE('+s.id+')">+ Equip</button><button class="b br bs" onclick="event.stopPropagation();rmS('+s.id+')">x</button><span class="sv">&#9660;</span></div></div><div class="sb">';
+    if(s.eq.length){for(var j=0;j<s.eq.length;j++)h+=rEq(s,s.eq[j],j)}else{h+='<div class="emp"><button class="b bg bs" onclick="addE('+s.id+')">+ Add Equipment</button></div>'}
+    h+='</div></div>';
+  }
+  document.getElementById("scon").innerHTML=h;zSt();
 }
 
 function rEq(s,e,ei){
-const sid=s.id,eid=e.id,kw=parseFloat(e.kw)||0;
-const vi=VOLTS.find(x=>x.v===e.volt)||VOLTS[1];
-const amp=kw?cAmp(kw,e.volt):0;
-const szs=gSz(e.ct,e.co),sz=parseFloat(e.os)||0,od=sz?gOD(e.ct,e.co,sz):0;
-const di=parseFloat(e.di)||0,ru=parseInt(e.ru)||1;
-const vdI=sz&&amp?cVD(amp,sz,di,e.volt,vi.ph):{vd:0,pc:0,ok:true};
-const poles=gIP(e);
-const earthSz=e.esz?parseFloat(e.esz):eCalc(sz);
-const earthSzs=STD.filter(x=>x<=sz);
-const mat=sz?cMat(e,s):null;
-const sn=s.cn||s.name;
-const sum=e.nm?`${e.nm} — ${kw}kW ${vi.l} → ${sz||'?'}mm²`:‘Configure…’;
+  var sid=s.id,eid=e.id,kw=parseFloat(e.kw)||0;
+  var vi=VOLTS.find(function(x){return x.v===e.volt})||VOLTS[1];
+  var amp=kw?cAmp(kw,e.volt):0;
+  var szs=gSz(e.ct,e.co),sz=parseFloat(e.os)||0,od=sz?gOD(e.ct,e.co,sz):0;
+  var di=parseFloat(e.di)||0,ru=parseInt(e.ru)||1;
+  var vdI=sz&&amp?cVD(amp,sz,di,e.volt,vi.ph):{vd:0,pc:0,ok:true};
+  var poles=gIP(e);
+  var earthSz=(e.esz&&parseFloat(e.esz))?parseFloat(e.esz):eCalc(sz);
+  var tl=Math.ceil(di*1.1)*ru;
+  var sn=s.cn||s.name;
+  var sum=e.nm?(e.nm+" - "+kw+"kW "+vi.l+" > "+(sz||"?")+"mm2"):"Configure...";
+  var tie=sz?tieSize(od):{desc:""};
+  var tieQty=sz?Math.ceil(tl/0.3)*ru:0; // every 300mm
 
-return`<div class="eq" id="eq-${sid}-${eid}"><div class="eq-h" onclick="togE(${sid},${eid})"><span class="eq-n">E${ei+1}</span><span class="eq-t">${sum}</span><div class="eq-a"><button class="b bo bs" onclick="event.stopPropagation();dpE(${sid},${eid})">📋</button><button class="b br bs" onclick="event.stopPropagation();rmE(${sid},${eid})">✕</button><span class="eq-cv">▼</span></div></div>
+  // Labels
+  var cblLabel=sz?("TO "+((e.nm||"EQUIPMENT").toUpperCase())+"\n"+tN(e.ct)+" "+e.co+"x"+sz+"mm2 "+tSh(e.ct)+"\nEARTH: 1Cx"+earthSz+"mm2 G/Y PVC CU"):"";
+  var eqLabel=e.nm?((e.nm||"EQUIPMENT").toUpperCase()):"";
 
-  <div class="eq-bd">
-  <div class="fr" style="grid-template-columns:1fr 70px 120px 60px 70px"><div class="fg"><label class="fl">Equipment Name/Tag</label><input class="fi" value="${e.nm}" placeholder="e.g. Circ Pump 1" onchange="uE(${sid},${eid},'nm',this.value)"></div><div class="fg"><label class="fl">Load kW</label><input class="fi" type="number" step="0.1" min="0" value="${e.kw}" onchange="uE(${sid},${eid},'kw',this.value)"></div><div class="fg"><label class="fl">Voltage/Phase</label><select class="fs" onchange="uE(${sid},${eid},'volt',this.value)">${VOLTS.map(v=>`<option value="${v.v}" ${e.volt===v.v?'selected':''}>${v.l}</option>`).join('')}</select></div><div class="fg"><label class="fl">Distance m</label><input class="fi" type="number" min="1" value="${e.di}" onchange="uE(${sid},${eid},'di',this.value)"></div><div class="fg"><label class="fl">FLA</label><input class="fi" value="${amp?amp.toFixed(1)+'A':'—'}" readonly></div></div>
-  ${amp?`<div class="sg"><div class="sg-t">⚡ DEWA Cable Suggestion (PF=0.9, 50°C UAE)</div><div class="sg-v">Suggested: <strong>${e.ss}mm² ${tN(e.ct)} ${e.co}</strong> (${gR(e.ct,e.ss)}A rated)</div><div class="sg-c">${kw}kW @ ${vi.l} | FLA:${amp.toFixed(1)}A${sz?` | VD: ${vdI.vd.toFixed(2)}V (${vdI.pc.toFixed(1)}%) over ${di}m [${vi.ph==='3'?'3Ø: I×mV/A/m×L':vi.ph==='1'?'1Ø: ×1.155 factor':'DC: 2×I×ρ×L/A'}]`:''}</div></div>`:''}
-  ${sz&&!vdI.ok?`<div class="wr">⚠️ VD ${vdI.pc.toFixed(1)}% exceeds DEWA 4% limit (${vdI.vd.toFixed(2)}V over ${di}m). Use larger cable or shorter route.</div>`:sz&&amp?`<div class="ok">✓ VD ${vdI.pc.toFixed(1)}% within DEWA 4% limit (${vi.ph==='dc'?'DC':'AC'} ${vi.ph==='3'?'3-Phase':vi.ph==='1'?'1-Phase':'DC'})</div>`:''}
-  <div class="dv"></div>
-  <div class="fr" style="grid-template-columns:1fr 60px 110px 50px"><div class="fg"><label class="fl">Cable Type</label><select class="fs" onchange="uE(${sid},${eid},'ct',this.value)"><option value="armoured" ${e.ct==='armoured'?'selected':''}>Armoured (CU/XLPE/SWA/PVC)</option><option value="rubber" ${e.ct==='rubber'?'selected':''}>Rubber Flex (H07RN-F)</option><option value="single_core" ${e.ct==='single_core'?'selected':''}>Single Core PVC</option></select></div><div class="fg"><label class="fl">Cores</label><select class="fs" onchange="uE(${sid},${eid},'co',this.value)">${gCo(e.ct).map(c=>`<option value="${c}" ${e.co===c?'selected':''}>${c}</option>`).join('')}</select></div><div class="fg"><label class="fl">Power Cable mm²</label><select class="fs" onchange="uE(${sid},${eid},'os',this.value)"><option value="">—</option>${szs.map(x=>`<option value="${x}" ${e.os==x?'selected':''}>${x}mm² ${x==e.ss?'★':''} (${gR(e.ct,x)||'—'}A)</option>`).join('')}</select></div><div class="fg"><label class="fl">Runs</label><input class="fi" type="number" min="1" value="${e.ru}" onchange="uE(${sid},${eid},'ru',this.value)"></div></div>
-  ${sz?`<div class="earth-box">🟢 <strong>Earth Cable:</strong> G/Y 1C × ${earthSz}mm² CU/PVC (BS 7671 T54.7) — ${Math.ceil(di*1.1)*ru}m &nbsp;
-  <select class="fs" style="display:inline;width:auto;padding:3px 20px 3px 6px;font-size:10px;max-width:110px" onchange="uE(${sid},${eid},'esz',this.value)"><option value="">Auto (${eCalc(sz)}mm²)</option>${earthSzs.map(x=>`<option value="${x}" ${e.esz==x?'selected':''}>${x}mm²</option>`).join('')}</select></div>`:''}
-  ${sz?cdH(e.ct):''}
-  <div style="display:flex;gap:12px;flex-wrap:wrap">
-    <div class="ck"><input type="checkbox" id="ck${sid}${eid}" ${e.iso?'checked':''} onchange="uE(${sid},${eid},'iso',this.checked)"><label for="ck${sid}${eid}">Include Isolator (${poles}) — for pumps/heat units</label></div>
-    ${e.ct!=='armoured'?`<div class="fg" style="min-width:120px"><label class="fl">Routing</label><select class="fs" style="padding:4px 20px 4px 6px;font-size:10px" onchange="uE(${sid},${eid},'routing',this.value)"><option value="tray" ${e.routing==='tray'?'selected':''}>Cable Tray</option><option value="trunking" ${e.routing==='trunking'?'selected':''}>Trunking</option></select></div>`:''}
-  </div>
-  ${sz?`<div class="lbl"><strong>LABEL:</strong> ${cLbl(sn,e.nm,`${tN(e.ct)} ${e.co}×${sz}mm²`)}</div>`:''}
-  ${mat?rMat(mat):''}
-  </div></div>`;
+  var h='<div class="eq" id="eq-'+sid+'-'+eid+'"><div class="eh" onclick="togE('+sid+','+eid+')"><span class="en">E'+(ei+1)+'</span><span class="et">'+sum+'</span><div class="ea"><button class="b bo bs" onclick="event.stopPropagation();dpE('+sid+','+eid+')">&#128203;</button><button class="b br bs" onclick="event.stopPropagation();rmE('+sid+','+eid+')">x</button><span class="ecv">&#9660;</span></div></div>';
+  h+='<div class="ebd">';
+
+  // Row 1: Name, kW, Voltage, Distance, FLA
+  h+='<div class="fr" style="grid-template-columns:1fr 70px 120px 60px 70px">';
+  h+='<div class="fg"><label class="fl">Equipment Name</label><input class="fi" value="'+e.nm+'" placeholder="e.g. Circ Pump 1" onchange="uE('+sid+','+eid+',\'nm\',this.value)"></div>';
+  h+='<div class="fg"><label class="fl">Load kW</label><input class="fi" type="number" step="0.1" min="0" value="'+e.kw+'" onchange="uE('+sid+','+eid+',\'kw\',this.value)"></div>';
+  h+='<div class="fg"><label class="fl">Voltage</label><select class="fs" onchange="uE('+sid+','+eid+',\'volt\',this.value)">';
+  for(var v=0;v<VOLTS.length;v++)h+='<option value="'+VOLTS[v].v+'"'+(e.volt===VOLTS[v].v?' selected':'')+'>'+VOLTS[v].l+'</option>';
+  h+='</select></div>';
+  h+='<div class="fg"><label class="fl">Dist m</label><input class="fi" type="number" min="1" value="'+e.di+'" onchange="uE('+sid+','+eid+',\'di\',this.value)"></div>';
+  h+='<div class="fg"><label class="fl">FLA</label><input class="fi" value="'+(amp?amp.toFixed(1)+"A":"-")+'" readonly></div>';
+  h+='</div>';
+
+  // Suggestion
+  if(amp){
+    h+='<div class="sg"><div class="sgt">DEWA Cable Suggestion (PF=0.9, 50C UAE)</div>';
+    h+='<div class="sgv">Suggested: <strong>'+e.ss+'mm2 '+tN(e.ct)+' '+e.co+'</strong> ('+gR(e.ct,e.ss)+'A)</div>';
+    h+='<div class="sgc">'+kw+'kW @ '+vi.l+' | FLA:'+amp.toFixed(1)+'A';
+    if(sz)h+=' | VD:'+vdI.vd.toFixed(2)+'V ('+vdI.pc.toFixed(1)+'%) '+di+'m ['+((vi.ph==="3")?"3P":"1P/DC")+']';
+    h+='</div></div>';
+  }
+  if(sz&&!vdI.ok)h+='<div class="wr">VD '+vdI.pc.toFixed(1)+'% exceeds DEWA 4% limit</div>';
+  else if(sz&&amp)h+='<div class="ok">VD '+vdI.pc.toFixed(1)+'% OK (DEWA 4% max)</div>';
+
+  h+='<div class="dv"></div>';
+
+  // Row 2: Cable type, Cores, Size, Runs
+  h+='<div class="fr" style="grid-template-columns:1fr 60px 110px 50px">';
+  h+='<div class="fg"><label class="fl">Cable Type</label><select class="fs" onchange="uE('+sid+','+eid+',\'ct\',this.value)"><option value="armoured"'+(e.ct==="armoured"?" selected":"")+'>Armoured (SWA)</option><option value="rubber"'+(e.ct==="rubber"?" selected":"")+'>Rubber Flex (H07RN-F)</option><option value="single_core"'+(e.ct==="single_core"?" selected":"")+'>Single Core PVC</option></select></div>';
+  h+='<div class="fg"><label class="fl">Cores</label><select class="fs" onchange="uE('+sid+','+eid+',\'co\',this.value)">';
+  var cos=gCo(e.ct);for(var c=0;c<cos.length;c++)h+='<option value="'+cos[c]+'"'+(e.co===cos[c]?' selected':'')+'>'+cos[c]+'</option>';
+  h+='</select></div>';
+  h+='<div class="fg"><label class="fl">Size mm2</label><select class="fs" onchange="uE('+sid+','+eid+',\'os\',this.value)"><option value="">-</option>';
+  for(var z=0;z<szs.length;z++)h+='<option value="'+szs[z]+'"'+(e.os==szs[z]?' selected':'')+'>'+szs[z]+'mm2 '+(szs[z]==e.ss?"*":"")+' ('+gR(e.ct,szs[z])+'A)</option>';
+  h+='</select></div>';
+  h+='<div class="fg"><label class="fl">Runs</label><input class="fi" type="number" min="1" value="'+e.ru+'" onchange="uE('+sid+','+eid+',\'ru\',this.value)"></div>';
+  h+='</div>';
+
+  // Earth cable
+  if(sz){
+    var esOpts="";var eSzs=STD.filter(function(x){return x<=sz});
+    for(var z=0;z<eSzs.length;z++)esOpts+='<option value="'+eSzs[z]+'"'+(e.esz==eSzs[z]?' selected':'')+'>'+eSzs[z]+'mm2</option>';
+    h+='<div class="ebox"><strong>Earth Cable:</strong> G/Y 1Cx'+earthSz+'mm2 CU/PVC (BS 7671) - '+tl+'m &nbsp;<select class="fs" style="display:inline;width:auto;padding:3px 20px 3px 6px;font-size:10px;max-width:100px" onchange="uE('+sid+','+eid+',\'esz\',this.value)"><option value="">Auto ('+eCalc(sz)+'mm2)</option>'+esOpts+'</select></div>';
+  }
+
+  // Isolator option
+  h+='<div class="ck"><input type="checkbox" id="ck'+sid+''+eid+'" '+(e.iso?"checked":"")+ ' onchange="uE('+sid+','+eid+',\'iso\',this.checked)"><label for="ck'+sid+''+eid+'">Include Isolator ('+poles+') - for pumps/heat units</label></div>';
+
+  // Labels
+  if(sz){
+    h+='<div class="lbl"><strong>CABLE TAG (2 holes, tied to cable):</strong>\n'+cblLabel+'</div>';
+    if(eqLabel)h+='<div class="lbl" style="background:rgba(72,137,240,.08);border-color:rgba(72,137,240,.2);color:var(--bl)"><strong>EQUIPMENT LABEL (adhesive, no holes):</strong>\n'+eqLabel+'</div>';
+    h+='<div class="ris" style="margin-top:4px">Cable Ties: '+tie.desc+' x '+tieQty+' nos (every 300mm)</div>';
+  }
+
+  h+='</div></div>';
+  return h;
 }
 
-// ======== MATERIAL CALC ========
-function cMat(e,sys){
-const sz=parseFloat(e.os);if(!sz)return null;
-const ru=parseInt(e.ru)||1,di=parseFloat(e.di)||0,tl=Math.ceil(di*1.1)*ru,od=gOD(e.ct,e.co,sz),cn=parseInt(e.co)||1;
-const earthSz=e.esz?parseFloat(e.esz):eCalc(sz);
-const r={cb:{t:e.ct,co:e.co,sz,od,ru,di,tl,nm:e.nm},gl:[],lu:[],iso:null,ea:{sz:earthSz,len:tl}};
-const ia=e.ct===‘armoured’,g=ia?pCW(od):pPG(od),gt=ia?‘CW Brass’:‘PG Nylon’,gs=g.s,gh=ia?‘M’+g.t:g.s;
-// Gland locations: Panel + Equipment, optionally Iso In/Out
-r.gl.push({l:‘Panel’,t:gt,s:gs,h:gh,q:ru});
-if(e.iso){r.gl.push({l:‘Iso In’,t:gt,s:gs,h:gh,q:ru});r.gl.push({l:‘Iso Out’,t:gt,s:gs,h:gh,q:ru})}
-r.gl.push({l:‘Equipment’,t:gt,s:gs,h:gh,q:ru});
-// Earth glands
-const eod=SOD[earthSz]||5,eg=pPG(eod);
-r.gl.push({l:‘Panel(Earth)’,t:‘PG Nylon’,s:eg.s,h:eg.s,q:ru});
-r.gl.push({l:‘Equip(Earth)’,t:‘PG Nylon’,s:eg.s,h:eg.s,q:ru});
-// Lugs
-const lg=mLug(sz),lp=cn*ru;
-(e.iso?[‘Panel’,‘Iso In’,‘Iso Out’,‘Equipment’]:[‘Panel’,‘Equipment’]).forEach(l=>{r.lu.push({l,c:lg.c,st:lg.st,sz,q:lp})});
-const el=mLug(earthSz);
-r.lu.push({l:‘Earth(Both)’,c:el.c,st:el.st,sz:earthSz,q:ru*2});
-// Isolator (only if selected)
-if(e.iso){const am=cAmp(parseFloat(e.kw)||0,e.volt);r.iso={…pIso(am,gIP(e)),poles:gIP(e),q:ru}}
-return r;
-}
-
-function rMat(r){
-const c=r.cb;let h=`<div class="rb"><div class="rb-t">Auto-Selected Materials</div><div class="rg">`;
-h+=`<div class="ri"><div class="ri-l">Power Cable</div><div class="ri-v">${tN(c.t)} ${c.co}×${c.sz}mm²</div><div class="ri-s">${tSh(c.t)} | OD:${c.od}mm | ${c.ru}×${c.di}m = <b>${c.tl}m</b> (+10%)</div></div>`;
-h+=`<div class="ri"><div class="ri-l">Earth Cable G/Y</div><div class="ri-v">1C×${r.ea.sz}mm² CU/PVC</div><div class="ri-s">${r.ea.len}m | BS 7671</div></div>`;
-r.gl.forEach(g=>{h+=`<div class="ri"><div class="ri-l">Gland—${g.l}</div><div class="ri-v">${g.t} ${g.s}</div><div class="ri-s">${g.h} | Qty:${g.q}</div></div>`});
-r.lu.forEach(l=>{h+=`<div class="ri"><div class="ri-l">Lug—${l.l}</div><div class="ri-v">${l.c}</div><div class="ri-s">${l.st} | Qty:${l.q}</div></div>`});
-if(r.iso)h+=`<div class="ri"><div class="ri-l">Isolator ${r.iso.poles}</div><div class="ri-v">ABB ${r.iso.m}</div><div class="ri-s">${r.iso.a}A | ${r.iso.kw} | IP65 | Qty:${r.iso.q}</div></div>`;
-return h+’</div></div>’;
-}
-// ======== INCOMER ========
+// ===== INCOMER =====
 function rInc(){
-const szs=gSz(INC.ct,INC.co);
-const ikw=parseFloat(INC.kw)||0;
-const iamp=ikw?cAmp(ikw,INC.ph):0;
-const ss=iamp?sug(iamp,INC.ct):0;
-if(ss&&!INC._set)INC.sz=ss;
-const sz=parseFloat(INC.sz)||0,od=sz?gOD(INC.ct,INC.co,sz):0;
-const ru=parseInt(INC.ru)||1,di=parseFloat(INC.di)||30,tl=Math.ceil(di*1.1)*ru,cn=parseInt(INC.co)||1;
-const ia=INC.ct===‘armoured’,gl=ia?pCW(od):pPG(od),gt=ia?‘CW Brass’:‘PG Nylon’,gs=gl.s,gh=ia?‘M’+gl.t:gl.s;
-const lg=mLug(sz),lp=cn*ru;
-const fromSMDB=INC.src===‘smdb’;
-const locs=fromSMDB?(INC.iso?[‘SMDB’,‘Main Iso In’,‘Main Iso Out’,‘Panel’]:[‘SMDB’,‘Panel’]):(INC.iso?[‘Main Iso Out’,‘Panel’]:[‘Panel’]);
-const esz=sz?eCalc(sz):0,eod=esz?(SOD[esz]||5):0,eg=esz?pPG(eod):null,el=esz?mLug(esz):null;
-const vdI=sz&&iamp?cVD(iamp,sz,di,INC.ph,‘3’):{vd:0,pc:0,ok:true};
-const isoInfo=iamp?pIso(iamp,‘4P’):{m:’—’,a:’—’,kw:’—’};
+  var szs=gSz(INC.ct,INC.co);
+  var ikw=parseFloat(INC.kw)||0;var iamp=ikw?cAmp(ikw,INC.ph):0;
+  var ss=iamp?sug(iamp,INC.ct):0;if(ss&&!INC._set)INC.sz=ss;
+  var sz=parseFloat(INC.sz)||0,od=sz?gOD(INC.ct,INC.co,sz):0;
+  var ru=parseInt(INC.ru)||1,di=parseFloat(INC.di)||30,tl=Math.ceil(di*1.1)*ru,cn=parseInt(INC.co)||1;
+  var ia=INC.ct==="armoured",gl=ia?pCW(od):pPG(od),gt=ia?"CW Brass":"PG Nylon",gs=gl.s,gh=ia?"M"+gl.t:gl.s;
+  var lg=mLug(sz),lp=cn*ru;
+  var fromSMDB=INC.src==="smdb";
+  var locs=fromSMDB?(INC.iso?["SMDB","Main Iso In","Main Iso Out","Panel"]:["SMDB","Panel"]):(INC.iso?["Main Iso Out","Panel"]:["Panel"]);
+  var esz=sz?eCalc(sz):0;var eod=esz?(SOD[esz]||5):0;var eg=esz?pPG(eod):null;var el=esz?mLug(esz):null;
+  var vdI=sz&&iamp?cVD(iamp,sz,di,INC.ph,"3"):{vd:0,pc:0,ok:true};
+  var isoI=iamp?pIso(iamp,"4P"):{m:"-",a:"-"};
 
-let h=`<div class="sys"><div class="sys-bd">`;
-h+=`<div class="fr" style="grid-template-columns:100px 100px 1fr 60px 100px 60px 50px"><div class="fg"><label class="fl">Panel Load kW</label><input class="fi" type="number" step="0.1" value="${INC.kw}" placeholder="Total kW" onchange="INC.kw=this.value;INC._set=false;rInc()"></div><div class="fg"><label class="fl">Phase</label><select class="fs" onchange="INC.ph=this.value;rInc()"><option value="400" ${INC.ph==='400'?'selected':''}>400V 3Ø</option><option value="230" ${INC.ph==='230'?'selected':''}>230V 1Ø</option></select></div><div class="fg"><label class="fl">Start From</label><select class="fs" onchange="INC.src=this.value;rInc()"><option value="smdb" ${INC.src==='smdb'?'selected':''}>SMDB (Full Run)</option><option value="iso" ${INC.src==='iso'?'selected':''}>Isolator Out Only</option></select></div><div class="fg"><label class="fl">Cores</label><select class="fs" onchange="INC.co=this.value;rInc()">${gCo(INC.ct).map(c=>`<option value=”${c}” ${INC.co===c?‘selected’:’’}>${c}</option>`).join('')}</select></div><div class="fg"><label class="fl">Cable Size</label><select class="fs" onchange="INC.sz=this.value;INC._set=true;rInc()"><option value="">—</option>${szs.map(s=>`<option value=”${s}” ${INC.sz==s?‘selected’:’’}>${s}mm² ${s==ss?‘★’:’’} (${gR(INC.ct,s)}A)</option>`).join('')}</select></div><div class="fg"><label class="fl">Dist m</label><input class="fi" type="number" min="1" value="${INC.di}" onchange="INC.di=this.value;rInc()"></div><div class="fg"><label class="fl">Runs</label><input class="fi" type="number" min="1" value="${INC.ru}" onchange="INC.ru=this.value;rInc()"></div></div>`;
-h+=`<div class="ck"><input type="checkbox" id="iiso" ${INC.iso?'checked':''} onchange="INC.iso=this.checked;rInc()"><label for="iiso">Main Isolator (4P) ${iamp?'— '+isoInfo.m+' '+isoInfo.a+'A':''}</label></div>`;
-if(iamp){h+=`<div class="sg"><div class="sg-t">⚡ Incomer Calculation</div><div class="sg-v">${ikw}kW → FLA: <b>${iamp.toFixed(1)}A</b> → Suggested: <b>${ss}mm² 4C ${tN(INC.ct)}</b></div><div class="sg-c">I = ${ikw}×1000 / (√3×${INC.ph}×0.9) = ${iamp.toFixed(1)}A | Main Iso: ${isoInfo.m} ${isoInfo.a}A</div></div>`}
-if(sz){
-h+=cdH(INC.ct);
-h+=vdI.ok?`<div class="ok">✓ VD ${vdI.pc.toFixed(1)}% OK (DEWA ≤4%)</div>`:`<div class="wr">⚠️ VD ${vdI.pc.toFixed(1)}% exceeds 4%</div>`;
-h+=`<div class="lbl"><strong>LABEL:</strong> ${cLbl('MAIN','INCOMER',`${tN(INC.ct)} ${INC.co}×${sz}mm²`)}</div>`;
-h+=`<div class="rb"><div class="rb-t">Incomer Materials (from ${fromSMDB?'SMDB':'Iso Out'})</div><div class="rg">`;
-h+=`<div class="ri"><div class="ri-l">Cable</div><div class="ri-v">${tN(INC.ct)} ${INC.co}×${sz}mm²</div><div class="ri-s">${tSh(INC.ct)} | ${ru}×${di}m = <b>${tl}m</b></div></div>`;
-if(esz)h+=`<div class="ri"><div class="ri-l">Earth Cable</div><div class="ri-v">G/Y 1C×${esz}mm²</div><div class="ri-s">${tl}m</div></div>`;
-locs.forEach(l=>{h+=`<div class="ri"><div class="ri-l">Gland—${l}</div><div class="ri-v">${gt} ${gs}</div><div class="ri-s">${gh} | Qty:${ru}</div></div>`});
-if(esz&&eg)locs.forEach(l=>{h+=`<div class="ri"><div class="ri-l">EarthGl—${l}</div><div class="ri-v">PG ${eg.s}</div><div class="ri-s">Qty:${ru}</div></div>`});
-locs.forEach(l=>{h+=`<div class="ri"><div class="ri-l">Lug—${l}</div><div class="ri-v">${lg.c}</div><div class="ri-s">${lg.st}|Qty:${lp}</div></div>`});
-if(esz&&el)h+=`<div class="ri"><div class="ri-l">Earth Lug</div><div class="ri-v">${el.c}</div><div class="ri-s">${el.st}|Qty:${ru*2}</div></div>`;
-if(INC.iso)h+=`<div class="ri"><div class="ri-l">Main Iso 4P</div><div class="ri-v">ABB ${isoInfo.m}</div><div class="ri-s">${isoInfo.a}A | ${isoInfo.kw} | IP65</div></div>`;
-h+=`<div class="ri"><div class="ri-l">Label</div><div class="ri-v" style="font-size:9px;color:var(--pu)">MAIN INCOMER ${tN(INC.ct)} ${INC.co}×${sz}mm²</div></div>`;
-h+=`</div></div>`;
-}
-h+=`</div></div>`;$(‘ibox’).innerHTML=h;
+  var h='<div class="sys"><div class="sb">';
+  h+='<div class="fr" style="grid-template-columns:90px 90px 110px 60px 100px 60px 50px">';
+  h+='<div class="fg"><label class="fl">Panel kW</label><input class="fi" type="number" step="0.1" value="'+INC.kw+'" placeholder="Total" onchange="INC.kw=this.value;INC._set=false;rInc()"></div>';
+  h+='<div class="fg"><label class="fl">Phase</label><select class="fs" onchange="INC.ph=this.value;rInc()"><option value="400"'+(INC.ph==="400"?" selected":"")+'>400V 3P</option><option value="230"'+(INC.ph==="230"?" selected":"")+'>230V 1P</option></select></div>';
+  h+='<div class="fg"><label class="fl">Start From</label><select class="fs" onchange="INC.src=this.value;rInc()"><option value="smdb"'+(INC.src==="smdb"?" selected":"")+'>SMDB (Full)</option><option value="iso"'+(INC.src==="iso"?" selected":"")+'>Isolator Out</option></select></div>';
+  h+='<div class="fg"><label class="fl">Cores</label><select class="fs" onchange="INC.co=this.value;rInc()">';
+  var cos=gCo(INC.ct);for(var c=0;c<cos.length;c++)h+='<option value="'+cos[c]+'"'+(INC.co===cos[c]?' selected':'')+'>'+cos[c]+'</option>';
+  h+='</select></div>';
+  h+='<div class="fg"><label class="fl">Size</label><select class="fs" onchange="INC.sz=this.value;INC._set=true;rInc()"><option value="">-</option>';
+  for(var z=0;z<szs.length;z++)h+='<option value="'+szs[z]+'"'+(INC.sz==szs[z]?' selected':'')+'>'+szs[z]+'mm2 '+(szs[z]==ss?"*":"")+' ('+gR(INC.ct,szs[z])+'A)</option>';
+  h+='</select></div>';
+  h+='<div class="fg"><label class="fl">Dist m</label><input class="fi" type="number" min="1" value="'+INC.di+'" onchange="INC.di=this.value;rInc()"></div>';
+  h+='<div class="fg"><label class="fl">Runs</label><input class="fi" type="number" min="1" value="'+INC.ru+'" onchange="INC.ru=this.value;rInc()"></div>';
+  h+='</div>';
+  h+='<div class="ck"><input type="checkbox" id="iiso" '+(INC.iso?"checked":"")+ ' onchange="INC.iso=this.checked;rInc()"><label for="iiso">Main Isolator (4P) '+(iamp?isoI.m+" "+isoI.a+"A":"")+'</label></div>';
+  if(iamp)h+='<div class="sg"><div class="sgt">Incomer Calculation</div><div class="sgv">'+ikw+'kW > FLA: <strong>'+iamp.toFixed(1)+'A</strong> > Suggested: <strong>'+ss+'mm2</strong></div></div>';
+  if(sz){
+    h+=(vdI.ok?'<div class="ok">VD '+vdI.pc.toFixed(1)+'% OK</div>':'<div class="wr">VD '+vdI.pc.toFixed(1)+'% exceeds 4%</div>');
+    h+='<div class="lbl"><strong>CABLE TAG (2 holes):</strong>\nMAIN INCOMER CABLE\n'+tN(INC.ct)+' '+INC.co+'x'+sz+'mm2 '+tSh(INC.ct)+'\nEARTH: 1Cx'+esz+'mm2 G/Y PVC CU</div>';
+  }
+  h+='</div></div>';
+  document.getElementById("ibox").innerHTML=h;
 }
 
-// ======== TRAY/TRUNKING ROUTES ========
-function addRoute(){_ri++;ROUTES.push({id:_ri,nm:‘Route ‘+*ri,dist:20,eqIds:[],type:‘tray’});rRoutes()}
-function rmRoute(id){ROUTES=ROUTES.filter(r=>r.id!==id);rRoutes()}
-function togRouteEq(rid,sid,eid){
-const r=ROUTES.find(x=>x.id===rid);if(!r)return;
-const key=sid+’*’+eid;
-const idx=r.eqIds.indexOf(key);
-if(idx>=0)r.eqIds.splice(idx,1);else r.eqIds.push(key);
-rRoutes();
-}
+// ===== ROUTES =====
+function addRoute(){_ri++;ROUTES.push({id:_ri,nm:"Route "+_ri,dist:20,eqIds:[],type:"tray"});rRoutes()}
+function rmRoute(id){ROUTES=ROUTES.filter(function(r){return r.id!==id});rRoutes()}
+function togRE(rid,key){var r=ROUTES.find(function(x){return x.id===rid});if(!r)return;var i=r.eqIds.indexOf(key);if(i>=0)r.eqIds.splice(i,1);else r.eqIds.push(key);rRoutes()}
 
 function rRoutes(){
-const allEq=SY.flatMap(s=>s.eq.map(e=>({…e,sysName:s.cn||s.name,sid:s.id})));
-$(‘rcon’).innerHTML=ROUTES.map(r=>{
-// Get cables in this route
-const routeEq=r.eqIds.map(k=>{const[si,ei]=k.split(’_’).map(Number);return allEq.find(e=>e.sid===si&&e.id===ei)}).filter(Boolean);
-const cables=routeEq.filter(e=>e.os).map(e=>{
-const sz=parseFloat(e.os),od=gOD(e.ct,e.co,sz),esz=e.esz?parseFloat(e.esz):eCalc(sz),eod=SOD[esz]||5;
-const ru=parseInt(e.ru)||1;
-return{sz,od,esz,eod,ru,ct:e.ct,co:e.co,nm:e.nm};
-});
-let result=’’;
-if(cables.length){
-if(r.type===‘tray’){
-const cabs=cables.flatMap(c=>[{od:c.od,cnt:c.ru},{od:c.eod,cnt:c.ru}]);
-const t=calcTray(cabs);
-result=`<div class="trb"><strong>📐 Cable Tray Required:</strong> ${t.model} (${t.w}mm W × 50mm H) — SFSP HCT Perforated, HDG, BS EN 61537. Length: ${r.dist}m (+10% = ${Math.ceil(r.dist*1.1)}m). 35% free space included.</div>`;
-} else {
-const cabs=cables.flatMap(c=>{const cn=parseInt(c.co)||1;return[{sz:c.sz,cnt:cn*c.ru},{sz:c.esz,cnt:c.ru}]});
-const t=calcTrunk(cabs);
-result=`<div class="trb"><strong>📐 Cable Trunking Required:</strong> ${t.s}mm — SFSP SCT, BS EN 50085. Length: ${r.dist}m. Factor: ${t.used.toFixed(0)}/${t.cap} (45% fill max).</div>`;
-}
-}
-return`<div class="route"><div class="route-h"><span class="route-n">🛤️ ${r.nm}</span> <input class="fi" style="max-width:150px;padding:4px 8px;font-size:12px" value="${r.nm}" onchange="ROUTES.find(x=>x.id===${r.id}).nm=this.value;rRoutes()"> <div class="fg" style="min-width:80px"><label class="fl">Dist m</label><input class="fi" type="number" min="1" value="${r.dist}" style="padding:4px 8px" onchange="ROUTES.find(x=>x.id===${r.id}).dist=parseInt(this.value);rRoutes()"></div> <div class="fg" style="min-width:100px"><label class="fl">Type</label><select class="fs" style="padding:4px 20px 4px 6px;font-size:10px" onchange="ROUTES.find(x=>x.id===${r.id}).type=this.value;rRoutes()"><option value="tray" ${r.type==='tray'?'selected':''}>Cable Tray</option><option value="trunking" ${r.type==='trunking'?'selected':''}>Trunking</option></select></div> <button class="b br bs" onclick="rmRoute(${r.id})">✕</button></div> <div style="font-size:10px;color:var(--tx2);margin-bottom:4px">Select equipment for this route:</div> <div class="route-eq">${allEq.map(e=>`<div class="route-chip ${r.eqIds.includes(e.sid+'_'+e.id)?'sel':''}" onclick="togRouteEq(${r.id},${e.sid},${e.id})">${e.nm||‘E’+e.id} (${e.os||’?’}mm²)</div>`).join('')}</div> ${result} </div>`;
-}).join(’’);
+  var allEq=[];for(var i=0;i<SY.length;i++)for(var j=0;j<SY[i].eq.length;j++){var e=SY[i].eq[j];allEq.push({nm:e.nm||("E"+e.id),os:e.os,ct:e.ct,co:e.co,ru:e.ru,esz:e.esz,sid:SY[i].id,eid:e.id});}
+  var h="";
+  for(var i=0;i<ROUTES.length;i++){
+    var r=ROUTES[i];
+    var rEqs=[];for(var j=0;j<r.eqIds.length;j++){var k=r.eqIds[j];var p=k.split("_");var eq=allEq.find(function(x){return x.sid==p[0]&&x.eid==p[1]});if(eq)rEqs.push(eq);}
+    var cables=[];for(var j=0;j<rEqs.length;j++){var e=rEqs[j];if(!e.os)continue;var sz=parseFloat(e.os),od=gOD(e.ct,e.co,sz),esz=(e.esz&&parseFloat(e.esz))?parseFloat(e.esz):eCalc(sz),eod=SOD[esz]||5,ru=parseInt(e.ru)||1;cables.push({sz:sz,od:od,esz:esz,eod:eod,ru:ru,co:e.co});}
+    var result="",supports="";
+    if(cables.length&&r.dist){
+      var numSupports=Math.ceil(r.dist/1.5)+1; // every 1.5m + end
+      if(r.type==="tray"){
+        var cabs=[];for(var j=0;j<cables.length;j++){cabs.push({od:cables[j].od,cnt:cables[j].ru});cabs.push({od:cables[j].eod,cnt:cables[j].ru})}
+        var t=calcTray(cabs);
+        var chW=t.w+40; // C-channel = tray width + 20mm each side
+        result='<div class="trb"><strong>Cable Tray:</strong> '+t.model+' ('+t.w+'mm W x 50mm H) - SFSP HCT Perforated HDG BS EN 61537<br>Length: '+r.dist+'m (+'+(Math.ceil(r.dist*0.1))+'m = '+Math.ceil(r.dist*1.1)+'m incl. 10%)</div>';
+        supports='<div class="trb" style="margin-top:4px"><strong>Tray Supports (every 1.5m = '+numSupports+' supports):</strong><br>';
+        supports+='- 10mm Threaded Rod 1.5m: '+(numSupports*2)+' nos (2 per support)<br>';
+        supports+='- 10mm Hex Nut: '+(numSupports*4)+' nos (2 per rod)<br>';
+        supports+='- 10mm Washer: '+(numSupports*4)+' nos (2 per rod)<br>';
+        supports+='- 10mm Spring Nut: '+(numSupports*2)+' nos (1 per rod)<br>';
+        supports+='- 10mm Unifix: '+(numSupports*2)+' nos (1 per rod)<br>';
+        supports+='- C-Channel Slotted '+chW+'mm: '+numSupports+' nos (tray W '+t.w+'mm + 20mm each side)</div>';
+      }else{
+        var cabs=[];for(var j=0;j<cables.length;j++){var cn=parseInt(cables[j].co)||1;cabs.push({sz:cables[j].sz,cnt:cn*cables[j].ru});cabs.push({sz:cables[j].esz,cnt:cables[j].ru})}
+        var t=calcTrunk(cabs);
+        result='<div class="trb"><strong>Cable Trunking:</strong> '+t.s+'mm - SFSP SCT BS EN 50085<br>Length: '+r.dist+'m | Factor: '+t.used.toFixed(0)+'/'+t.cap+' (45% fill)</div>';
+      }
+    }
+    h+='<div class="route"><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px">';
+    h+='<strong style="color:var(--cy)">Route '+(i+1)+'</strong>';
+    h+='<input class="fi" style="max-width:140px;padding:4px 8px;font-size:12px" value="'+r.nm+'" onchange="ROUTES['+i+'].nm=this.value">';
+    h+='<div class="fg" style="width:70px"><label class="fl">Dist m</label><input class="fi" type="number" min="1" value="'+r.dist+'" style="padding:4px 8px" onchange="ROUTES['+i+'].dist=parseInt(this.value);rRoutes()"></div>';
+    h+='<select class="fs" style="width:100px;padding:4px 20px 4px 6px;font-size:10px" onchange="ROUTES['+i+'].type=this.value;rRoutes()"><option value="tray"'+(r.type==="tray"?" selected":"")+'>Cable Tray</option><option value="trunking"'+(r.type==="trunking"?" selected":"")+'>Trunking</option></select>';
+    h+='<button class="b br bs" onclick="rmRoute('+r.id+')">x</button>';
+    h+='</div><div style="margin-bottom:4px">';
+    for(var j=0;j<allEq.length;j++){var e=allEq[j];var key=e.sid+"_"+e.eid;h+='<div class="rchip'+(r.eqIds.indexOf(key)>=0?" sel":"")+'" onclick="togRE('+r.id+',\''+key+'\')">'+e.nm+(e.os?" ("+e.os+"mm2)":"")+'</div>';}
+    h+='</div>'+result+supports+'</div>';
+  }
+  document.getElementById("rcon").innerHTML=h;
 }
 
-// ======== SUMMARY ========
+// ===== SUMMARY =====
 function gAll(sf){
-const R=[];
-// Incomer
-const sz=parseFloat(INC.sz);
-if(sz&&!sf){
-const ru=parseInt(INC.ru)||1,di=parseFloat(INC.di)||30,tl=Math.ceil(di*1.1)*ru,cn=parseInt(INC.co)||1;
-const ia=INC.ct===‘armoured’,g=ia?pCW(gOD(INC.ct,INC.co,sz)):pPG(gOD(INC.ct,INC.co,sz)),gt=ia?‘CW Brass’:‘PG Nylon’,gs=g.s,gh=ia?‘M’+g.t:g.s;
-const lg=mLug(sz),lp=cn*ru;const fromS=INC.src===‘smdb’;
-const locs=fromS?(INC.iso?[‘SMDB’,‘MIso In’,‘MIso Out’,‘Panel’]:[‘SMDB’,‘Panel’]):(INC.iso?[‘MIso Out’,‘Panel’]:[‘Panel’]);
-const esz=eCalc(sz),eg=pPG(SOD[esz]||5),el=mLug(esz);
-const ikw=parseFloat(INC.kw)||0;const iamp=ikw?cAmp(ikw,INC.ph):0;
-R.push({sys:‘INCOMER’,cat:‘Cable’,d:`${tN(INC.ct)} ${INC.co}×${sz}mm² (${tSh(INC.ct)})`,q:tl,u:‘mtr’,k:`cable_${INC.ct}_${INC.co}_${sz}`,o:1});
-R.push({sys:‘INCOMER’,cat:‘Earth Cable’,d:`Earth G/Y 1C×${esz}mm²`,q:tl,u:‘mtr’,k:`earth_${esz}`,o:1});
-if(INC.iso){const iso=pIso(iamp,‘4P’);R.push({sys:‘INCOMER’,cat:‘Isolator’,d:`ABB ${iso.m} ${iso.a}A 4P ${iso.kw} IP65`,q:ru,u:‘nos’,k:`iso_${iso.m}`,o:2})}
-locs.forEach(l=>{R.push({sys:‘INCOMER’,cat:‘Gland’,d:`${gt} ${gs} (${gh})`,q:ru,u:‘nos’,k:`gland_${gt}_${gs}`,o:3})});
-locs.forEach(l=>{R.push({sys:‘INCOMER’,cat:‘Gland’,d:`PG Nylon ${eg.s} (Earth)`,q:ru,u:‘nos’,k:`gland_PG_${eg.s}`,o:3})});
-locs.forEach(l=>{R.push({sys:‘INCOMER’,cat:‘Lug’,d:`${lg.c} (${lg.st})`,q:lp,u:‘nos’,k:`lug_${lg.c}`,o:4})});
-R.push({sys:‘INCOMER’,cat:‘Lug’,d:`${el.c} (${el.st}) Earth`,q:ru*2,u:‘nos’,k:`lug_${el.c}`,o:4});
-R.push({sys:‘INCOMER’,cat:‘Label’,d:‘Traffolyte Label — MAIN INCOMER’,q:1,u:‘set’,k:‘label_inc’,o:5});
-}
-// Systems
-SY.forEach(s=>{const sn=s.cn||s.name;if(sf&&sn!==sf)return;
-s.eq.forEach(e=>{const m=cMat(e,s);if(!m)return;const c=m.cb;
-R.push({sys:sn,cat:‘Cable’,d:`${tN(c.t)} ${c.co}×${c.sz}mm² (${tSh(c.t)})`,q:c.tl,u:‘mtr’,k:`cable_${c.t}_${c.co}_${c.sz}`,o:1});
-R.push({sys:sn,cat:‘Earth Cable’,d:`Earth G/Y 1C×${m.ea.sz}mm²`,q:m.ea.len,u:‘mtr’,k:`earth_${m.ea.sz}`,o:1});
-if(m.iso)R.push({sys:sn,cat:‘Isolator’,d:`ABB ${m.iso.m} ${m.iso.a}A ${m.iso.poles} ${m.iso.kw} IP65`,q:m.iso.q,u:‘nos’,k:`iso_${m.iso.m}`,o:2});
-m.gl.forEach(g=>{R.push({sys:sn,cat:‘Gland’,d:`${g.t} ${g.s} (${g.h})`,q:g.q,u:‘nos’,k:`gland_${g.t}_${g.s}`,o:3})});
-m.lu.forEach(l=>{R.push({sys:sn,cat:‘Lug’,d:`${l.c} (${l.st})`,q:l.q,u:‘nos’,k:`lug_${l.c}`,o:4})});
-R.push({sys:sn,cat:‘Label’,d:`Traffolyte Label — ${(e.nm||'EQUIP').toUpperCase()}`,q:1,u:‘set’,k:`label_${s.id}_${e.id}`,o:5});
-})});
-return R;
+  var R=[];
+  // Incomer
+  var sz=parseFloat(INC.sz);
+  if(sz&&!sf){
+    var ru=parseInt(INC.ru)||1,di=parseFloat(INC.di)||30,tl=Math.ceil(di*1.1)*ru,cn=parseInt(INC.co)||1;
+    var ia=INC.ct==="armoured",g=ia?pCW(gOD(INC.ct,INC.co,sz)):pPG(gOD(INC.ct,INC.co,sz)),gt=ia?"CW Brass":"PG Nylon",gs=g.s,gh=ia?"M"+g.t:g.s;
+    var lg=mLug(sz),lp=cn*ru;var fromS=INC.src==="smdb";
+    var locs=fromS?(INC.iso?["SMDB","MIso In","MIso Out","Panel"]:["SMDB","Panel"]):(INC.iso?["MIso Out","Panel"]:["Panel"]);
+    var esz=eCalc(sz),eg=pPG(SOD[esz]||5),el=mLug(esz);
+    var ikw=parseFloat(INC.kw)||0;var iamp=ikw?cAmp(ikw,INC.ph):0;
+    R.push({sys:"INCOMER",cat:"Cable",d:tN(INC.ct)+" "+INC.co+"x"+sz+"mm2 ("+tSh(INC.ct)+")",q:tl,u:"mtr",k:"cable_"+INC.ct+"_"+INC.co+"_"+sz,o:1});
+    R.push({sys:"INCOMER",cat:"Earth Cable",d:"Earth G/Y 1Cx"+esz+"mm2",q:tl,u:"mtr",k:"earth_"+esz,o:1});
+    if(INC.iso){var iso=pIso(iamp,"4P");R.push({sys:"INCOMER",cat:"Isolator",d:"ABB "+iso.m+" "+iso.a+"A 4P IP65",q:ru,u:"nos",k:"iso_"+iso.m,o:2})}
+    for(var i=0;i<locs.length;i++){R.push({sys:"INCOMER",cat:"Gland",d:gt+" "+gs+" ("+gh+")",q:ru,u:"nos",k:"gland_"+gt+"_"+gs,o:3});R.push({sys:"INCOMER",cat:"Gland",d:"PG Nylon "+eg.s+" (Earth)",q:ru,u:"nos",k:"gland_PG_"+eg.s,o:3})}
+    for(var i=0;i<locs.length;i++)R.push({sys:"INCOMER",cat:"Lug",d:lg.c+" ("+lg.st+")",q:lp,u:"nos",k:"lug_"+lg.c,o:4});
+    R.push({sys:"INCOMER",cat:"Lug",d:el.c+" ("+el.st+") Earth",q:ru*2,u:"nos",k:"lug_"+el.c,o:4});
+    R.push({sys:"INCOMER",cat:"Cable Tag",d:"Traffolyte 2-hole Cable Tag - INCOMER",q:1,u:"set",k:"tag_inc",o:5});
+  }
+  // Equipment
+  for(var si=0;si<SY.length;si++){var s=SY[si];var sn=s.cn||s.name;if(sf&&sn!==sf)continue;
+    for(var j=0;j<s.eq.length;j++){var e=s.eq[j];var esz2=parseFloat(e.os);if(!esz2)continue;
+    var ru=parseInt(e.ru)||1,di=parseFloat(e.di)||0,tl=Math.ceil(di*1.1)*ru;
+    var cn2=parseInt(e.co)||1;var earthSz=(e.esz&&parseFloat(e.esz))?parseFloat(e.esz):eCalc(esz2);
+    var od=gOD(e.ct,e.co,esz2);var tie=tieSize(od);var tieQty=Math.ceil(tl/0.3)*ru;
+    R.push({sys:sn,cat:"Cable",d:tN(e.ct)+" "+e.co+"x"+esz2+"mm2 ("+tSh(e.ct)+")",q:tl,u:"mtr",k:"cable_"+e.ct+"_"+e.co+"_"+esz2,o:1});
+    R.push({sys:sn,cat:"Earth Cable",d:"Earth G/Y 1Cx"+earthSz+"mm2",q:tl,u:"mtr",k:"earth_"+earthSz,o:1});
+    if(e.iso){var amp=cAmp(parseFloat(e.kw)||0,e.volt);var poles=gIP(e);var iso=pIso(amp,poles);R.push({sys:sn,cat:"Isolator",d:"ABB "+iso.m+" "+iso.a+"A "+poles+" IP65",q:ru,u:"nos",k:"iso_"+iso.m,o:2})}
+    var ia=e.ct==="armoured",g=ia?pCW(od):pPG(od),gt=ia?"CW Brass":"PG Nylon",gs=g.s,gh=ia?"M"+g.t:g.s;
+    var glLocs=e.iso?["Panel","Iso In","Iso Out","Equipment"]:["Panel","Equipment"];
+    for(var l=0;l<glLocs.length;l++)R.push({sys:sn,cat:"Gland",d:gt+" "+gs+" ("+gh+")",q:ru,u:"nos",k:"gland_"+gt+"_"+gs,o:3});
+    var eod=SOD[earthSz]||5;var eg=pPG(eod);
+    R.push({sys:sn,cat:"Gland",d:"PG Nylon "+eg.s+" (Earth Panel)",q:ru,u:"nos",k:"gland_PG_"+eg.s,o:3});
+    R.push({sys:sn,cat:"Gland",d:"PG Nylon "+eg.s+" (Earth Equip)",q:ru,u:"nos",k:"gland_PG_"+eg.s,o:3});
+    var lg=mLug(esz2),lp=cn2*ru;var luLocs=e.iso?["Panel","Iso In","Iso Out","Equipment"]:["Panel","Equipment"];
+    for(var l=0;l<luLocs.length;l++)R.push({sys:sn,cat:"Lug",d:lg.c+" ("+lg.st+")",q:lp,u:"nos",k:"lug_"+lg.c,o:4});
+    var el=mLug(earthSz);R.push({sys:sn,cat:"Lug",d:el.c+" ("+el.st+") Earth",q:ru*2,u:"nos",k:"lug_"+el.c,o:4});
+    R.push({sys:sn,cat:"Cable Tag",d:"Traffolyte 2-hole Tag - TO "+(e.nm||"EQUIP").toUpperCase(),q:1,u:"set",k:"tag_"+s.id+"_"+e.id,o:5});
+    R.push({sys:sn,cat:"Equip Label",d:"Adhesive Label - "+(e.nm||"EQUIP").toUpperCase(),q:1,u:"nos",k:"elbl_"+s.id+"_"+e.id,o:5});
+    R.push({sys:sn,cat:"Cable Tie",d:tie.desc,q:tieQty,u:"nos",k:"tie_"+tie.sz,o:6});
+  }}
+  // Tray supports from routes
+  for(var i=0;i<ROUTES.length;i++){var r=ROUTES[i];if(!r.dist)continue;
+    var numSup=Math.ceil(r.dist/1.5)+1;
+    if(r.type==="tray"){
+      // calc tray width for C-channel
+      var allE2=[];for(var s=0;s<SY.length;s++)for(var j=0;j<SY[s].eq.length;j++){var e2=SY[s].eq[j];allE2.push({os:e2.os,ct:e2.ct,co:e2.co,ru:e2.ru,esz:e2.esz,sid:SY[s].id,eid:e2.id})}
+      var rEqs=[];for(var j=0;j<r.eqIds.length;j++){var p=r.eqIds[j].split("_");var eq=allE2.find(function(x){return x.sid==p[0]&&x.eid==p[1]});if(eq&&eq.os)rEqs.push(eq)}
+      var cabs=[];for(var j=0;j<rEqs.length;j++){var sz=parseFloat(rEqs[j].os),od=gOD(rEqs[j].ct,rEqs[j].co,sz),esz=eCalc(sz),eod=SOD[esz]||5,ru=parseInt(rEqs[j].ru)||1;cabs.push({od:od,cnt:ru});cabs.push({od:eod,cnt:ru})}
+      if(cabs.length){
+        var t=calcTray(cabs);var chW=t.w+40;
+        R.push({sys:"TRAY",cat:"Cable Tray",d:t.model+" Perforated HDG ("+t.w+"mm W)",q:Math.ceil(r.dist*1.1),u:"mtr",k:"tray_"+t.w,o:7});
+        R.push({sys:"TRAY",cat:"Tray Support",d:"10mm Threaded Rod 1.5m",q:numSup*2,u:"nos",k:"rod_10mm",o:7});
+        R.push({sys:"TRAY",cat:"Tray Support",d:"10mm Hex Nut",q:numSup*4,u:"nos",k:"hexnut_10mm",o:7});
+        R.push({sys:"TRAY",cat:"Tray Support",d:"10mm Washer",q:numSup*4,u:"nos",k:"washer_10mm",o:7});
+        R.push({sys:"TRAY",cat:"Tray Support",d:"10mm Spring Nut",q:numSup*2,u:"nos",k:"springnut_10mm",o:7});
+        R.push({sys:"TRAY",cat:"Tray Support",d:"10mm Unifix",q:numSup*2,u:"nos",k:"unifix_10mm",o:7});
+        R.push({sys:"TRAY",cat:"Tray Support",d:"C-Channel Slotted "+chW+"mm",q:numSup,u:"nos",k:"cchannel_"+chW,o:7});
+      }
+    }else{
+      var cabs=[];
+      var allE3=[];for(var s=0;s<SY.length;s++)for(var j=0;j<SY[s].eq.length;j++){var e3=SY[s].eq[j];allE3.push({os:e3.os,ct:e3.ct,co:e3.co,ru:e3.ru,esz:e3.esz,sid:SY[s].id,eid:e3.id})}
+      for(var j=0;j<r.eqIds.length;j++){var p=r.eqIds[j].split("_");var eq=allE3.find(function(x){return x.sid==p[0]&&x.eid==p[1]});if(eq&&eq.os){var cn2=parseInt(eq.co)||1;var esz=eCalc(parseFloat(eq.os));cabs.push({sz:parseFloat(eq.os),cnt:cn2*(parseInt(eq.ru)||1)});cabs.push({sz:esz,cnt:parseInt(eq.ru)||1})}}
+      if(cabs.length){var t=calcTrunk(cabs);R.push({sys:"TRAY",cat:"Cable Trunking",d:"Trunking "+t.s+"mm SFSP SCT",q:Math.ceil(r.dist*1.1),u:"mtr",k:"trunk_"+t.s,o:7})}
+    }
+  }
+  return R;
 }
 
-function merge(rows){
-const m={};
-rows.forEach(r=>{if(!m[r.k])m[r.k]={…r,q:0};m[r.k].q+=r.q});
-// Sort: Cables first (o=1), Isolators (o=2), Glands (o=3), Lugs (o=4), Labels (o=5)
-return Object.values(m).sort((a,b)=>a.o-b.o||a.cat.localeCompare(b.cat)).map((r,i)=>({…r,sl:i+1}));
-}
+function merge(rows){var m={};for(var i=0;i<rows.length;i++){var r=rows[i];if(!m[r.k])m[r.k]={cat:r.cat,d:r.d,q:0,u:r.u,k:r.k,o:r.o};m[r.k].q+=r.q}
+var arr=[];for(var k in m)arr.push(m[k]);arr.sort(function(a,b){return(a.o||9)-(b.o||9)});for(var i=0;i<arr.length;i++)arr[i].sl=i+1;return arr}
 
 function bSum(){
-const sl=[‘ALL’,…SY.map(s=>s.cn||s.name)];
-$(‘stabs’).innerHTML=sl.map(s=>`<div class="tab-bn ${s==='ALL'?'on':''}" onclick="showST('${s.replace(/'/g,"\\'")}')">${s}</div>`).join(’’)+`<div class="tab-bn" onclick="showST('COMBINED')" style="border-color:var(--gd);color:var(--gd)">🔗 Combined</div>`;
-showST(‘ALL’);
+  var sl=["ALL"];for(var i=0;i<SY.length;i++)sl.push(SY[i].cn||SY[i].name);
+  var h="";for(var i=0;i<sl.length;i++)h+='<div class="tabn'+(sl[i]==="ALL"?" on":"")+'" onclick="showST(\''+sl[i].replace(/'/g,"\\'")+'\')">'+sl[i]+'</div>';
+  h+='<div class="tabn" onclick="showST(\'COMBINED\')" style="border-color:var(--gd);color:var(--gd)">Combined</div>';
+  document.getElementById("stabs").innerHTML=h;showST("ALL");
 }
 
 function showST(f){
-document.querySelectorAll(’#stabs .tab-bn’).forEach(b=>b.classList.toggle(‘on’,b.textContent===f));
-const rows=f===‘COMBINED’?merge(gAll()):gAll(f===‘ALL’?null:f);
-// Sort by order
-if(f!==‘COMBINED’)rows.sort((a,b)=>(a.o||9)-(b.o||9));
-const cn={Cable:‘tc’,‘Earth Cable’:‘te’,Gland:‘tgl’,Lug:‘tlu’,Isolator:‘tis’,Label:‘tlb’};
-if(!rows.length){$(‘scon2’).innerHTML=’<div class="emp">No materials — add equipment first</div>’;return}
-let h=`<div style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--r2);overflow:hidden"><div style="overflow-x:auto"><table class="tb"><thead><tr><th>SL</th>${f!=='COMBINED'?'<th>System</th>':''}<th>Category</th><th>Description</th><th style="text-align:right">Qty</th><th>Unit</th></tr></thead><tbody>`;
-rows.forEach((r,i)=>{h+=`<tr><td style="font:500 9px var(--m);color:var(--tx3)">${i+1}</td>${f!=='COMBINED'?`<td style="font-size:10px;color:var(--tx2)">${r.sys}</td>`:''}<td><span class="tg ${cn[r.cat]||'tc'}">${r.cat}</span></td><td>${r.d}</td><td style="text-align:right;font:600 11px var(--m)">${r.q}</td><td style="color:var(--tx2);font-size:10px">${r.u}</td></tr>`});
-h+=`</tbody></table></div></div>`;$(‘scon2’).innerHTML=h;
+  var bns=document.querySelectorAll("#stabs .tabn");for(var i=0;i<bns.length;i++)bns[i].classList.toggle("on",bns[i].textContent===f);
+  var rows=f==="COMBINED"?merge(gAll()):gAll(f==="ALL"?null:f);
+  if(f!=="COMBINED")rows.sort(function(a,b){return(a.o||9)-(b.o||9)});
+  var cn={"Cable":"tc","Earth Cable":"te","Gland":"tgl","Lug":"tlu","Isolator":"tis","Cable Tag":"tlb","Equip Label":"tlb","Cable Tie":"te","Cable Tray":"ttr","Tray Support":"ttr","Cable Trunking":"ttr"};
+  if(!rows.length){document.getElementById("scon2").innerHTML='<div class="emp">No materials</div>';return}
+  var h='<div style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--r2);overflow:hidden"><div style="overflow-x:auto"><table class="tb"><thead><tr><th>SL</th>'+(f!=="COMBINED"?'<th>System</th>':'')+'<th>Category</th><th>Description</th><th style="text-align:right">Qty</th><th>Unit</th></tr></thead><tbody>';
+  for(var i=0;i<rows.length;i++){var r=rows[i];h+='<tr><td style="font:500 9px var(--m);color:var(--tx3)">'+(i+1)+'</td>'+(f!=="COMBINED"?'<td style="font-size:10px;color:var(--tx2)">'+(r.sys||"")+'</td>':'')+'<td><span class="tg '+(cn[r.cat]||"tc")+'">'+r.cat+'</span></td><td>'+r.d+'</td><td style="text-align:right;font:600 11px var(--m)">'+r.q+'</td><td style="color:var(--tx2);font-size:10px">'+r.u+'</td></tr>'}
+  h+='</tbody></table></div></div>';document.getElementById("scon2").innerHTML=h;
 }
 
-// ======== EXPORT ========
-function showPrev(){
-bSum();const rows=merge(gAll());if(!rows.length){alert(‘No materials.’);return}
-let h=`<h3 style="margin-bottom:10px">Combined Material Order — Ready for Export</h3>`;
-h+=`<table class="tb" id="xtbl"><thead><tr><th>SL No.</th><th>Category</th><th>Description</th><th style="text-align:right">Qty</th><th>Unit</th></tr></thead><tbody>`;
-rows.forEach(r=>{h+=`<tr><td>${r.sl}</td><td>${r.cat}</td><td>${r.d}</td><td style="text-align:right;font-weight:600">${r.q}</td><td>${r.u}</td></tr>`});
-h+=`</tbody></table>`;
-$(‘mbody’).innerHTML=h;$(‘mdl’).style.display=‘flex’;
-}
+// ===== EXPORT =====
+function showPrev(){bSum();var rows=merge(gAll());if(!rows.length){alert("No materials.");return}
+var h='<h3 style="margin-bottom:10px">Combined Material Order</h3><table class="tb"><thead><tr><th>SL</th><th>Category</th><th>Description</th><th style="text-align:right">Qty</th><th>Unit</th></tr></thead><tbody>';
+for(var i=0;i<rows.length;i++)h+='<tr><td>'+rows[i].sl+'</td><td>'+rows[i].cat+'</td><td>'+rows[i].d+'</td><td style="text-align:right;font-weight:600">'+rows[i].q+'</td><td>'+rows[i].u+'</td></tr>';
+h+='</tbody></table>';document.getElementById("mbody").innerHTML=h;document.getElementById("mdl").style.display="flex"}
 
-function xCSV(){
-const rows=merge(gAll());
-let c=’“SL No.”,“Category”,“Description”,“Qty”,“Unit”\n’;
-rows.forEach(r=>{c+=`${r.sl},"${r.cat}","${r.d}",${r.q},"${r.u}"\n`});
-dl(c,‘text/csv’,‘Material_Order.csv’);
-}
+function xCSV(){var rows=merge(gAll());var c='"SL","Category","Description","Qty","Unit"\n';for(var i=0;i<rows.length;i++)c+=rows[i].sl+',"'+rows[i].cat+'","'+rows[i].d+'",'+rows[i].q+',"'+rows[i].u+'"\n';dlF(c,"text/csv","Material_Order.csv")}
 
-function xXLS(){
-const rows=merge(gAll());
-// Proper Excel XML format
-let x=`<?xml version="1.0" encoding="UTF-8"?>
+function xXLS(){var rows=merge(gAll());
+var x='<?xml version="1.0" encoding="UTF-8"?>\n<?mso-application progid="Excel.Sheet"?>\n<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">\n<Styles>\n<Style ss:ID="hdr"><Font ss:Bold="1" ss:Color="#FFFFFF" ss:Size="11"/><Interior ss:Color="#C89530" ss:Pattern="Solid"/><Alignment ss:Horizontal="Center"/></Style>\n<Style ss:ID="num"><Alignment ss:Horizontal="Right"/></Style>\n<Style ss:ID="def"><Alignment ss:Vertical="Top" ss:WrapText="1"/></Style>\n</Styles>\n<Worksheet ss:Name="Material Order">\n<Table>\n<Column ss:Width="40"/><Column ss:Width="90"/><Column ss:Width="380"/><Column ss:Width="55"/><Column ss:Width="45"/>\n';
+x+='<Row ss:StyleID="hdr"><Cell><Data ss:Type="String">SL</Data></Cell><Cell><Data ss:Type="String">Category</Data></Cell><Cell><Data ss:Type="String">Description</Data></Cell><Cell><Data ss:Type="String">Qty</Data></Cell><Cell><Data ss:Type="String">Unit</Data></Cell></Row>\n';
+for(var i=0;i<rows.length;i++)x+='<Row ss:StyleID="def"><Cell><Data ss:Type="Number">'+rows[i].sl+'</Data></Cell><Cell><Data ss:Type="String">'+rows[i].cat+'</Data></Cell><Cell><Data ss:Type="String">'+rows[i].d.replace(/&/g,"&amp;")+'</Data></Cell><Cell ss:StyleID="num"><Data ss:Type="Number">'+rows[i].q+'</Data></Cell><Cell><Data ss:Type="String">'+rows[i].u+'</Data></Cell></Row>\n';
+x+='</Table>\n</Worksheet>\n</Workbook>';dlF(x,"application/vnd.ms-excel","Material_Order.xls")}
 
-<?mso-application progid="Excel.Sheet"?>
+function dlF(c,t,n){var b=new Blob([c],{type:t});var a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=n;document.body.appendChild(a);a.click();document.body.removeChild(a)}
 
-<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
-xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">
-<Styles>
-
-<Style ss:ID="hdr"><Font ss:Bold="1" ss:Color="#FFFFFF" ss:Size="11"/><Interior ss:Color="#C89530" ss:Pattern="Solid"/><Alignment ss:Horizontal="Center"/><Borders><Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/></Borders></Style>
-
-<Style ss:ID="num"><NumberFormat ss:Format="0"/><Alignment ss:Horizontal="Right"/></Style>
-
-<Style ss:ID="def"><Alignment ss:Vertical="Top" ss:WrapText="1"/><Borders><Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#DDDDDD"/></Borders></Style>
-
-</Styles>
-<Worksheet ss:Name="Material Order">
-<Table>
-<Column ss:Width="50"/><Column ss:Width="100"/><Column ss:Width="400"/><Column ss:Width="60"/><Column ss:Width="50"/>
-<Row ss:StyleID="hdr"><Cell><Data ss:Type="String">SL No.</Data></Cell><Cell><Data ss:Type="String">Category</Data></Cell><Cell><Data ss:Type="String">Description</Data></Cell><Cell><Data ss:Type="String">Qty</Data></Cell><Cell><Data ss:Type="String">Unit</Data></Cell></Row>`;
-  rows.forEach(r=>{
-    x+=`<Row ss:StyleID="def"><Cell><Data ss:Type="Number">${r.sl}</Data></Cell><Cell><Data ss:Type="String">${r.cat}</Data></Cell><Cell><Data ss:Type="String">${r.d}</Data></Cell><Cell ss:StyleID="num"><Data ss:Type="Number">${r.q}</Data></Cell><Cell><Data ss:Type="String">${r.u}</Data></Cell></Row>`;
-  });
-  x+=`</Table></Worksheet></Workbook>`;
-  dl(x,'application/vnd.ms-excel','Material_Order.xls');
-}
-
-function dl(c,t,n){const a=document.createElement(‘a’);a.href=URL.createObjectURL(new Blob([c],{type:t}));a.download=n;a.click()}
-
-function zSt(){
-$(‘zs’).textContent=SY.length;
-$(‘ze’).textContent=SY.reduce((a,s)=>a+s.eq.length,0);
-$(‘zk’).textContent=SY.flatMap(s=>s.eq).reduce((a,e)=>a+(parseFloat(e.kw)||0),0).toFixed(1);
-}
+function zSt(){document.getElementById("zs").textContent=SY.length;document.getElementById("ze").textContent=SY.reduce(function(a,s){return a+s.eq.length},0);document.getElementById("zk").textContent=SY.reduce(function(a,s){return a+s.eq.reduce(function(b,e){return b+(parseFloat(e.kw)||0)},0)},0).toFixed(1)}
 zSt();
-</script></body></html>
+</script>
+</body>
+</html>
