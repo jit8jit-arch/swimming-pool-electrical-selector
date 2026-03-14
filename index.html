@@ -73,8 +73,7 @@ body{font-family:var(--f);background:var(--bg);color:var(--tx);line-height:1.5;f
 @media(max-width:480px){.fr{grid-template-columns:1fr!important}}
 @media print{.top,.foot,.nv,.b,.eqa,.sa,.addg,.modalbg{display:none!important}.sys.shut .sbd,.eq.shut .eqbd{display:grid!important}.sc{display:block!important}body{background:#fff;color:#000}.sys,.eq,.rb,.ri,.sg{background:#fff;border-color:#ddd}}
 
-select,input,button,textarea,label,.fs,.fi{pointer-events:auto!important;position:relative;z-index:5}
-.eqh select,.eqh input,.eqh button,.sh select,.sh input,.sh button{z-index:6}
+/* form elements clickable inside headers handled by event.stopPropagation in onclick */
 </style>
 </head>
 <body>
@@ -305,12 +304,7 @@ function dlF(c,t,n){var b=new Blob([c],{type:t});var a=document.createElement("a
 function openBlobFile(c,t){var b=new Blob([c],{type:t});var u=URL.createObjectURL(b);window.open(u,'_blank');setTimeout(function(){URL.revokeObjectURL(u)},15000)}
 function zSt(){document.getElementById("zs").textContent=SY.length;document.getElementById("ze").textContent=SY.reduce(function(a,s){return a+s.eq.length},0);document.getElementById("zk").textContent=SY.reduce(function(a,s){return a+s.eq.reduce(function(b,e){return b+(parseFloat(e.kw)||0)},0)},0).toFixed(1)}
 
-function bindSafeControls(){
-  document.addEventListener('click',function(e){if(e.target.closest('select,input,button,textarea,label')) e.stopPropagation();},true);
-  document.addEventListener('mousedown',function(e){if(e.target.closest('select,input,button,textarea,label')) e.stopPropagation();},true);
-  document.addEventListener('touchstart',function(e){if(e.target.closest('select,input,button,textarea,label')) e.stopPropagation();},{capture:true,passive:true});
-}
-bindSafeControls();
+/* Click handling: toggle prevention is done via event.stopPropagation() in inline onclick on buttons inside card headers */
 rInc();
 rRoutes();
 rVD();
