@@ -73,20 +73,45 @@ body{font-family:var(--f);background:var(--bg);color:var(--tx);line-height:1.5;f
 @media(max-width:480px){.fr{grid-template-columns:1fr!important}}
 @media print{.top,.foot,.nv,.b,.eqa,.sa,.addg,.modalbg{display:none!important}.sys.shut .sbd,.eq.shut .eqbd{display:grid!important}.sc{display:block!important}body{background:#fff;color:#000}.sys,.eq,.rb,.ri,.sg{background:#fff;border-color:#ddd}}
 
+/* Project Manager */
+.pm-wrap{max-width:900px;margin:0 auto;padding:20px 16px}
+.pm-card{background:var(--s2);border:1px solid var(--bd);border-radius:var(--r2);padding:14px;margin-bottom:10px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:.2s}
+.pm-card:hover{border-color:var(--gd);transform:translateY(-1px)}
+.pm-icon{width:44px;height:44px;background:var(--gbg);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.pm-info{flex:1;min-width:0}.pm-name{font-size:14px;font-weight:700}.pm-meta{font:400 10px var(--m);color:var(--tx2);margin-top:2px}
+.pm-acts{display:flex;gap:4px;flex-shrink:0}
+.pm-new{background:var(--s3);border:2px dashed var(--bd2);border-radius:var(--r2);padding:24px;text-align:center;cursor:pointer;transition:.2s}
+.pm-new:hover{border-color:var(--gd);background:var(--s2)}
+.pm-new .ai{font-size:28px;margin-bottom:4px}.pm-new .an{font-size:13px;font-weight:700;color:var(--gd)}
+.pm-bar{background:var(--s2);border:1px solid var(--bd);border-radius:var(--r2);padding:10px 14px;margin-bottom:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pm-bar-name{font-size:14px;font-weight:700;flex:1;min-width:100px}
+.pm-bar-saved{font:400 10px var(--m);color:var(--gn)}
+.pm-bar-unsaved{font:400 10px var(--m);color:var(--or)}
+#sec-pm{display:block}
+.workspace{display:none}
+.workspace.active{display:block}
 /* form elements clickable inside headers handled by event.stopPropagation in onclick */
 </style>
 </head>
 <body>
 <div class="top"><div class="top-b"><div class="top-i">W</div><div><h1>WIM CableSpec Pro</h1><div class="top-s">CABLE MATERIAL ORDER &#8226; DEWA/BS &#8226; UAE PF=0.9</div></div></div><div class="top-r"><button class="b bo bs" onclick="window.print()">&#128424;</button><button class="b bg bs" onclick="showPrev()">&#128228; Export</button></div></div>
-<div class="nv"><div class="nt on" data-t="sys">&#127959; Systems</div><div class="nt" data-t="inc">&#128268; Incomer</div><div class="nt" data-t="tray">&#128208; Tray</div><div class="nt" data-t="vdtab">&#9889; VD Schedule</div><div class="nt" data-t="sum">&#128203; Summary</div></div>
+<div id="sec-pm" class="pm-wrap">
+<div style="text-align:center;margin-bottom:20px"><div style="font-size:22px;font-weight:800;margin-bottom:4px">WIM CableSpec Pro</div><div style="font-size:12px;color:var(--tx2)">Select a project to continue or create a new one. All data saved in your browser.</div></div>
+<div class="pm-new" onclick="pmNew()"><div class="ai">&#10133;</div><div class="an">Create New Project</div></div>
+<div id="pm-list" style="margin-top:14px"></div>
+</div>
+<div class="workspace" id="workspace">
+<div class="nv"><div class="nt" data-t="proj" onclick="pmBack()" style="color:var(--or)">&#9664; Projects</div><div class="nt on" data-t="sys">&#127959; Systems</div><div class="nt" data-t="inc">&#128268; Incomer</div><div class="nt" data-t="tray">&#128208; Tray</div><div class="nt" data-t="vdtab">&#9889; VD Schedule</div><div class="nt" data-t="sum">&#128203; Summary</div></div>
 <div class="mn">
-<div class="sys" style="margin-bottom:12px"><div class="sbd"><div class="fr" style="grid-template-columns:1fr 180px"><div class="fg"><label class="fl">Project Name</label><input class="fi" id="prjName" placeholder="Enter project name" onchange="PRJ.name=this.value"></div><div class="fg"><label class="fl">Project Ref No</label><input class="fi" id="prjRef" placeholder="Enter reference no" onchange="PRJ.ref=this.value"></div></div></div></div>
+<div class="pm-bar"><div class="pm-bar-name" id="pmBarName">Project</div><div id="pmBarStatus" class="pm-bar-saved">Saved</div><div style="display:flex;gap:4px"><button class="b bo bs" onclick="pmSave()">&#128190; Save</button><button class="b bo bs" onclick="pmRename()">&#9998; Rename</button><button class="b bo bs" onclick="pmBack()">&#9664; Back</button></div></div>
+<div class="sys" style="margin-bottom:12px"><div class="sbd"><div class="fr" style="grid-template-columns:1fr 180px"><div class="fg"><label class="fl">Project Name</label><input class="fi" id="prjName" placeholder="Enter project name" onchange="PRJ.name=this.value;pmMarkDirty()"></div><div class="fg"><label class="fl">Project Ref No</label><input class="fi" id="prjRef" placeholder="Enter reference no" onchange="PRJ.ref=this.value;pmMarkDirty()"></div></div></div></div>
 <div class="sc on" id="sec-sys"><div style="font-size:14px;font-weight:700;margin-bottom:8px">Aquatic Systems &amp; Equipment</div><div class="addg" id="addgrid"></div><div id="scon"></div></div>
 <div class="sc" id="sec-inc"><div style="font-size:14px;font-weight:700;margin-bottom:8px">Main Incomer</div><div id="ibox"></div></div>
 <div class="sc" id="sec-tray"><div style="font-size:14px;font-weight:700;margin-bottom:8px">Cable Tray &amp; Trunking Routes</div><button class="b bg bs" onclick="addRoute()" style="margin-bottom:10px">+ Add Route</button><div id="rcon"></div></div>
 <div class="sc" id="sec-vdtab"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><div style="font-size:14px;font-weight:700">Voltage Drop Schedule</div><button class="b bg bs" onclick="xVDXLS()">&#128228; Export Excel</button></div><div id="vdcon"></div></div>
 <div class="sc" id="sec-sum"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><div style="font-size:14px;font-weight:700">Material Summary</div><div style="display:flex;gap:4px;flex-wrap:wrap"><button class="b bo bs" onclick="copyFiltered()">Copy Filtered</button><button class="b bo bs" onclick="exportFiltered()">Export Filtered</button><button class="b bg bs" onclick="showPrev()">&#128228; Export All</button></div></div><div class="tabb" id="stabs"></div><div style="margin-bottom:8px"><div style="font-size:10px;color:var(--tx2);margin-bottom:4px">Filter by category:</div><div id="catfilters" style="display:flex;gap:4px;flex-wrap:wrap"></div></div><div id="scon2"></div></div>
 </div>
+</div><!-- /workspace -->
 <div class="foot"><div class="fst"><div>Sys:<b id="zs">0</b></div><div>Eq:<b id="ze">0</b></div><div>kW:<b id="zk">0</b></div></div><button class="b bg bs" onclick="swT('sum');bSum()">Summary</button></div>
 <div class="modalbg" id="mdl" style="display:none" onclick="if(event.target===this)this.style.display='none'"><div class="modal"><div class="mh"><h2>Export Preview</h2><div style="display:flex;gap:6px;flex-wrap:wrap"><button class="b bg bs" onclick="copyPreviewTable()">Copy Table</button><button class="b bg bs" onclick="xCSV()">CSV</button><button class="b bg bs" onclick="xXLS()">Excel</button><button class="b bg bs" onclick="openXLS()">Open Excel</button><button class="b bo bs" onclick="document.getElementById('mdl').style.display='none'">Close</button></div></div><div class="mbd" id="mbody"></div></div></div>
 <script>
@@ -139,8 +164,8 @@ var _si=0,_ei=0,_ri=0;
 
 function initAG(){var types=[["pool","&#127946;","Swimming Pool"],["wf","&#9970;","Water Feature"],["jac","&#128705;","Jacuzzi"],["ss","&#128186;","Sunken Seating"],["sp","&#128166;","Splash Pad"],["cust","&#9881;","Custom"]];var h="";for(var i=0;i<types.length;i++)h+='<div class="addc" onclick="addS(\''+types[i][0]+'\')"><div class="ai">'+types[i][1]+'</div><div class="an">'+types[i][2]+'</div></div>';document.getElementById("addgrid").innerHTML=h}
 initAG();
-var tabs=document.querySelectorAll(".nt");for(var i=0;i<tabs.length;i++)tabs[i].addEventListener("click",(function(t){return function(){swT(t.dataset.t)}})(tabs[i]));
-function swT(n){var ts=document.querySelectorAll(".nt");for(var i=0;i<ts.length;i++)ts[i].classList.toggle("on",ts[i].dataset.t===n);var ss=document.querySelectorAll(".sc");for(var i=0;i<ss.length;i++)ss[i].classList.toggle("on",ss[i].id==="sec-"+n);if(n==="sum")bSum();if(n==="inc")rInc();if(n==="tray")rRoutes();if(n==="vdtab")rVD()}
+var tabs=document.querySelectorAll(".workspace .nt[data-t]");for(var i=0;i<tabs.length;i++){if(tabs[i].dataset.t==="proj")continue;tabs[i].addEventListener("click",(function(t){return function(){swT(t.dataset.t)}})(tabs[i]))}
+function swT(n){var ts=document.querySelectorAll(".workspace .nt");for(var i=0;i<ts.length;i++){if(ts[i].dataset.t==="proj")continue;ts[i].classList.toggle("on",ts[i].dataset.t===n)}var ss=document.querySelectorAll(".sc");for(var i=0;i<ss.length;i++)ss[i].classList.toggle("on",ss[i].id==="sec-"+n);if(n==="sum")bSum();if(n==="inc")rInc();if(n==="tray")rRoutes();if(n==="vdtab")rVD()}
 
 function addS(type){_si++;var d=SD[type]||SD.cust;SY.push({id:_si,type:type,name:d.nm,icon:d.icon,cls:d.cls,eq:[],cn:""});rSys()}
 function rmS(id){SY=SY.filter(function(s){return s.id!==id});rSys()}
@@ -222,10 +247,10 @@ for(var i=0;i<SY.length;i++)for(var j=0;j<SY[i].eq.length;j++){var e=SY[i].eq[j]
 var h="";for(var i=0;i<ROUTES.length;i++){var r=ROUTES[i];var cables=[];for(var j=0;j<r.eqIds.length;j++){var p=r.eqIds[j].split("_");var eq=allEq.find(function(x){return x.sid==p[0]&&x.eid==p[1]});if(eq&&eq.os){var sz=parseFloat(eq.os),od=gOD(eq.ct,eq.co,sz),esz2=(eq.esz&&parseFloat(eq.esz))?parseFloat(eq.esz):eCalc(sz),eod=SOD[esz2]||5,ru=parseInt(eq.ru)||1;cables.push({sz:sz,od:od,esz:esz2,eod:eod,ru:ru,co:eq.co})}}
 var result="",supports="";
 if(cables.length&&r.dist){var numSup=Math.ceil(r.dist/1.5);
-if(r.type==="tray"){var cabs=[];for(var j=0;j<cables.length;j++){cabs.push({od:cables[j].od,cnt:cables[j].ru});cabs.push({od:cables[j].eod,cnt:cables[j].ru})}var t=calcTray(cabs);var chW=t.w+40;var totalRodCuts=numSup*2;var totalRodLen=totalRodCuts*1;var rodStock=Math.ceil(totalRodLen/3);var chCutLen=chW;var chTotalLen=(numSup*chCutLen)/1000;var chStock=Math.ceil(chTotalLen/3);
+if(r.type==="tray"){var cabs=[];for(var j=0;j<cables.length;j++){cabs.push({od:cables[j].od,cnt:cables[j].ru});cabs.push({od:cables[j].eod,cnt:cables[j].ru})}var t=calcTray(cabs);var chW=t.w+60;var totalRods=numSup*2;var totalRodM=totalRods*1;var rodStock=Math.ceil(totalRodM/3);var chTotalM=(numSup*chW)/1000;var chStock=Math.ceil(chTotalM/3);
 result='<div class="trb"><strong>Cable Tray:</strong> '+t.model+' ('+t.w+'mm W x 50mm H) — SFSP HCT Perforated HDG<br>Length: '+r.dist+'m (+10% = '+Math.ceil(r.dist*1.1)+'m)</div>';
-supports='<div class="trb" style="margin-top:4px"><strong>Tray Supports @ 1.5m c/c = '+numSup+' support sets:</strong><br>10mm Threaded Rod (1m cut x 2/set, stock 3m): <strong>'+rodStock+'</strong> length(s) <span style="color:var(--tx2)">('+totalRodCuts+' cuts x 1m = '+totalRodLen+'m total)</span><br>10mm Hex Nut (2/rod): <strong>'+(totalRodCuts*2)+'</strong> nos | 10mm Washer (2/rod): <strong>'+(totalRodCuts*2)+'</strong> nos<br>10mm Spring Nut (1/rod): <strong>'+totalRodCuts+'</strong> nos | 10mm Unifix (1/rod): <strong>'+totalRodCuts+'</strong> nos<br>C-Channel Slotted '+chW+'mm (tray '+t.w+'mm +20mm/side): <strong>'+numSup+'</strong> cuts / stock 3m: <strong>'+chStock+'</strong> length(s)</div>';
-r._tray={model:t.model,w:t.w,dist:r.dist,numSup:numSup,rodStock:rodStock,totalRodCuts:totalRodCuts,chW:chW,chStock:chStock}}
+supports='<div class="trb" style="margin-top:4px"><strong>Tray Supports @ 1.5m c/c = '+numSup+' supports:</strong><br>10mm Threaded Rod (2 x 1m per support, 3m stock): <strong>'+rodStock+'</strong> nos <span style="color:var(--tx2)">('+totalRods+' x 1m = '+totalRodM+'m / 3m = '+rodStock+')</span><br>10mm Hex Nut (2/rod): <strong>'+(totalRods*2)+'</strong> nos | 10mm Washer (2/rod): <strong>'+(totalRods*2)+'</strong> nos<br>10mm Spring Nut (1/rod): <strong>'+totalRods+'</strong> nos | 10mm Unifix (1/rod): <strong>'+totalRods+'</strong> nos<br>C-Channel Slotted '+chW+'mm (tray '+t.w+'mm + 60mm), 3m stock: <strong>'+chStock+'</strong> nos <span style="color:var(--tx2)">('+numSup+' x '+chW+'mm = '+chTotalM.toFixed(2)+'m / 3m = '+chStock+')</span></div>';
+r._tray={model:t.model,w:t.w,dist:r.dist,numSup:numSup,rodStock:rodStock,totalRods:totalRods,chW:chW,chStock:chStock}}
 else{var cabs=[];for(var j=0;j<cables.length;j++){var cn=parseInt(cables[j].co)||1;cabs.push({sz:cables[j].sz,cnt:cn*cables[j].ru});cabs.push({sz:cables[j].esz,cnt:cables[j].ru})}var t=calcTrunk(cabs);result='<div class="trb"><strong>Trunking:</strong> '+t.s+'mm SFSP SCT BS EN 50085 | Factor:'+t.used.toFixed(0)+'/'+t.cap+'<br>Length: '+r.dist+'m (+10% = '+Math.ceil(r.dist*1.1)+'m)</div>';
 r._trunk={s:t.s,dist:r.dist}}}
 h+='<div class="route"><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px"><strong style="color:var(--cy)">Route '+(i+1)+'</strong>';
@@ -295,14 +320,14 @@ if(rCabs.length){
 var numSup2=Math.ceil(r.dist/1.5);var trayLen=Math.ceil(r.dist*1.1);
 if(r.type==="tray"){
 var tc=[];for(var j2=0;j2<rCabs.length;j2++){tc.push({od:rCabs[j2].od,cnt:rCabs[j2].ru});tc.push({od:rCabs[j2].eod,cnt:rCabs[j2].ru})}
-var tt=calcTray(tc);var chW2=tt.w+40;var totalRodCuts2=numSup2*2;var rodStock2=Math.ceil((totalRodCuts2*1)/3);var chStock2=Math.ceil((numSup2*chW2/1000)/3);
+var tt=calcTray(tc);var chW2=tt.w+60;var totalRods2=numSup2*2;var totalRodM2=totalRods2*1;var rodStock2=Math.ceil(totalRodM2/3);var chTotalM2=(numSup2*chW2)/1000;var chStock2=Math.ceil(chTotalM2/3);
 R.push({sys:"TRAY: "+r.nm,cat:"Cable Tray",d:tt.model+" Perforated HDG BS EN 61537 ("+tt.w+"mm W)",q:trayLen,u:"mtr",k:"tray_"+tt.w+"_"+ri,o:7});
-R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"10mm Full Threaded Rod 3m Stock",q:rodStock2,u:"length",k:"rod3m_"+ri,o:7});
-R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"10mm Hex Nut",q:totalRodCuts2*2,u:"nos",k:"hexnut_"+ri,o:7});
-R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"10mm Washer",q:totalRodCuts2*2,u:"nos",k:"washer_"+ri,o:7});
-R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"10mm Spring Nut",q:totalRodCuts2,u:"nos",k:"springnut_"+ri,o:7});
-R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"10mm Unifix",q:totalRodCuts2,u:"nos",k:"unifix_"+ri,o:7});
-R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"C-Channel Slotted "+chW2+"mm, 3m Stock",q:chStock2,u:"length",k:"cchan_"+chW2+"_"+ri,o:7});
+R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"10mm Full Threaded Rod 3m Stock",q:rodStock2,u:"nos",k:"rod3m_"+ri,o:7});
+R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"10mm Hex Nut",q:totalRods2*2,u:"nos",k:"hexnut_"+ri,o:7});
+R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"10mm Washer",q:totalRods2*2,u:"nos",k:"washer_"+ri,o:7});
+R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"10mm Spring Nut",q:totalRods2,u:"nos",k:"springnut_"+ri,o:7});
+R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"10mm Unifix",q:totalRods2,u:"nos",k:"unifix_"+ri,o:7});
+R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"C-Channel Slotted "+chW2+"mm (tray "+tt.w+"mm + 60mm), 3m Stock",q:chStock2,u:"nos",k:"cchan_"+chW2+"_"+ri,o:7});
 }else{
 var tkc=[];for(var j2=0;j2<rCabs.length;j2++){var cn3=parseInt(rCabs[j2].co)||1;tkc.push({sz:rCabs[j2].sz,cnt:cn3*rCabs[j2].ru});tkc.push({sz:rCabs[j2].esz,cnt:rCabs[j2].ru})}
 var tk2=calcTrunk(tkc);
@@ -343,12 +368,161 @@ function openBlobFile(c,t){var b=new Blob([c],{type:t});var u=URL.createObjectUR
 function zSt(){document.getElementById("zs").textContent=SY.length;document.getElementById("ze").textContent=SY.reduce(function(a,s){return a+s.eq.length},0);document.getElementById("zk").textContent=SY.reduce(function(a,s){return a+s.eq.reduce(function(b,e){return b+(parseFloat(e.kw)||0)},0)},0).toFixed(1)}
 
 /* Click handling: toggle prevention is done via event.stopPropagation() in inline onclick on buttons inside card headers */
-rInc();
-rRoutes();
-rVD();
-bSum();
 
-zSt();
+// ===== PROJECT MANAGER =====
+var PM_KEY="wim_cablespec_projects";
+var _currentProjId=null;
+var _dirty=false;
+
+function pmGetAll(){try{return JSON.parse(localStorage.getItem(PM_KEY))||[]}catch(e){return[]}}
+function pmSaveAll(list){try{localStorage.setItem(PM_KEY,JSON.stringify(list))}catch(e){alert("Storage full or unavailable.")}}
+
+function pmGetState(){return{PRJ:PRJ,SY:SY,ROUTES:ROUTES,INC:INC,_si:_si,_ei:_ei,_ri:_ri}}
+function pmSetState(st){
+  PRJ=st.PRJ||{name:"",ref:""};
+  SY=st.SY||[];ROUTES=st.ROUTES||[];
+  INC=st.INC||{ct:"armoured",co:"4C",sz:"",di:30,ru:1,iso:true,isoModel:"",kw:"",ph:"400",src:"smdb",cBrand:"OMAN CABLES",cBrandO:"",gBrand:"RUPAM",gBrandO:"",iBrand:"ABB",iBrandO:""};
+  _si=st._si||0;_ei=st._ei||0;_ri=st._ri||0;
+  // Update UI fields
+  var pn=document.getElementById("prjName");if(pn)pn.value=PRJ.name||"";
+  var pr=document.getElementById("prjRef");if(pr)pr.value=PRJ.ref||"";
+}
+
+function pmRenderList(){
+  var list=pmGetAll();
+  var h="";
+  if(!list.length){h='<div style="text-align:center;padding:20px;color:var(--tx3)">No saved projects yet.</div>'}
+  for(var i=0;i<list.length;i++){
+    var p=list[i];
+    var dt=p.updated?new Date(p.updated).toLocaleDateString()+" "+new Date(p.updated).toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"}):"";
+    var eqCount=0;if(p.data&&p.data.SY)for(var j=0;j<p.data.SY.length;j++)eqCount+=p.data.SY[j].eq?p.data.SY[j].eq.length:0;
+    var sysCount=p.data&&p.data.SY?p.data.SY.length:0;
+    h+='<div class="pm-card" onclick="pmOpen(\''+p.id+'\')">';
+    h+='<div class="pm-icon">&#128196;</div>';
+    h+='<div class="pm-info"><div class="pm-name">'+(p.name||"Untitled Project")+'</div>';
+    h+='<div class="pm-meta">'+(p.data&&p.data.PRJ&&p.data.PRJ.ref?'Ref: '+p.data.PRJ.ref+' | ':'')+'Systems: '+sysCount+' | Equip: '+eqCount+' | '+dt+'</div></div>';
+    h+='<div class="pm-acts">';
+    h+='<button class="b bo bs" onclick="event.stopPropagation();pmDuplicate(\''+p.id+'\')">&#128203;</button>';
+    h+='<button class="b br bs" onclick="event.stopPropagation();pmDelete(\''+p.id+'\')">x</button>';
+    h+='</div></div>';
+  }
+  document.getElementById("pm-list").innerHTML=h;
+}
+
+function pmNew(){
+  var name=prompt("Project Name:","New Project");
+  if(!name)return;
+  var id="proj_"+Date.now()+"_"+Math.floor(Math.random()*10000);
+  var list=pmGetAll();
+  // Reset state
+  PRJ={name:name,ref:""};SY=[];ROUTES=[];
+  INC={ct:"armoured",co:"4C",sz:"",di:30,ru:1,iso:true,isoModel:"",kw:"",ph:"400",src:"smdb",cBrand:"OMAN CABLES",cBrandO:"",gBrand:"RUPAM",gBrandO:"",iBrand:"ABB",iBrandO:""};
+  _si=0;_ei=0;_ri=0;
+  list.push({id:id,name:name,created:Date.now(),updated:Date.now(),data:pmGetState()});
+  pmSaveAll(list);
+  _currentProjId=id;_dirty=false;
+  pmOpenWorkspace();
+}
+
+function pmOpen(id){
+  var list=pmGetAll();
+  var proj=null;for(var i=0;i<list.length;i++)if(list[i].id===id){proj=list[i];break}
+  if(!proj){alert("Project not found.");return}
+  _currentProjId=id;_dirty=false;
+  pmSetState(proj.data||{});
+  pmOpenWorkspace();
+}
+
+function pmSave(){
+  if(!_currentProjId)return;
+  var list=pmGetAll();
+  for(var i=0;i<list.length;i++){
+    if(list[i].id===_currentProjId){
+      list[i].data=pmGetState();
+      list[i].name=PRJ.name||list[i].name||"Untitled";
+      list[i].updated=Date.now();
+      break;
+    }
+  }
+  pmSaveAll(list);_dirty=false;
+  pmUpdateBar();
+}
+
+function pmAutoSave(){if(_currentProjId){_dirty=true;pmUpdateBar();clearTimeout(window._pmTimer);window._pmTimer=setTimeout(pmSave,2000)}}
+
+function pmMarkDirty(){_dirty=true;pmUpdateBar();pmAutoSave()}
+
+function pmDelete(id){
+  if(!confirm("Delete this project permanently?"))return;
+  var list=pmGetAll().filter(function(p){return p.id!==id});
+  pmSaveAll(list);
+  if(_currentProjId===id){_currentProjId=null;pmShowManager()}
+  pmRenderList();
+}
+
+function pmDuplicate(id){
+  var list=pmGetAll();
+  var src=null;for(var i=0;i<list.length;i++)if(list[i].id===id){src=list[i];break}
+  if(!src)return;
+  var newId="proj_"+Date.now()+"_"+Math.floor(Math.random()*10000);
+  var copy=JSON.parse(JSON.stringify(src));
+  copy.id=newId;copy.name=(src.name||"Project")+" (copy)";copy.created=Date.now();copy.updated=Date.now();
+  if(copy.data&&copy.data.PRJ)copy.data.PRJ.name=copy.name;
+  list.push(copy);pmSaveAll(list);pmRenderList();
+}
+
+function pmRename(){
+  var name=prompt("Rename project:",PRJ.name||"");
+  if(!name)return;
+  PRJ.name=name;
+  var pn=document.getElementById("prjName");if(pn)pn.value=name;
+  pmSave();pmUpdateBar();
+}
+
+function pmBack(){
+  if(_dirty)pmSave();
+  _currentProjId=null;
+  pmShowManager();
+}
+
+function pmShowManager(){
+  document.getElementById("sec-pm").style.display="block";
+  document.getElementById("workspace").classList.remove("active");
+  document.querySelector(".foot").style.display="none";
+  pmRenderList();
+}
+
+function pmOpenWorkspace(){
+  document.getElementById("sec-pm").style.display="none";
+  document.getElementById("workspace").classList.add("active");
+  document.querySelector(".foot").style.display="flex";
+  var pn=document.getElementById("prjName");if(pn)pn.value=PRJ.name||"";
+  var pr=document.getElementById("prjRef");if(pr)pr.value=PRJ.ref||"";
+  pmUpdateBar();
+  rSys();rInc();rRoutes();rVD();bSum();zSt();
+  swT("sys");
+}
+
+function pmUpdateBar(){
+  var bn=document.getElementById("pmBarName");if(bn)bn.textContent=PRJ.name||"Untitled Project";
+  var bs=document.getElementById("pmBarStatus");
+  if(bs){if(_dirty){bs.textContent="Unsaved changes...";bs.className="pm-bar-unsaved"}else{bs.textContent="Saved";bs.className="pm-bar-saved"}}
+}
+
+// Hook auto-save into all state-changing functions
+var _origRSys=rSys;rSys=function(){_origRSys();pmAutoSave()};
+var _origRInc=rInc;rInc=function(){_origRInc();pmAutoSave()};
+var _origRRoutes=rRoutes;rRoutes=function(){_origRRoutes();pmAutoSave()};
+var _oAddE=addE;addE=function(sid){_oAddE(sid);pmAutoSave()};
+var _oRmE=rmE;rmE=function(si,ei){_oRmE(si,ei);pmAutoSave()};
+var _oAddS=addS;addS=function(t){_oAddS(t);pmAutoSave()};
+var _oRmS=rmS;rmS=function(id){_oRmS(id);pmAutoSave()};
+var _oAddRoute=addRoute;addRoute=function(){_oAddRoute();pmAutoSave()};
+var _oRmRoute=rmRoute;rmRoute=function(id){_oRmRoute(id);pmAutoSave()};
+
+// Init: show project manager
+pmShowManager();
+
 </script>
 </body>
 </html>
