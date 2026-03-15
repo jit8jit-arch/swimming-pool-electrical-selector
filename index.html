@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>WIM CableSpec Pro v5</title>
+<title>ElecMat Pro — Electrical Material Ordering</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -94,16 +94,18 @@ body{font-family:var(--f);background:var(--bg);color:var(--tx);line-height:1.5;f
 </style>
 </head>
 <body>
-<div class="top"><div class="top-b"><div class="top-i">W</div><div><h1>WIM CableSpec Pro</h1><div class="top-s">CABLE MATERIAL ORDER &#8226; DEWA/BS &#8226; UAE PF=0.9</div></div></div><div class="top-r"><button class="b bo bs" onclick="window.print()">&#128424;</button><button class="b bg bs" onclick="showPrev()">&#128228; Export</button></div></div>
+<div class="top"><div class="top-b"><div class="top-i">E</div><div><h1>ElecMat Pro</h1><div class="top-s">ELECTRICAL MATERIAL ORDERING &#8226; DEWA/BS &#8226; UAE PF=0.9</div></div></div><div class="top-r"><button class="b bo bs" onclick="window.print()">&#128424;</button><button class="b bg bs" onclick="showPrev()">&#128228; Export</button></div></div>
 <div id="sec-pm" class="pm-wrap">
-<div style="text-align:center;margin-bottom:20px"><div style="font-size:22px;font-weight:800;margin-bottom:4px">WIM CableSpec Pro</div><div style="font-size:12px;color:var(--tx2)">Select a project to continue or create a new one. All data saved in your browser.</div></div>
+<div style="text-align:center;margin-bottom:20px"><div style="font-size:22px;font-weight:800;margin-bottom:4px">ElecMat Pro</div><div style="font-size:12px;color:var(--tx2)">Electrical Material Ordering — DEWA/BS Standard, UAE</div><div style="font-size:11px;color:var(--tx3);margin-top:4px">Select a project or create a new one. Projects auto-saved to browser + export as file backup.</div></div>
 <div class="pm-new" onclick="pmNew()"><div class="ai">&#10133;</div><div class="an">Create New Project</div></div>
+<div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;justify-content:center"><button class="b bo bs" onclick="pmImportFile()">&#128194; Import Project (JSON)</button><button class="b bo bs" onclick="pmExportAll()">&#128229; Export All Projects</button></div>
+<div id="pm-storage-status" style="text-align:center;margin-top:8px;font:400 10px var(--m)"></div>
 <div id="pm-list" style="margin-top:14px"></div>
 </div>
 <div class="workspace" id="workspace">
 <div class="nv"><div class="nt" data-t="proj" onclick="pmBack()" style="color:var(--or)">&#9664; Projects</div><div class="nt on" data-t="sys">&#127959; Systems</div><div class="nt" data-t="inc">&#128268; Incomer</div><div class="nt" data-t="tray">&#128208; Tray</div><div class="nt" data-t="vdtab">&#9889; VD Schedule</div><div class="nt" data-t="sum">&#128203; Summary</div></div>
 <div class="mn">
-<div class="pm-bar"><div class="pm-bar-name" id="pmBarName">Project</div><div id="pmBarStatus" class="pm-bar-saved">Saved</div><div style="display:flex;gap:4px"><button class="b bo bs" onclick="pmSave()">&#128190; Save</button><button class="b bo bs" onclick="pmRename()">&#9998; Rename</button><button class="b bo bs" onclick="pmBack()">&#9664; Back</button></div></div>
+<div class="pm-bar"><div class="pm-bar-name" id="pmBarName">Project</div><div id="pmBarStatus" class="pm-bar-saved">Saved</div><div style="display:flex;gap:4px"><button class="b bo bs" onclick="pmSave()">&#128190; Save</button><button class="b bo bs" onclick="pmExportCurrent()">&#128229; Export</button><button class="b bo bs" onclick="pmRename()">&#9998; Rename</button><button class="b bo bs" onclick="pmBack()">&#9664; Back</button></div></div>
 <div class="sys" style="margin-bottom:12px"><div class="sbd"><div class="fr" style="grid-template-columns:1fr 180px"><div class="fg"><label class="fl">Project Name</label><input class="fi" id="prjName" placeholder="Enter project name" onchange="PRJ.name=this.value;pmMarkDirty()"></div><div class="fg"><label class="fl">Project Ref No</label><input class="fi" id="prjRef" placeholder="Enter reference no" onchange="PRJ.ref=this.value;pmMarkDirty()"></div></div></div></div>
 <div class="sc on" id="sec-sys"><div style="font-size:14px;font-weight:700;margin-bottom:8px">Aquatic Systems &amp; Equipment</div><div class="addg" id="addgrid"></div><div id="scon"></div></div>
 <div class="sc" id="sec-inc"><div style="font-size:14px;font-weight:700;margin-bottom:8px">Main Incomer</div><div id="ibox"></div></div>
@@ -370,40 +372,68 @@ function zSt(){document.getElementById("zs").textContent=SY.length;document.getE
 /* Click handling: toggle prevention is done via event.stopPropagation() in inline onclick on buttons inside card headers */
 
 // ===== PROJECT MANAGER =====
-var PM_KEY="wim_cablespec_projects";
+var PM_KEY="elecmat_pro_projects";
 var _currentProjId=null;
 var _dirty=false;
+var _storageOK=false;
 
-function pmGetAll(){try{return JSON.parse(localStorage.getItem(PM_KEY))||[]}catch(e){return[]}}
-function pmSaveAll(list){try{localStorage.setItem(PM_KEY,JSON.stringify(list))}catch(e){alert("Storage full or unavailable.")}}
+// Test localStorage on load
+function pmTestStorage(){
+  try{localStorage.setItem("_pm_test_","1");var v=localStorage.getItem("_pm_test_");localStorage.removeItem("_pm_test_");_storageOK=(v==="1");return _storageOK}catch(e){_storageOK=false;return false}
+}
 
-function pmGetState(){return{PRJ:PRJ,SY:SY,ROUTES:ROUTES,INC:INC,_si:_si,_ei:_ei,_ri:_ri}}
+function pmGetAll(){
+  if(!_storageOK)return[];
+  try{var raw=localStorage.getItem(PM_KEY);if(!raw)return[];var parsed=JSON.parse(raw);return Array.isArray(parsed)?parsed:[]}catch(e){return[]}
+}
+
+function pmSaveAll(list){
+  if(!_storageOK){alert("Browser storage not available. Use Export to save your project as a file.");return false}
+  try{
+    var json=JSON.stringify(list);
+    localStorage.setItem(PM_KEY,json);
+    // Verify write
+    var check=localStorage.getItem(PM_KEY);
+    if(!check||check.length<10){alert("Save verification failed. Use Export to backup.");return false}
+    return true;
+  }catch(e){alert("Save failed: "+e.message+". Storage may be full. Use Export to backup.");return false}
+}
+
+function pmDeepCopy(obj){return JSON.parse(JSON.stringify(obj))}
+
+function pmGetState(){return pmDeepCopy({PRJ:PRJ,SY:SY,ROUTES:ROUTES,INC:INC,_si:_si,_ei:_ei,_ri:_ri})}
+
 function pmSetState(st){
-  PRJ=st.PRJ||{name:"",ref:""};
-  SY=st.SY||[];ROUTES=st.ROUTES||[];
-  INC=st.INC||{ct:"armoured",co:"4C",sz:"",di:30,ru:1,iso:true,isoModel:"",kw:"",ph:"400",src:"smdb",cBrand:"OMAN CABLES",cBrandO:"",gBrand:"RUPAM",gBrandO:"",iBrand:"ABB",iBrandO:""};
+  if(!st)st={};
+  PRJ=st.PRJ?pmDeepCopy(st.PRJ):{name:"",ref:""};
+  SY=st.SY?pmDeepCopy(st.SY):[];
+  ROUTES=st.ROUTES?pmDeepCopy(st.ROUTES):[];
+  INC=st.INC?pmDeepCopy(st.INC):{ct:"armoured",co:"4C",sz:"",di:30,ru:1,iso:true,isoModel:"",kw:"",ph:"400",src:"smdb",cBrand:"OMAN CABLES",cBrandO:"",gBrand:"RUPAM",gBrandO:"",iBrand:"ABB",iBrandO:""};
   _si=st._si||0;_ei=st._ei||0;_ri=st._ri||0;
-  // Update UI fields
   var pn=document.getElementById("prjName");if(pn)pn.value=PRJ.name||"";
   var pr=document.getElementById("prjRef");if(pr)pr.value=PRJ.ref||"";
 }
 
 function pmRenderList(){
   var list=pmGetAll();
+  // Storage status
+  var ss=document.getElementById("pm-storage-status");
+  if(ss){if(_storageOK){ss.innerHTML='<span style="color:var(--gn)">&#10003; Browser storage active — '+list.length+' project(s) saved</span>'}else{ss.innerHTML='<span style="color:var(--rd)">&#10007; Browser storage unavailable — Use Export/Import JSON files to save projects</span>'}}
   var h="";
-  if(!list.length){h='<div style="text-align:center;padding:20px;color:var(--tx3)">No saved projects yet.</div>'}
+  if(!list.length){h='<div style="text-align:center;padding:20px;color:var(--tx3)">No saved projects. Create one or Import a JSON file.</div>'}
   for(var i=0;i<list.length;i++){
     var p=list[i];
-    var dt=p.updated?new Date(p.updated).toLocaleDateString()+" "+new Date(p.updated).toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"}):"";
+    var dt=p.updated?new Date(p.updated).toLocaleDateString()+" "+new Date(p.updated).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"}):"";
     var eqCount=0;if(p.data&&p.data.SY)for(var j=0;j<p.data.SY.length;j++)eqCount+=p.data.SY[j].eq?p.data.SY[j].eq.length:0;
     var sysCount=p.data&&p.data.SY?p.data.SY.length:0;
     h+='<div class="pm-card" onclick="pmOpen(\''+p.id+'\')">';
     h+='<div class="pm-icon">&#128196;</div>';
     h+='<div class="pm-info"><div class="pm-name">'+(p.name||"Untitled Project")+'</div>';
-    h+='<div class="pm-meta">'+(p.data&&p.data.PRJ&&p.data.PRJ.ref?'Ref: '+p.data.PRJ.ref+' | ':'')+'Systems: '+sysCount+' | Equip: '+eqCount+' | '+dt+'</div></div>';
+    h+='<div class="pm-meta">'+(p.data&&p.data.PRJ&&p.data.PRJ.ref?'Ref: '+p.data.PRJ.ref+' | ':'')+'Sys: '+sysCount+' | Eq: '+eqCount+' | '+dt+'</div></div>';
     h+='<div class="pm-acts">';
-    h+='<button class="b bo bs" onclick="event.stopPropagation();pmDuplicate(\''+p.id+'\')">&#128203;</button>';
-    h+='<button class="b br bs" onclick="event.stopPropagation();pmDelete(\''+p.id+'\')">x</button>';
+    h+='<button class="b bo bs" onclick="event.stopPropagation();pmExportOne(\''+p.id+'\')" title="Export">&#128229;</button>';
+    h+='<button class="b bo bs" onclick="event.stopPropagation();pmDuplicate(\''+p.id+'\')" title="Duplicate">&#128203;</button>';
+    h+='<button class="b br bs" onclick="event.stopPropagation();pmDelete(\''+p.id+'\')" title="Delete">x</button>';
     h+='</div></div>';
   }
   document.getElementById("pm-list").innerHTML=h;
@@ -413,14 +443,14 @@ function pmNew(){
   var name=prompt("Project Name:","New Project");
   if(!name)return;
   var id="proj_"+Date.now()+"_"+Math.floor(Math.random()*10000);
-  var list=pmGetAll();
-  // Reset state
   PRJ={name:name,ref:""};SY=[];ROUTES=[];
   INC={ct:"armoured",co:"4C",sz:"",di:30,ru:1,iso:true,isoModel:"",kw:"",ph:"400",src:"smdb",cBrand:"OMAN CABLES",cBrandO:"",gBrand:"RUPAM",gBrandO:"",iBrand:"ABB",iBrandO:""};
   _si=0;_ei=0;_ri=0;
+  _currentProjId=id;_dirty=false;
+  // Save immediately
+  var list=pmGetAll();
   list.push({id:id,name:name,created:Date.now(),updated:Date.now(),data:pmGetState()});
   pmSaveAll(list);
-  _currentProjId=id;_dirty=false;
   pmOpenWorkspace();
 }
 
@@ -429,27 +459,29 @@ function pmOpen(id){
   var proj=null;for(var i=0;i<list.length;i++)if(list[i].id===id){proj=list[i];break}
   if(!proj){alert("Project not found.");return}
   _currentProjId=id;_dirty=false;
-  pmSetState(proj.data||{});
+  pmSetState(proj.data);
   pmOpenWorkspace();
 }
 
 function pmSave(){
   if(!_currentProjId)return;
   var list=pmGetAll();
+  var found=false;
   for(var i=0;i<list.length;i++){
     if(list[i].id===_currentProjId){
       list[i].data=pmGetState();
       list[i].name=PRJ.name||list[i].name||"Untitled";
       list[i].updated=Date.now();
-      break;
+      found=true;break;
     }
   }
-  pmSaveAll(list);_dirty=false;
-  pmUpdateBar();
+  if(!found){
+    list.push({id:_currentProjId,name:PRJ.name||"Untitled",created:Date.now(),updated:Date.now(),data:pmGetState()});
+  }
+  if(pmSaveAll(list)){_dirty=false;pmUpdateBar()}
 }
 
-function pmAutoSave(){if(_currentProjId){_dirty=true;pmUpdateBar();clearTimeout(window._pmTimer);window._pmTimer=setTimeout(pmSave,2000)}}
-
+function pmAutoSave(){if(_currentProjId){_dirty=true;pmUpdateBar();clearTimeout(window._pmTimer);window._pmTimer=setTimeout(pmSave,1500)}}
 function pmMarkDirty(){_dirty=true;pmUpdateBar();pmAutoSave()}
 
 function pmDelete(id){
@@ -464,9 +496,9 @@ function pmDuplicate(id){
   var list=pmGetAll();
   var src=null;for(var i=0;i<list.length;i++)if(list[i].id===id){src=list[i];break}
   if(!src)return;
-  var newId="proj_"+Date.now()+"_"+Math.floor(Math.random()*10000);
-  var copy=JSON.parse(JSON.stringify(src));
-  copy.id=newId;copy.name=(src.name||"Project")+" (copy)";copy.created=Date.now();copy.updated=Date.now();
+  var copy=pmDeepCopy(src);
+  copy.id="proj_"+Date.now()+"_"+Math.floor(Math.random()*10000);
+  copy.name=(src.name||"Project")+" (copy)";copy.created=Date.now();copy.updated=Date.now();
   if(copy.data&&copy.data.PRJ)copy.data.PRJ.name=copy.name;
   list.push(copy);pmSaveAll(list);pmRenderList();
 }
@@ -481,8 +513,7 @@ function pmRename(){
 
 function pmBack(){
   if(_dirty)pmSave();
-  _currentProjId=null;
-  pmShowManager();
+  _currentProjId=null;pmShowManager();
 }
 
 function pmShowManager(){
@@ -499,17 +530,69 @@ function pmOpenWorkspace(){
   var pn=document.getElementById("prjName");if(pn)pn.value=PRJ.name||"";
   var pr=document.getElementById("prjRef");if(pr)pr.value=PRJ.ref||"";
   pmUpdateBar();
-  rSys();rInc();rRoutes();rVD();bSum();zSt();
-  swT("sys");
+  rSys();rInc();rRoutes();rVD();bSum();zSt();swT("sys");
 }
 
 function pmUpdateBar(){
   var bn=document.getElementById("pmBarName");if(bn)bn.textContent=PRJ.name||"Untitled Project";
   var bs=document.getElementById("pmBarStatus");
-  if(bs){if(_dirty){bs.textContent="Unsaved changes...";bs.className="pm-bar-unsaved"}else{bs.textContent="Saved";bs.className="pm-bar-saved"}}
+  if(bs){if(_dirty){bs.textContent="Unsaved...";bs.className="pm-bar-unsaved"}else{bs.textContent="Saved "+new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});bs.className="pm-bar-saved"}}
 }
 
-// Hook auto-save into all state-changing functions
+// ===== FILE EXPORT / IMPORT =====
+function pmExportOne(id){
+  var list=pmGetAll();var proj=null;
+  for(var i=0;i<list.length;i++)if(list[i].id===id){proj=list[i];break}
+  if(!proj){alert("Project not found.");return}
+  var json=JSON.stringify(proj,null,2);
+  var fn=(proj.name||"project").replace(/[^a-zA-Z0-9_-]/g,"_")+"_"+new Date().toISOString().slice(0,10)+".json";
+  dlF(json,"application/json",fn);
+}
+function pmExportCurrent(){
+  if(!_currentProjId)return;
+  pmSave();
+  var list=pmGetAll();var proj=null;
+  for(var i=0;i<list.length;i++)if(list[i].id===_currentProjId){proj=list[i];break}
+  if(!proj){proj={id:_currentProjId,name:PRJ.name||"Untitled",created:Date.now(),updated:Date.now(),data:pmGetState()}}
+  var json=JSON.stringify(proj,null,2);
+  var fn=(proj.name||"project").replace(/[^a-zA-Z0-9_-]/g,"_")+"_"+new Date().toISOString().slice(0,10)+".json";
+  dlF(json,"application/json",fn);
+}
+function pmExportAll(){
+  var list=pmGetAll();if(!list.length){alert("No projects to export.");return}
+  var json=JSON.stringify(list,null,2);
+  dlF(json,"application/json","ElecMat_All_Projects_"+new Date().toISOString().slice(0,10)+".json");
+}
+function pmImportFile(){
+  var inp=document.createElement("input");inp.type="file";inp.accept=".json";
+  inp.onchange=function(){
+    if(!inp.files||!inp.files[0])return;
+    var reader=new FileReader();
+    reader.onload=function(ev){
+      try{
+        var data=JSON.parse(ev.target.result);
+        if(Array.isArray(data)){
+          // Multiple projects
+          var list=pmGetAll();
+          for(var i=0;i<data.length;i++){
+            if(data[i].id&&data[i].data){data[i].id="proj_"+Date.now()+"_"+Math.floor(Math.random()*10000)+"_"+i;list.push(data[i])}
+          }
+          pmSaveAll(list);pmRenderList();
+          alert("Imported "+data.length+" project(s).");
+        }else if(data.id&&data.data){
+          // Single project
+          data.id="proj_"+Date.now()+"_"+Math.floor(Math.random()*10000);
+          var list=pmGetAll();list.push(data);pmSaveAll(list);pmRenderList();
+          alert("Imported: "+(data.name||"Project"));
+        }else{alert("Invalid project file format.")}
+      }catch(e){alert("Error reading file: "+e.message)}
+    };
+    reader.readAsText(inp.files[0]);
+  };
+  inp.click();
+}
+
+// Hook auto-save into state-changing functions
 var _origRSys=rSys;rSys=function(){_origRSys();pmAutoSave()};
 var _origRInc=rInc;rInc=function(){_origRInc();pmAutoSave()};
 var _origRRoutes=rRoutes;rRoutes=function(){_origRRoutes();pmAutoSave()};
@@ -520,7 +603,8 @@ var _oRmS=rmS;rmS=function(id){_oRmS(id);pmAutoSave()};
 var _oAddRoute=addRoute;addRoute=function(){_oAddRoute();pmAutoSave()};
 var _oRmRoute=rmRoute;rmRoute=function(id){_oRmRoute(id);pmAutoSave()};
 
-// Init: show project manager
+// Init
+pmTestStorage();
 pmShowManager();
 
 </script>
