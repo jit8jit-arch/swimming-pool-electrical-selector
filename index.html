@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -75,23 +76,24 @@ body{font-family:var(--f);background:var(--bg);color:var(--tx);line-height:1.5;f
 
 /* Project Manager */
 .pm-wrap{max-width:900px;margin:0 auto;padding:20px 16px}
-.pm-card{background:var(--s2);border:1px solid var(--bd);border-radius:var(--r2);padding:14px;margin-bottom:10px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:.2s}
-.pm-card:hover{border-color:var(--gd);transform:translateY(-1px)}
-.pm-icon{width:44px;height:44px;background:var(--gbg);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
-.pm-info{flex:1;min-width:0}.pm-name{font-size:14px;font-weight:700}.pm-meta{font:400 10px var(--m);color:var(--tx2);margin-top:2px}
+.pm-card{background:var(–s2);border:1px solid var(–bd);border-radius:var(–r2);padding:14px;margin-bottom:10px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:.2s}
+.pm-card:hover{border-color:var(–gd);transform:translateY(-1px)}
+.pm-icon{width:44px;height:44px;background:var(–gbg);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.pm-info{flex:1;min-width:0}.pm-name{font-size:14px;font-weight:700}.pm-meta{font:400 10px var(–m);color:var(–tx2);margin-top:2px}
 .pm-acts{display:flex;gap:4px;flex-shrink:0}
-.pm-new{background:var(--s3);border:2px dashed var(--bd2);border-radius:var(--r2);padding:24px;text-align:center;cursor:pointer;transition:.2s}
-.pm-new:hover{border-color:var(--gd);background:var(--s2)}
-.pm-new .ai{font-size:28px;margin-bottom:4px}.pm-new .an{font-size:13px;font-weight:700;color:var(--gd)}
-.pm-bar{background:var(--s2);border:1px solid var(--bd);border-radius:var(--r2);padding:10px 14px;margin-bottom:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pm-new{background:var(–s3);border:2px dashed var(–bd2);border-radius:var(–r2);padding:24px;text-align:center;cursor:pointer;transition:.2s}
+.pm-new:hover{border-color:var(–gd);background:var(–s2)}
+.pm-new .ai{font-size:28px;margin-bottom:4px}.pm-new .an{font-size:13px;font-weight:700;color:var(–gd)}
+.pm-bar{background:var(–s2);border:1px solid var(–bd);border-radius:var(–r2);padding:10px 14px;margin-bottom:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .pm-bar-name{font-size:14px;font-weight:700;flex:1;min-width:100px}
-.pm-bar-saved{font:400 10px var(--m);color:var(--gn)}
-.pm-bar-unsaved{font:400 10px var(--m);color:var(--or)}
+.pm-bar-saved{font:400 10px var(–m);color:var(–gn)}
+.pm-bar-unsaved{font:400 10px var(–m);color:var(–or)}
 #sec-pm{display:block}
 .workspace{display:none}
 .workspace.active{display:block}
 /* form elements clickable inside headers handled by event.stopPropagation in onclick */
 </style>
+
 </head>
 <body>
 <div class="top"><div class="top-b"><div class="top-i">E</div><div><h1>ElecMat Pro</h1><div class="top-s">ELECTRICAL MATERIAL ORDERING &#8226; DEWA/BS &#8226; UAE PF=0.9</div></div></div><div class="top-r"><button class="b bo bs" onclick="window.print()">&#128424;</button><button class="b bg bs" onclick="showPrev()">&#128228; Export</button></div></div>
@@ -151,293 +153,293 @@ function packet100(q){return Math.ceil((q||0)/100)}
 
 function pCW(od){for(var i=0;i<CWG.length;i++)if(od>=CWG[i].a*0.65&&od<=CWG[i].b)return CWG[i];return CWG[CWG.length-1]}
 function pPG(od){for(var i=0;i<PGG.length;i++)if(od>=PGG[i].l&&od<=PGG[i].h)return PGG[i];for(var i=0;i<PGG.length;i++)if(od<=PGG[i].h)return PGG[i];return PGG[PGG.length-1]}
-function sugIso(amp,poles){var list=ALL_ISO.filter(function(x){return x.p===poles});for(var i=0;i<list.length;i++)if(amp<=list[i].a)return list[i];return list[list.length-1]||{m:"-",a:0,p:poles}}
+function sugIso(amp,poles){var list=ALL_ISO.filter(function(x){return x.p===poles});for(var i=0;i<list.length;i++)if(amp<=list[i].a)return list[i];return list[list.length-1]||{m:”-”,a:0,p:poles}}
 function isoOpts(poles){return ALL_ISO.filter(function(x){return x.p===poles})}
-function mLug(sz){if(sz<=6)return{st:"M6",c:"AT "+sz+"-6"};if(sz<=16)return{st:"M8",c:"AT "+sz+"-8"};if(sz<=50)return{st:"M10",c:"AT "+sz+"-10"};if(sz<=120)return{st:"M12",c:"AT "+sz+"-12"};return{st:"M16",c:"AT "+sz+"-16"}}
-function eCalc(sz){if(sz<=16)return sz;if(sz<=35)return 16;return Math.ceil(sz/2)}
-function gOD(t,c,s){if(t==="armoured"&&AOD[c])return AOD[c][s]||0;if(t==="rubber"&&ROD[c])return ROD[c][s]||0;return SOD[s]||0}
-function gSz(t,c){if(t==="armoured"&&AOD[c])return Object.keys(AOD[c]).map(Number);if(t==="rubber"&&ROD[c])return Object.keys(ROD[c]).map(Number);return Object.keys(SOD).map(Number)}
-function gCo(t){if(t==="armoured")return["2C","3C","4C"];if(t==="rubber")return["1C","2C","3C","4C"];return["1C"]}
-function gR(t,s,ph){if(t==="armoured")return RA[s]||0;if(t==="rubber")return RR[s]||0;if(ph==="1")return RS1[s]||RS[s]||0;if(ph==="3")return RS3[s]||RS[s]||0;return RS[s]||0}
-function tN(t){return{armoured:"Armoured",rubber:"Rubber Flex",single_core:"Single Core PVC",earth:"Earth G/Y"}[t]||t}
-function tSh(t){return{armoured:"CU/XLPE/SWA/PVC",rubber:"H07RN-F",single_core:"CU/PVC",earth:"CU/PVC G/Y"}[t]||""}
-function cAmp(kw,volt){var vn=parseFloat(volt);if(!vn||!kw)return 0;if(volt==="400")return(kw*1000)/(1.732*400*0.9);if(volt==="690")return(kw*1000)/(1.732*690*0.9);if(volt==="230")return(kw*1000)/(230*0.9);return(kw*1000)/vn}
-function sug(a,t,ph){var r;if(t==="armoured")r=RA;else if(t==="rubber")r=RR;else if(ph==="1")r=RS1;else if(ph==="3")r=RS3;else r=RS;for(var i=0;i<STD.length;i++){if(STD[i]<4)continue;if(r[STD[i]]&&r[STD[i]]>=a)return STD[i]}return 400}
-function cVD(amp,sz,dist,volt,ph){var vn=parseFloat(volt)||400;if(ph==="3"){var vd=amp*(VD3[sz]||0)*dist/1000;return{vd:vd,pc:(vd/vn)*100,ok:(vd/vn)*100<=4}}if(ph==="1"){var vd=amp*(VD3[sz]||0)*1.155*dist/1000;return{vd:vd,pc:(vd/vn)*100,ok:(vd/vn)*100<=4}}var R2=0.0175/sz;var vd=2*amp*R2*dist;return{vd:vd,pc:(vd/vn)*100,ok:(vd/vn)*100<=4}}
-function gIP(e){if((e.volt||"").indexOf("DC")>=0)return"3P";if(parseInt(e.ru)>=2&&e.co==="3C")return"6P";if(e.co==="4C")return"4P";return"3P"}
-function calcTray(cabs){var tw=0;for(var i=0;i<cabs.length;i++)tw+=cabs[i].od*cabs[i].cnt;var raw=tw;var with30=Math.ceil(tw*1.3);for(var i=0;i<TRAYW.length;i++)if(TRAYW[i]>=with30)return{w:TRAYW[i],model:"HCT "+TRAYW[i]+"-50",rawOD:raw,with30:with30};return{w:900,model:"HCT 900-50",rawOD:raw,with30:with30}}
-function calcTrunk(cabs){var tf=0;for(var i=0;i<cabs.length;i++)tf+=(TF[cabs[i].sz]||0)*cabs[i].cnt;for(var i=0;i<TRK.length;i++)if(TRK[i].c>=tf)return{s:TRK[i].s,cap:TRK[i].c,used:tf};return{s:"300x150+",cap:19447,used:tf}}
+function mLug(sz){if(sz<=6)return{st:“M6”,c:“AT “+sz+”-6”};if(sz<=16)return{st:“M8”,c:“AT “+sz+”-8”};if(sz<=50)return{st:“M10”,c:“AT “+sz+”-10”};if(sz<=120)return{st:“M12”,c:“AT “+sz+”-12”};return{st:“M16”,c:“AT “+sz+”-16”}}
+function eCalc(sz){var raw;if(sz<=16)raw=sz;else if(sz<=35)raw=16;else raw=Math.ceil(sz/2);for(var i=0;i<STD.length;i++)if(STD[i]>=raw)return STD[i];return STD[STD.length-1]}
+function gOD(t,c,s){if(t===“armoured”&&AOD[c])return AOD[c][s]||0;if(t===“rubber”&&ROD[c])return ROD[c][s]||0;return SOD[s]||0}
+function gSz(t,c){if(t===“armoured”&&AOD[c])return Object.keys(AOD[c]).map(Number);if(t===“rubber”&&ROD[c])return Object.keys(ROD[c]).map(Number);return Object.keys(SOD).map(Number)}
+function gCo(t){if(t===“armoured”)return[“2C”,“3C”,“4C”];if(t===“rubber”)return[“1C”,“2C”,“3C”,“4C”];return[“1C”]}
+function gR(t,s,ph){if(t===“armoured”)return RA[s]||0;if(t===“rubber”)return RR[s]||0;if(ph===“1”)return RS1[s]||RS[s]||0;if(ph===“3”)return RS3[s]||RS[s]||0;return RS[s]||0}
+function tN(t){return{armoured:“Armoured”,rubber:“Rubber Flex”,single_core:“Single Core PVC”,earth:“Earth G/Y”}[t]||t}
+function tSh(t){return{armoured:“CU/XLPE/SWA/PVC”,rubber:“H07RN-F”,single_core:“CU/PVC”,earth:“CU/PVC G/Y”}[t]||””}
+function cAmp(kw,volt){var vn=parseFloat(volt);if(!vn||!kw)return 0;if(volt===“400”)return(kw*1000)/(1.732*400*0.9);if(volt===“690”)return(kw*1000)/(1.732*690*0.9);if(volt===“230”)return(kw*1000)/(230*0.9);return(kw*1000)/vn}
+function sug(a,t,ph){var r;if(t===“armoured”)r=RA;else if(t===“rubber”)r=RR;else if(ph===“1”)r=RS1;else if(ph===“3”)r=RS3;else r=RS;for(var i=0;i<STD.length;i++){if(STD[i]<4)continue;if(r[STD[i]]&&r[STD[i]]>=a)return STD[i]}return 400}
+function cVD(amp,sz,dist,volt,ph){var vn=parseFloat(volt)||400;if(ph===“3”){var vd=amp*(VD3[sz]||0)*dist/1000;return{vd:vd,pc:(vd/vn)*100,ok:(vd/vn)*100<=4}}if(ph===“1”){var vd=amp*(VD3[sz]||0)*1.155*dist/1000;return{vd:vd,pc:(vd/vn)*100,ok:(vd/vn)*100<=4}}var R2=0.0175/sz;var vd=2*amp*R2*dist;return{vd:vd,pc:(vd/vn)*100,ok:(vd/vn)*100<=4}}
+function gIP(e){if((e.volt||””).indexOf(“DC”)>=0)return”3P”;if(parseInt(e.ru)>=2&&e.co===“3C”)return”6P”;if(e.co===“4C”)return”4P”;return”3P”}
+function calcTray(cabs){var tw=0;for(var i=0;i<cabs.length;i++)tw+=cabs[i].od*cabs[i].cnt;var raw=tw;var with30=Math.ceil(tw*1.3);for(var i=0;i<TRAYW.length;i++)if(TRAYW[i]>=with30)return{w:TRAYW[i],model:“HCT “+TRAYW[i]+”-50”,rawOD:raw,with30:with30};return{w:900,model:“HCT 900-50”,rawOD:raw,with30:with30}}
+function calcTrunk(cabs){var tf=0;for(var i=0;i<cabs.length;i++)tf+=(TF[cabs[i].sz]||0)*cabs[i].cnt;for(var i=0;i<TRK.length;i++)if(TRK[i].c>=tf)return{s:TRK[i].s,cap:TRK[i].c,used:tf};return{s:“300x150+”,cap:19447,used:tf}}
 
 var SY=[],ROUTES=[];
-var INC={ct:"armoured",co:"4C",sz:"",di:30,ru:1,iso:true,isoModel:"",kw:"",ph:"400",src:"smdb",iesz:"",cBrand:"OMAN CABLES",cBrandO:"",gBrand:"RUPAM",gBrandO:"",iBrand:"ABB",iBrandO:""};
+var INC={ct:“armoured”,co:“4C”,sz:””,di:30,ru:1,iso:true,isoModel:””,kw:””,ph:“400”,src:“smdb”,iesz:””,cBrand:“OMAN CABLES”,cBrandO:””,gBrand:“RUPAM”,gBrandO:””,iBrand:“ABB”,iBrandO:””};
 var _si=0,_ei=0,_ri=0;
 
-function initAG(){var types=[["pool","&#127946;","Swimming Pool"],["wf","&#9970;","Water Feature"],["jac","&#128705;","Jacuzzi"],["ss","&#128186;","Sunken Seating"],["sp","&#128166;","Splash Pad"],["cust","&#9881;","Custom"]];var h="";for(var i=0;i<types.length;i++)h+='<div class="addc" onclick="addS(\''+types[i][0]+'\')"><div class="ai">'+types[i][1]+'</div><div class="an">'+types[i][2]+'</div></div>';document.getElementById("addgrid").innerHTML=h}
+function initAG(){var types=[[“pool”,”🏊”,“Swimming Pool”],[“wf”,”⛲”,“Water Feature”],[“jac”,”🛁”,“Jacuzzi”],[“ss”,”💺”,“Sunken Seating”],[“sp”,”💦”,“Splash Pad”],[“cust”,”⚙”,“Custom”]];var h=””;for(var i=0;i<types.length;i++)h+=’<div class="addc" onclick="addS(\''+types[i][0]+'\')"><div class="ai">’+types[i][1]+’</div><div class="an">’+types[i][2]+’</div></div>’;document.getElementById(“addgrid”).innerHTML=h}
 initAG();
-var tabs=document.querySelectorAll(".workspace .nt[data-t]");for(var i=0;i<tabs.length;i++){if(tabs[i].dataset.t==="proj")continue;tabs[i].addEventListener("click",(function(t){return function(){swT(t.dataset.t)}})(tabs[i]))}
-function swT(n){var ts=document.querySelectorAll(".workspace .nt");for(var i=0;i<ts.length;i++){if(ts[i].dataset.t==="proj")continue;ts[i].classList.toggle("on",ts[i].dataset.t===n)}var ss=document.querySelectorAll(".sc");for(var i=0;i<ss.length;i++)ss[i].classList.toggle("on",ss[i].id==="sec-"+n);if(n==="sum")bSum();if(n==="inc")rInc();if(n==="tray")rRoutes();if(n==="vdtab")rVD()}
+var tabs=document.querySelectorAll(”.workspace .nt[data-t]”);for(var i=0;i<tabs.length;i++){if(tabs[i].dataset.t===“proj”)continue;tabs[i].addEventListener(“click”,(function(t){return function(){swT(t.dataset.t)}})(tabs[i]))}
+function swT(n){var ts=document.querySelectorAll(”.workspace .nt”);for(var i=0;i<ts.length;i++){if(ts[i].dataset.t===“proj”)continue;ts[i].classList.toggle(“on”,ts[i].dataset.t===n)}var ss=document.querySelectorAll(”.sc”);for(var i=0;i<ss.length;i++)ss[i].classList.toggle(“on”,ss[i].id===“sec-”+n);if(n===“sum”)bSum();if(n===“inc”)rInc();if(n===“tray”)rRoutes();if(n===“vdtab”)rVD()}
 
-function addS(type){_si++;var d=SD[type]||SD.cust;SY.push({id:_si,type:type,name:d.nm,icon:d.icon,cls:d.cls,eq:[],cn:""});rSys()}
+function addS(type){_si++;var d=SD[type]||SD.cust;SY.push({id:_si,type:type,name:d.nm,icon:d.icon,cls:d.cls,eq:[],cn:””});rSys()}
 function rmS(id){SY=SY.filter(function(s){return s.id!==id});rSys()}
-function addE(sid){var s=SY.find(function(x){return x.id===sid});if(!s)return;_ei++;s.eq.push({id:_ei,nm:"",kw:"",volt:"400",ct:"armoured",co:"4C",ss:"",os:"",di:20,ru:1,iso:false,isoModel:"",esz:"",cBrand:"OMAN CABLES",cBrandO:"",gBrand:"RUPAM",gBrandO:"",iBrand:"ABB",iBrandO:""});rSys()}
+function addE(sid){var s=SY.find(function(x){return x.id===sid});if(!s)return;_ei++;s.eq.push({id:_ei,nm:””,kw:””,volt:“400”,ct:“armoured”,co:“4C”,ss:””,os:””,di:20,ru:1,iso:false,isoModel:””,esz:””,cBrand:“OMAN CABLES”,cBrandO:””,gBrand:“RUPAM”,gBrandO:””,iBrand:“ABB”,iBrandO:””});rSys()}
 function rmE(si,ei){var s=SY.find(function(x){return x.id===si});if(s)s.eq=s.eq.filter(function(e){return e.id!==ei});rSys()}
-function dpE(si,ei){var s=SY.find(function(x){return x.id===si});if(!s)return;var src=s.eq.find(function(e){return e.id===ei});if(!src)return;_ei++;var cp=JSON.parse(JSON.stringify(src));cp.id=_ei;cp.nm+=" (copy)";s.eq.push(cp);rSys()}
+function dpE(si,ei){var s=SY.find(function(x){return x.id===si});if(!s)return;var src=s.eq.find(function(e){return e.id===ei});if(!src)return;_ei++;var cp=JSON.parse(JSON.stringify(src));cp.id=_ei;cp.nm+=” (copy)”;s.eq.push(cp);rSys()}
 function uE(si,ei,f,v){var s=SY.find(function(x){return x.id===si});if(!s)return;var e=s.eq.find(function(x){return x.id===ei});if(!e)return;e[f]=v;
-if(f==="ct"){var co=gCo(v);if(co.indexOf(e.co)<0)e.co=co[co.length-1];e.os=""}
-if(f==="volt"){var vi=VOLTS.find(function(x){return x.v===v});if(vi){if(vi.ph==="1")e.co=e.ct==="armoured"?"2C":(e.ct==="rubber"?"2C":"1C");else if(vi.ph==="3")e.co=e.ct==="armoured"?"4C":(e.ct==="rubber"?"4C":"1C");else e.co=e.ct==="armoured"?"2C":(e.ct==="rubber"?"2C":"1C")}}
-if(f==="co")e.os="";
-if(e.kw&&e.volt){var a=cAmp(parseFloat(e.kw),e.volt);var vi2=VOLTS.find(function(x){return x.v===e.volt});var eph=vi2?vi2.ph:"3";e.ss=sug(a,e.ct,eph);if(!e.os)e.os=e.ss;if(!e.isoModel){var poles=gIP(e);var si2=sugIso(a,poles);e.isoModel=si2.m}}
+if(f===“ct”){var co=gCo(v);if(co.indexOf(e.co)<0)e.co=co[co.length-1];e.os=””}
+if(f===“volt”){var vi=VOLTS.find(function(x){return x.v===v});if(vi){if(vi.ph===“1”)e.co=e.ct===“armoured”?“2C”:(e.ct===“rubber”?“2C”:“1C”);else if(vi.ph===“3”)e.co=e.ct===“armoured”?“4C”:(e.ct===“rubber”?“4C”:“1C”);else e.co=e.ct===“armoured”?“2C”:(e.ct===“rubber”?“2C”:“1C”)}}
+if(f===“co”)e.os=””;
+if(e.kw&&e.volt){var a=cAmp(parseFloat(e.kw),e.volt);var vi2=VOLTS.find(function(x){return x.v===e.volt});var eph=vi2?vi2.ph:“3”;e.ss=sug(a,e.ct,eph);if(!e.os)e.os=e.ss;if(!e.isoModel){var poles=gIP(e);var si2=sugIso(a,poles);e.isoModel=si2.m}}
 rSys()}
-function togS(id){var el=document.getElementById("sys-"+id);if(el)el.classList.toggle("shut")}
-function togE(s,e){var el=document.getElementById("eq-"+s+"-"+e);if(el)el.classList.toggle("shut")}
+function togS(id){var el=document.getElementById(“sys-”+id);if(el)el.classList.toggle(“shut”)}
+function togE(s,e){var el=document.getElementById(“eq-”+s+”-”+e);if(el)el.classList.toggle(“shut”)}
 
-function rSys(){var h="";for(var si=0;si<SY.length;si++){var s=SY[si];var dn=s.cn||s.name;var tkw=0;for(var j=0;j<s.eq.length;j++)tkw+=parseFloat(s.eq[j].kw)||0;
-h+='<div class="sys" id="sys-'+s.id+'"><div class="sh" onclick="togS('+s.id+')"><div class="si '+s.cls+'">'+s.icon+'</div><div class="sn"><b>'+dn+'</b><small>'+s.eq.length+' equip | '+tkw.toFixed(1)+'kW</small></div><div class="sa"><button class="b bg bs" onclick="event.stopPropagation();addE('+s.id+')">+ Equip</button><button class="b br bs" onclick="event.stopPropagation();rmS('+s.id+')">x</button><span class="sv">&#9660;</span></div></div><div class="sbd">';
-if(s.eq.length){for(var j=0;j<s.eq.length;j++)h+=rEq(s,s.eq[j],j)}else h+='<div class="emp"><button class="b bg bs" onclick="addE('+s.id+')">+ Add Equipment</button></div>';
-h+='</div></div>'}document.getElementById("scon").innerHTML=h;zSt()}
+function rSys(){var h=””;for(var si=0;si<SY.length;si++){var s=SY[si];var dn=s.cn||s.name;var tkw=0;for(var j=0;j<s.eq.length;j++)tkw+=parseFloat(s.eq[j].kw)||0;
+h+=’<div class="sys" id="sys-'+s.id+'"><div class="sh" onclick="togS('+s.id+')"><div class="si '+s.cls+'">’+s.icon+’</div><div class="sn"><b>’+dn+’</b><small>’+s.eq.length+’ equip | ‘+tkw.toFixed(1)+‘kW</small></div><div class="sa"><button class="b bg bs" onclick="event.stopPropagation();addE('+s.id+')">+ Equip</button><button class="b br bs" onclick="event.stopPropagation();rmS('+s.id+')">x</button><span class="sv">▼</span></div></div><div class="sbd">’;
+if(s.eq.length){for(var j=0;j<s.eq.length;j++)h+=rEq(s,s.eq[j],j)}else h+=’<div class="emp"><button class="b bg bs" onclick="addE('+s.id+')">+ Add Equipment</button></div>’;
+h+=’</div></div>’}document.getElementById(“scon”).innerHTML=h;zSt()}
 
-function rEq(s,e,ei){var sid=s.id,eid=e.id,kw=parseFloat(e.kw)||0;var vi=VOLTS.find(function(x){return x.v===e.volt})||VOLTS[1];var amp=kw?cAmp(kw,e.volt):0;var szs=gSz(e.ct,e.co),sz=parseFloat(e.os)||0,od=sz?gOD(e.ct,e.co,sz):0;var di=parseFloat(e.di)||0,ru=parseInt(e.ru)||1;var vdI=sz&&amp?cVD(amp,sz,di,e.volt,vi.ph):{vd:0,pc:0,ok:true};var poles=gIP(e);var earthSz=(e.esz&&parseFloat(e.esz))?parseFloat(e.esz):eCalc(sz);var tl=Math.ceil(di*1.1)*ru;var sn=s.cn||s.name;var sum=e.nm?(e.nm+" - "+kw+"kW > "+(sz||"?")+"mm2"):"Configure...";
-var sugI=amp?sugIso(amp,poles):{m:"-",a:0};var selIso=e.isoModel||sugI.m;var isoList=isoOpts(poles);
-var cblLbl=sz?("TO "+(e.nm||"EQUIPMENT").toUpperCase()+" "+e.co+"x"+sz+"mm2 "+tSh(e.ct)):"";
-var earthLbl=sz?("EARTH CABLE : G/Y 1Cx"+earthSz+"mm2 CU/PVC"):"";
+function rEq(s,e,ei){var sid=s.id,eid=e.id,kw=parseFloat(e.kw)||0;var vi=VOLTS.find(function(x){return x.v===e.volt})||VOLTS[1];var amp=kw?cAmp(kw,e.volt):0;var szs=gSz(e.ct,e.co),sz=parseFloat(e.os)||0,od=sz?gOD(e.ct,e.co,sz):0;var di=parseFloat(e.di)||0,ru=parseInt(e.ru)||1;var vdI=sz&&amp?cVD(amp,sz,di,e.volt,vi.ph):{vd:0,pc:0,ok:true};var poles=gIP(e);var earthSz=(e.esz&&parseFloat(e.esz))?parseFloat(e.esz):eCalc(sz);var tl=Math.ceil(di*1.1)*ru;var sn=s.cn||s.name;var sum=e.nm?(e.nm+” - “+kw+“kW > “+(sz||”?”)+“mm2”):“Configure…”;
+var sugI=amp?sugIso(amp,poles):{m:”-”,a:0};var selIso=e.isoModel||sugI.m;var isoList=isoOpts(poles);
+var cblLbl=sz?(“TO “+(e.nm||“EQUIPMENT”).toUpperCase()+” “+e.co+“x”+sz+“mm2 “+tSh(e.ct)):””;
+var earthLbl=sz?(“EARTH CABLE : G/Y 1Cx”+earthSz+“mm2 CU/PVC”):””;
 var tie=cableTieSpec(od); var tieQty=Math.ceil(di*1.1)*ru; var tiePkt=packet100(tieQty);
-var h='<div class="eq" id="eq-'+sid+'-'+eid+'"><div class="eqh" onclick="togE('+sid+','+eid+')"><span class="eqn">E'+(ei+1)+'</span><span class="eqt">'+sum+'</span><div class="eqa"><button class="b bo bs" onclick="event.stopPropagation();dpE('+sid+','+eid+')">&#128203;</button><button class="b br bs" onclick="event.stopPropagation();rmE('+sid+','+eid+')">x</button><span class="ecv">&#9660;</span></div></div><div class="eqbd">';
-h+='<div class="fr" style="grid-template-columns:1fr 70px 120px 60px 70px"><div class="fg"><label class="fl">Equipment Name</label><input class="fi" value="'+e.nm+'" placeholder="e.g. Booster Pump" onchange="uE('+sid+','+eid+',\'nm\',this.value)"></div><div class="fg"><label class="fl">Load kW</label><input class="fi" type="number" step="0.1" min="0" value="'+e.kw+'" onchange="uE('+sid+','+eid+',\'kw\',this.value)"></div><div class="fg"><label class="fl">Voltage</label><select class="fs" onchange="uE('+sid+','+eid+',\'volt\',this.value)">';
-for(var v=0;v<VOLTS.length;v++)h+='<option value="'+VOLTS[v].v+'"'+(e.volt===VOLTS[v].v?' selected':'')+'>'+VOLTS[v].l+'</option>';
-h+='</select></div><div class="fg"><label class="fl">Dist m</label><input class="fi" type="number" min="1" value="'+e.di+'" onchange="uE('+sid+','+eid+',\'di\',this.value)"></div><div class="fg"><label class="fl">FLA</label><input class="fi" value="'+(amp?amp.toFixed(1)+"A":"-")+'" readonly></div></div>';
-if(amp)h+='<div class="sg"><div class="sgt">DEWA 2017 Reg. Cable Sizing (PF=0.9, Table 2/3)</div><div class="sgv">Suggested: <strong>'+e.ss+'mm2 '+tN(e.ct)+' '+e.co+'</strong> ('+gR(e.ct,e.ss,vi.ph)+'A DEWA)</div><div class="sgc">'+kw+'kW | FLA:'+amp.toFixed(1)+'A'+(sz?' | VD:'+vdI.vd.toFixed(2)+'V ('+vdI.pc.toFixed(1)+'%) '+di+'m':'')+'</div></div>';
-if(sz&&!vdI.ok)h+='<div class="wr">VD '+vdI.pc.toFixed(1)+'% exceeds DEWA 4% limit</div>';
-else if(sz&&amp)h+='<div class="ok2">VD '+vdI.pc.toFixed(1)+'% OK</div>';
-h+='<div class="dv"></div>';
-h+='<div class="fr" style="grid-template-columns:1fr 60px 110px 50px"><div class="fg"><label class="fl">Cable Type</label><select class="fs" onchange="uE('+sid+','+eid+',\'ct\',this.value)"><option value="armoured"'+(e.ct==="armoured"?" selected":"")+'>Armoured (SWA)</option><option value="rubber"'+(e.ct==="rubber"?" selected":"")+'>Rubber Flex</option><option value="single_core"'+(e.ct==="single_core"?" selected":"")+'>Single Core PVC</option></select></div><div class="fg"><label class="fl">Cores</label><select class="fs" onchange="uE('+sid+','+eid+',\'co\',this.value)">';
-var cos=gCo(e.ct);for(var c=0;c<cos.length;c++)h+='<option value="'+cos[c]+'"'+(e.co===cos[c]?' selected':'')+'>'+cos[c]+'</option>';
-h+='</select></div><div class="fg"><label class="fl">Size mm2</label><select class="fs" onchange="uE('+sid+','+eid+',\'os\',this.value)"><option value="">-</option>';
-for(var z=0;z<szs.length;z++)h+='<option value="'+szs[z]+'"'+(e.os==szs[z]?' selected':'')+'>'+szs[z]+'mm2 '+(szs[z]==e.ss?"*":"")+' ('+gR(e.ct,szs[z],vi.ph)+'A)</option>';
-h+='</select></div><div class="fg"><label class="fl">Runs</label><input class="fi" type="number" min="1" value="'+e.ru+'" onchange="uE('+sid+','+eid+',\'ru\',this.value)"></div></div>';
-h+='<div class="fr" style="grid-template-columns:repeat(3,minmax(160px,1fr))"><div class="fg"><label class="fl">Cable Brand</label>'+'<select class="fs" onchange="uE('+sid+','+eid+',\'cBrand\',this.value)">'+BRANDS.cable.map(function(b){return '<option value="'+b+'"'+(e.cBrand===b?' selected':'')+'>'+b+'</option>'}).join('')+'</select>'+(e.cBrand==='OTHER'?'<input class="fi" style="margin-top:4px" placeholder="Enter cable brand" value="'+(e.cBrandO||'')+'" onchange="uE('+sid+','+eid+',\'cBrandO\',this.value)">':'')+'</div><div class="fg"><label class="fl">Gland Brand</label>'+'<select class="fs" onchange="uE('+sid+','+eid+',\'gBrand\',this.value)">'+BRANDS.gland.map(function(b){return '<option value="'+b+'"'+(e.gBrand===b?' selected':'')+'>'+b+'</option>'}).join('')+'</select>'+(e.gBrand==='OTHER'?'<input class="fi" style="margin-top:4px" placeholder="Enter gland brand" value="'+(e.gBrandO||'')+'" onchange="uE('+sid+','+eid+',\'gBrandO\',this.value)">':'')+'</div><div class="fg"><label class="fl">Isolator Brand</label>'+'<select class="fs" onchange="uE('+sid+','+eid+',\'iBrand\',this.value)">'+BRANDS.isolator.map(function(b){return '<option value="'+b+'"'+(e.iBrand===b?' selected':'')+'>'+b+'</option>'}).join('')+'</select>'+(e.iBrand==='OTHER'?'<input class="fi" style="margin-top:4px" placeholder="Enter isolator brand" value="'+(e.iBrandO||'')+'" onchange="uE('+sid+','+eid+',\'iBrandO\',this.value)">':'')+'</div></div>';
-if(sz){var eSzs=STD.filter(function(x){return x<=sz});h+='<div class="ebox"><strong>Earth Cable:</strong> G/Y 1Cx'+earthSz+'mm2 CU/PVC (BS 7671) - '+tl+'m <select class="fs" style="display:inline;width:auto;padding:3px 20px 3px 6px;font-size:10px;max-width:100px" onchange="uE('+sid+','+eid+',\'esz\',this.value)"><option value="">Auto ('+eCalc(sz)+'mm2)</option>';for(var z=0;z<eSzs.length;z++)h+='<option value="'+eSzs[z]+'"'+(e.esz==eSzs[z]?' selected':'')+'>'+eSzs[z]+'mm2</option>';h+='</select></div>'}
-h+='<div style="display:flex;gap:12px;flex-wrap:wrap;align-items:end">';
-h+='<div class="ck"><input type="checkbox" id="ck'+sid+eid+'" '+(e.iso?"checked":"")+ ' onchange="uE('+sid+','+eid+',\'iso\',this.checked)"><label for="ck'+sid+eid+'">Include Isolator</label></div>';
-if(e.iso){h+='<div class="fg" style="min-width:140px"><label class="fl">Isolator ('+poles+')</label><select class="fs" style="padding:4px 20px 4px 6px;font-size:10px" onchange="uE('+sid+','+eid+',\'isoModel\',this.value)">';
-for(var ii=0;ii<isoList.length;ii++)h+='<option value="'+isoList[ii].m+'"'+(selIso===isoList[ii].m?' selected':'')+'>'+isoList[ii].m+' '+isoList[ii].a+'A'+(isoList[ii].m===sugI.m?' *':'')+'</option>';
-h+='</select></div>'}
-h+='</div>';
-if(sz){h+='<div class="lbl"><strong>DESCRIPTION &amp; CABLE SIZE:</strong>\n'+cblLbl+'\n'+earthLbl+'</div>';if(e.nm)h+='<div class="lbl" style="background:rgba(72,137,240,.08);border-color:rgba(72,137,240,.2);color:var(--bl)"><strong>DESCRIPTION:</strong>\n'+(e.nm||"" ).toUpperCase()+'</div>';
-h+='<div class="ris" style="margin-top:4px;font-size:10px;color:var(--tx2)">Cable Ties: '+tie.d+' | Qty: '+tieQty+' nos = '+tiePkt+' pkt(s) of 100 | Description sets: '+ru+'</div>'}
-h+='</div></div>';return h}
+var h=’<div class="eq" id="eq-'+sid+'-'+eid+'"><div class="eqh" onclick="togE('+sid+','+eid+')"><span class="eqn">E’+(ei+1)+’</span><span class="eqt">’+sum+’</span><div class="eqa"><button class="b bo bs" onclick="event.stopPropagation();dpE('+sid+','+eid+')">📋</button><button class="b br bs" onclick="event.stopPropagation();rmE('+sid+','+eid+')">x</button><span class="ecv">▼</span></div></div><div class="eqbd">’;
+h+=’<div class="fr" style="grid-template-columns:1fr 70px 120px 60px 70px"><div class="fg"><label class="fl">Equipment Name</label><input class="fi" value="'+e.nm+'" placeholder="e.g. Booster Pump" onchange="uE('+sid+','+eid+',\'nm\',this.value)"></div><div class="fg"><label class="fl">Load kW</label><input class="fi" type="number" step="0.1" min="0" value="'+e.kw+'" onchange="uE('+sid+','+eid+',\'kw\',this.value)"></div><div class="fg"><label class="fl">Voltage</label><select class="fs" onchange="uE('+sid+','+eid+',\'volt\',this.value)">’;
+for(var v=0;v<VOLTS.length;v++)h+=’<option value=”’+VOLTS[v].v+’”’+(e.volt===VOLTS[v].v?’ selected’:’’)+’>’+VOLTS[v].l+’</option>’;
+h+=’</select></div><div class="fg"><label class="fl">Dist m</label><input class="fi" type="number" min="1" value="'+e.di+'" onchange="uE('+sid+','+eid+',\'di\',this.value)"></div><div class="fg"><label class="fl">FLA</label><input class=“fi” value=”’+(amp?amp.toFixed(1)+“A”:”-”)+’” readonly></div></div>’;
+if(amp)h+=’<div class="sg"><div class="sgt">DEWA 2017 Reg. Cable Sizing (PF=0.9, Table 2/3)</div><div class="sgv">Suggested: <strong>’+e.ss+‘mm2 ‘+tN(e.ct)+’ ‘+e.co+’</strong> (’+gR(e.ct,e.ss,vi.ph)+‘A DEWA)</div><div class="sgc">’+kw+‘kW | FLA:’+amp.toFixed(1)+‘A’+(sz?’ | VD:’+vdI.vd.toFixed(2)+‘V (’+vdI.pc.toFixed(1)+’%) ‘+di+‘m’:’’)+’</div></div>’;
+if(sz&&!vdI.ok)h+=’<div class="wr">VD ‘+vdI.pc.toFixed(1)+’% exceeds DEWA 4% limit</div>’;
+else if(sz&&amp)h+=’<div class="ok2">VD ‘+vdI.pc.toFixed(1)+’% OK</div>’;
+h+=’<div class="dv"></div>’;
+h+=’<div class="fr" style="grid-template-columns:1fr 60px 110px 50px"><div class="fg"><label class="fl">Cable Type</label><select class="fs" onchange="uE('+sid+','+eid+',\'ct\',this.value)"><option value=“armoured”’+(e.ct===“armoured”?” selected”:””)+’>Armoured (SWA)</option><option value=“rubber”’+(e.ct===“rubber”?” selected”:””)+’>Rubber Flex</option><option value=“single_core”’+(e.ct===“single_core”?” selected”:””)+’>Single Core PVC</option></select></div><div class="fg"><label class="fl">Cores</label><select class="fs" onchange="uE('+sid+','+eid+',\'co\',this.value)">’;
+var cos=gCo(e.ct);for(var c=0;c<cos.length;c++)h+=’<option value=”’+cos[c]+’”’+(e.co===cos[c]?’ selected’:’’)+’>’+cos[c]+’</option>’;
+h+=’</select></div><div class="fg"><label class="fl">Size mm2</label><select class="fs" onchange="uE('+sid+','+eid+',\'os\',this.value)"><option value="">-</option>’;
+for(var z=0;z<szs.length;z++)h+=’<option value=”’+szs[z]+’”’+(e.os==szs[z]?’ selected’:’’)+’>’+szs[z]+’mm2 ’+(szs[z]==e.ss?”*”:””)+’ (’+gR(e.ct,szs[z],vi.ph)+‘A)</option>’;
+h+=’</select></div><div class="fg"><label class="fl">Runs</label><input class="fi" type="number" min="1" value="'+e.ru+'" onchange="uE('+sid+','+eid+',\'ru\',this.value)"></div></div>’;
+h+=’<div class="fr" style="grid-template-columns:repeat(3,minmax(160px,1fr))"><div class="fg"><label class="fl">Cable Brand</label>’+’<select class="fs" onchange="uE('+sid+','+eid+',\'cBrand\',this.value)">’+BRANDS.cable.map(function(b){return ‘<option value=”’+b+’”’+(e.cBrand===b?’ selected’:’’)+’>’+b+’</option>’}).join(’’)+’</select>’+(e.cBrand===‘OTHER’?’<input class="fi" style="margin-top:4px" placeholder="Enter cable brand" value="'+(e.cBrandO||'')+'" onchange="uE('+sid+','+eid+',\'cBrandO\',this.value)">’:’’)+’</div><div class="fg"><label class="fl">Gland Brand</label>’+’<select class="fs" onchange="uE('+sid+','+eid+',\'gBrand\',this.value)">’+BRANDS.gland.map(function(b){return ‘<option value=”’+b+’”’+(e.gBrand===b?’ selected’:’’)+’>’+b+’</option>’}).join(’’)+’</select>’+(e.gBrand===‘OTHER’?’<input class="fi" style="margin-top:4px" placeholder="Enter gland brand" value="'+(e.gBrandO||'')+'" onchange="uE('+sid+','+eid+',\'gBrandO\',this.value)">’:’’)+’</div><div class="fg"><label class="fl">Isolator Brand</label>’+’<select class="fs" onchange="uE('+sid+','+eid+',\'iBrand\',this.value)">’+BRANDS.isolator.map(function(b){return ‘<option value=”’+b+’”’+(e.iBrand===b?’ selected’:’’)+’>’+b+’</option>’}).join(’’)+’</select>’+(e.iBrand===‘OTHER’?’<input class="fi" style="margin-top:4px" placeholder="Enter isolator brand" value="'+(e.iBrandO||'')+'" onchange="uE('+sid+','+eid+',\'iBrandO\',this.value)">’:’’)+’</div></div>’;
+if(sz){var eSzs=STD.filter(function(x){return x<=sz});h+=’<div class="ebox"><strong>Earth Cable:</strong> G/Y 1Cx’+earthSz+‘mm2 CU/PVC (BS 7671) - ‘+tl+‘m <select class="fs" style="display:inline;width:auto;padding:3px 20px 3px 6px;font-size:10px;max-width:100px" onchange="uE('+sid+','+eid+',\'esz\',this.value)"><option value="">Auto (’+eCalc(sz)+‘mm2)</option>’;for(var z=0;z<eSzs.length;z++)h+=’<option value=”’+eSzs[z]+’”’+(e.esz==eSzs[z]?’ selected’:’’)+’>’+eSzs[z]+‘mm2</option>’;h+=’</select></div>’}
+h+=’<div style="display:flex;gap:12px;flex-wrap:wrap;align-items:end">’;
+h+=’<div class="ck"><input type=“checkbox” id=“ck’+sid+eid+’” ‘+(e.iso?“checked”:””)+ ’ onchange=“uE(’+sid+’,’+eid+’,'iso',this.checked)”><label for="ck'+sid+eid+'">Include Isolator</label></div>’;
+if(e.iso){h+=’<div class="fg" style="min-width:140px"><label class="fl">Isolator (’+poles+’)</label><select class="fs" style="padding:4px 20px 4px 6px;font-size:10px" onchange="uE('+sid+','+eid+',\'isoModel\',this.value)">’;
+for(var ii=0;ii<isoList.length;ii++)h+=’<option value=”’+isoList[ii].m+’”’+(selIso===isoList[ii].m?’ selected’:’’)+’>’+isoList[ii].m+’ ‘+isoList[ii].a+‘A’+(isoList[ii].m===sugI.m?’ *’:’’)+’</option>’;
+h+=’</select></div>’}
+h+=’</div>’;
+if(sz){h+=’<div class="lbl"><strong>DESCRIPTION & CABLE SIZE:</strong>\n’+cblLbl+’\n’+earthLbl+’</div>’;if(e.nm)h+=’<div class="lbl" style="background:rgba(72,137,240,.08);border-color:rgba(72,137,240,.2);color:var(--bl)"><strong>DESCRIPTION:</strong>\n’+(e.nm||”” ).toUpperCase()+’</div>’;
+h+=’<div class="ris" style="margin-top:4px;font-size:10px;color:var(--tx2)">Cable Ties: ‘+tie.d+’ | Qty: ‘+tieQty+’ nos = ‘+tiePkt+’ pkt(s) of 100 | Description sets: ‘+ru+’</div>’}
+h+=’</div></div>’;return h}
 
-function rInc(){var szs=gSz(INC.ct,INC.co);var ikw=parseFloat(INC.kw)||0;var iamp=ikw?cAmp(ikw,INC.ph):0;var incPh2=INC.ph==="230"?"1":"3";var ss=iamp?sug(iamp,INC.ct,incPh2):0;if(ss&&!INC._set)INC.sz=ss;var sz=parseFloat(INC.sz)||0,od=sz?gOD(INC.ct,INC.co,sz):0;var ru=parseInt(INC.ru)||1,di=parseFloat(INC.di)||30,tl=Math.ceil(di*1.1)*ru,cn=parseInt(INC.co)||1;var ia=INC.ct==="armoured",gl=ia?pCW(od):pPG(od),gt=ia?"CW Brass":"PG Nylon",gs=gl.s,gh=ia?"M"+gl.t:gl.s;var lg=mLug(sz),lp=cn*ru;var fromS=INC.src==="smdb";var locs=fromS?(INC.iso?["SMDB","Main Iso In","Main Iso Out","Panel"]:["SMDB","Panel"]):(INC.iso?["Main Iso Out","Panel"]:["Panel"]);var autoEsz=sz?eCalc(sz):0;var esz=(INC.iesz&&parseFloat(INC.iesz))?parseFloat(INC.iesz):autoEsz;var incPh=INC.ph==="230"?"1":"3";var vdI=sz&&iamp?cVD(iamp,sz,di,INC.ph,incPh):{vd:0,pc:0,ok:true};
-var sugI=iamp?sugIso(iamp,"4P"):{m:"-",a:0};var selIso=INC.isoModel||sugI.m;var isoList=isoOpts("4P");
-var h='<div class="sys"><div class="sbd">';
-h+='<div class="fr" style="grid-template-columns:90px 90px 110px 60px 100px 60px 50px">';
-h+='<div class="fg"><label class="fl">Panel kW</label><input class="fi" type="number" step="0.1" value="'+INC.kw+'" placeholder="Total" onchange="INC.kw=this.value;INC._set=false;rInc()"></div>';
-h+='<div class="fg"><label class="fl">Phase</label><select class="fs" onchange="INC.ph=this.value;rInc()"><option value="400"'+(INC.ph==="400"?" selected":"")+'>400V 3P</option><option value="230"'+(INC.ph==="230"?" selected":"")+'>230V 1P</option></select></div>';
-h+='<div class="fg"><label class="fl">Start From</label><select class="fs" onchange="INC.src=this.value;rInc()"><option value="smdb"'+(INC.src==="smdb"?" selected":"")+'>SMDB (Full)</option><option value="iso"'+(INC.src==="iso"?" selected":"")+'>Isolator Out</option></select></div>';
-h+='<div class="fg"><label class="fl">Cores</label><select class="fs" onchange="INC.co=this.value;rInc()">';var cos=gCo(INC.ct);for(var c=0;c<cos.length;c++)h+='<option value="'+cos[c]+'"'+(INC.co===cos[c]?' selected':'')+'>'+cos[c]+'</option>';h+='</select></div>';
-h+='<div class="fg"><label class="fl">Size</label><select class="fs" onchange="INC.sz=this.value;INC._set=true;rInc()"><option value="">-</option>';for(var z=0;z<szs.length;z++)h+='<option value="'+szs[z]+'"'+(INC.sz==szs[z]?' selected':'')+'>'+szs[z]+'mm2 '+(szs[z]==ss?"*":"")+' ('+gR(INC.ct,szs[z],incPh2)+'A)</option>';h+='</select></div>';
-h+='<div class="fg"><label class="fl">Dist m</label><input class="fi" type="number" min="1" value="'+INC.di+'" onchange="INC.di=this.value;rInc()"></div>';
-h+='<div class="fg"><label class="fl">Runs</label><input class="fi" type="number" min="1" value="'+INC.ru+'" onchange="INC.ru=this.value;rInc()"></div></div>';
-h+='<div style="display:flex;gap:12px;flex-wrap:wrap;align-items:end">';
-h+='<div class="ck"><input type="checkbox" id="iiso" '+(INC.iso?"checked":"")+ ' onchange="INC.iso=this.checked;rInc()"><label for="iiso">Include Main Isolator</label></div>';
-if(INC.iso){h+='<div class="fg" style="min-width:150px"><label class="fl">Isolator (4P)</label><select class="fs" style="padding:4px 20px 4px 6px;font-size:10px" onchange="INC.isoModel=this.value;rInc()">';for(var ii=0;ii<isoList.length;ii++)h+='<option value="'+isoList[ii].m+'"'+(selIso===isoList[ii].m?' selected':'')+'>'+isoList[ii].m+' '+isoList[ii].a+'A'+(isoList[ii].m===sugI.m?' *':'')+'</option>';h+='</select></div>'}
-h+='<div class="fr" style="grid-template-columns:repeat(3,minmax(160px,1fr));margin-top:8px"><div class="fg"><label class="fl">Cable Brand</label><select class="fs" onchange="INC.cBrand=this.value;rInc()">'+BRANDS.cable.map(function(b){return '<option value="'+b+'"'+(INC.cBrand===b?' selected':'')+'>'+b+'</option>'}).join('')+'</select>'+(INC.cBrand==='OTHER'?'<input class="fi" style="margin-top:4px" placeholder="Enter cable brand" value="'+(INC.cBrandO||'')+'" onchange="INC.cBrandO=this.value;rInc()">':'')+'</div><div class="fg"><label class="fl">Gland Brand</label><select class="fs" onchange="INC.gBrand=this.value;rInc()">'+BRANDS.gland.map(function(b){return '<option value="'+b+'"'+(INC.gBrand===b?' selected':'')+'>'+b+'</option>'}).join('')+'</select>'+(INC.gBrand==='OTHER'?'<input class="fi" style="margin-top:4px" placeholder="Enter gland brand" value="'+(INC.gBrandO||'')+'" onchange="INC.gBrandO=this.value;rInc()">':'')+'</div><div class="fg"><label class="fl">Isolator Brand</label><select class="fs" onchange="INC.iBrand=this.value;rInc()">'+BRANDS.isolator.map(function(b){return '<option value="'+b+'"'+(INC.iBrand===b?' selected':'')+'>'+b+'</option>'}).join('')+'</select>'+(INC.iBrand==='OTHER'?'<input class="fi" style="margin-top:4px" placeholder="Enter isolator brand" value="'+(INC.iBrandO||'')+'" onchange="INC.iBrandO=this.value;rInc()">':'')+'</div></div>';
-h+='</div>';
-if(iamp)h+='<div class="sg"><div class="sgt">Incomer Calculation</div><div class="sgv">'+ikw+'kW > FLA: <strong>'+iamp.toFixed(1)+'A</strong> > Suggested: <strong>'+ss+'mm2</strong></div></div>';
-if(sz){var tie=cableTieSpec(od),tieQty=tl,tiePkt=packet100(tieQty);h+=(vdI.ok?'<div class="ok2">VD '+vdI.pc.toFixed(1)+'% OK</div>':'<div class="wr">VD '+vdI.pc.toFixed(1)+'% exceeds 4%</div>');
-var eSzs=STD.filter(function(x){return x<=sz});h+='<div class="ebox"><strong>Earth Cable:</strong> G/Y 1Cx'+esz+'mm2 CU/PVC (BS 7671) - '+tl+'m <select class="fs" style="display:inline;width:auto;padding:3px 20px 3px 6px;font-size:10px;max-width:100px" onchange="INC.iesz=this.value;rInc()"><option value="">Auto ('+autoEsz+'mm2)</option>';for(var z=0;z<eSzs.length;z++)h+='<option value="'+eSzs[z]+'"'+(INC.iesz==eSzs[z]?' selected':'')+'>'+eSzs[z]+'mm2</option>';h+='</select></div>';
-h+='<div class="lbl"><strong>DESCRIPTION &amp; CABLE SIZE:</strong>\nMAIN INCOMER CABLE '+INC.co+'x'+sz+'mm2 '+tSh(INC.ct)+'\nEARTH CABLE : G/Y 1Cx'+esz+'mm2 CU/PVC</div><div class="ris" style="margin-top:4px;font-size:10px;color:var(--tx2)">Cable Ties: '+tie.d+' | Qty: '+tieQty+' nos = '+tiePkt+' pkt(s) of 100</div>'}
-h+='</div></div>';document.getElementById("ibox").innerHTML=h}
+function rInc(){var szs=gSz(INC.ct,INC.co);var ikw=parseFloat(INC.kw)||0;var iamp=ikw?cAmp(ikw,INC.ph):0;var incPh2=INC.ph===“230”?“1”:“3”;var ss=iamp?sug(iamp,INC.ct,incPh2):0;if(ss&&!INC._set)INC.sz=ss;var sz=parseFloat(INC.sz)||0,od=sz?gOD(INC.ct,INC.co,sz):0;var ru=parseInt(INC.ru)||1,di=parseFloat(INC.di)||30,tl=Math.ceil(di*1.1)*ru,cn=parseInt(INC.co)||1;var ia=INC.ct===“armoured”,gl=ia?pCW(od):pPG(od),gt=ia?“CW Brass”:“PG Nylon”,gs=gl.s,gh=ia?“M”+gl.t:gl.s;var lg=mLug(sz),lp=cn*ru;var fromS=INC.src===“smdb”;var locs=fromS?(INC.iso?[“SMDB”,“Main Iso In”,“Main Iso Out”,“Panel”]:[“SMDB”,“Panel”]):(INC.iso?[“Main Iso Out”,“Panel”]:[“Panel”]);var autoEsz=sz?eCalc(sz):0;var esz=(INC.iesz&&parseFloat(INC.iesz))?parseFloat(INC.iesz):autoEsz;var incPh=INC.ph===“230”?“1”:“3”;var vdI=sz&&iamp?cVD(iamp,sz,di,INC.ph,incPh):{vd:0,pc:0,ok:true};
+var sugI=iamp?sugIso(iamp,“4P”):{m:”-”,a:0};var selIso=INC.isoModel||sugI.m;var isoList=isoOpts(“4P”);
+var h=’<div class="sys"><div class="sbd">’;
+h+=’<div class="fr" style="grid-template-columns:90px 90px 110px 60px 100px 60px 50px">’;
+h+=’<div class="fg"><label class="fl">Panel kW</label><input class="fi" type="number" step="0.1" value="'+INC.kw+'" placeholder="Total" onchange="INC.kw=this.value;INC._set=false;rInc()"></div>’;
+h+=’<div class="fg"><label class="fl">Phase</label><select class="fs" onchange="INC.ph=this.value;rInc()"><option value=“400”’+(INC.ph===“400”?” selected”:””)+’>400V 3P</option><option value=“230”’+(INC.ph===“230”?” selected”:””)+’>230V 1P</option></select></div>’;
+h+=’<div class="fg"><label class="fl">Start From</label><select class="fs" onchange="INC.src=this.value;rInc()"><option value=“smdb”’+(INC.src===“smdb”?” selected”:””)+’>SMDB (Full)</option><option value=“iso”’+(INC.src===“iso”?” selected”:””)+’>Isolator Out</option></select></div>’;
+h+=’<div class="fg"><label class="fl">Cores</label><select class="fs" onchange="INC.co=this.value;rInc()">’;var cos=gCo(INC.ct);for(var c=0;c<cos.length;c++)h+=’<option value=”’+cos[c]+’”’+(INC.co===cos[c]?’ selected’:’’)+’>’+cos[c]+’</option>’;h+=’</select></div>’;
+h+=’<div class="fg"><label class="fl">Size</label><select class="fs" onchange="INC.sz=this.value;INC._set=true;rInc()"><option value="">-</option>’;for(var z=0;z<szs.length;z++)h+=’<option value=”’+szs[z]+’”’+(INC.sz==szs[z]?’ selected’:’’)+’>’+szs[z]+’mm2 ’+(szs[z]==ss?”*”:””)+’ (’+gR(INC.ct,szs[z],incPh2)+‘A)</option>’;h+=’</select></div>’;
+h+=’<div class="fg"><label class="fl">Dist m</label><input class="fi" type="number" min="1" value="'+INC.di+'" onchange="INC.di=this.value;rInc()"></div>’;
+h+=’<div class="fg"><label class="fl">Runs</label><input class="fi" type="number" min="1" value="'+INC.ru+'" onchange="INC.ru=this.value;rInc()"></div></div>’;
+h+=’<div style="display:flex;gap:12px;flex-wrap:wrap;align-items:end">’;
+h+=’<div class="ck"><input type=“checkbox” id=“iiso” ‘+(INC.iso?“checked”:””)+ ’ onchange=“INC.iso=this.checked;rInc()”><label for="iiso">Include Main Isolator</label></div>’;
+if(INC.iso){h+=’<div class="fg" style="min-width:150px"><label class="fl">Isolator (4P)</label><select class="fs" style="padding:4px 20px 4px 6px;font-size:10px" onchange="INC.isoModel=this.value;rInc()">’;for(var ii=0;ii<isoList.length;ii++)h+=’<option value=”’+isoList[ii].m+’”’+(selIso===isoList[ii].m?’ selected’:’’)+’>’+isoList[ii].m+’ ‘+isoList[ii].a+‘A’+(isoList[ii].m===sugI.m?’ *’:’’)+’</option>’;h+=’</select></div>’}
+h+=’<div class="fr" style="grid-template-columns:repeat(3,minmax(160px,1fr));margin-top:8px"><div class="fg"><label class="fl">Cable Brand</label><select class="fs" onchange="INC.cBrand=this.value;rInc()">’+BRANDS.cable.map(function(b){return ‘<option value=”’+b+’”’+(INC.cBrand===b?’ selected’:’’)+’>’+b+’</option>’}).join(’’)+’</select>’+(INC.cBrand===‘OTHER’?’<input class="fi" style="margin-top:4px" placeholder="Enter cable brand" value="'+(INC.cBrandO||'')+'" onchange="INC.cBrandO=this.value;rInc()">’:’’)+’</div><div class="fg"><label class="fl">Gland Brand</label><select class="fs" onchange="INC.gBrand=this.value;rInc()">’+BRANDS.gland.map(function(b){return ‘<option value=”’+b+’”’+(INC.gBrand===b?’ selected’:’’)+’>’+b+’</option>’}).join(’’)+’</select>’+(INC.gBrand===‘OTHER’?’<input class="fi" style="margin-top:4px" placeholder="Enter gland brand" value="'+(INC.gBrandO||'')+'" onchange="INC.gBrandO=this.value;rInc()">’:’’)+’</div><div class="fg"><label class="fl">Isolator Brand</label><select class="fs" onchange="INC.iBrand=this.value;rInc()">’+BRANDS.isolator.map(function(b){return ‘<option value=”’+b+’”’+(INC.iBrand===b?’ selected’:’’)+’>’+b+’</option>’}).join(’’)+’</select>’+(INC.iBrand===‘OTHER’?’<input class="fi" style="margin-top:4px" placeholder="Enter isolator brand" value="'+(INC.iBrandO||'')+'" onchange="INC.iBrandO=this.value;rInc()">’:’’)+’</div></div>’;
+h+=’</div>’;
+if(iamp)h+=’<div class="sg"><div class="sgt">Incomer Calculation</div><div class="sgv">’+ikw+‘kW > FLA: <strong>’+iamp.toFixed(1)+‘A</strong> > Suggested: <strong>’+ss+‘mm2</strong></div></div>’;
+if(sz){var tie=cableTieSpec(od),tieQty=tl,tiePkt=packet100(tieQty);h+=(vdI.ok?’<div class="ok2">VD ‘+vdI.pc.toFixed(1)+’% OK</div>’:’<div class="wr">VD ‘+vdI.pc.toFixed(1)+’% exceeds 4%</div>’);
+var eSzs=STD.filter(function(x){return x<=sz});h+=’<div class="ebox"><strong>Earth Cable:</strong> G/Y 1Cx’+esz+‘mm2 CU/PVC (BS 7671) - ‘+tl+‘m <select class="fs" style="display:inline;width:auto;padding:3px 20px 3px 6px;font-size:10px;max-width:100px" onchange="INC.iesz=this.value;rInc()"><option value="">Auto (’+autoEsz+‘mm2)</option>’;for(var z=0;z<eSzs.length;z++)h+=’<option value=”’+eSzs[z]+’”’+(INC.iesz==eSzs[z]?’ selected’:’’)+’>’+eSzs[z]+‘mm2</option>’;h+=’</select></div>’;
+h+=’<div class="lbl"><strong>DESCRIPTION & CABLE SIZE:</strong>\nMAIN INCOMER CABLE ‘+INC.co+‘x’+sz+‘mm2 ‘+tSh(INC.ct)+’\nEARTH CABLE : G/Y 1Cx’+esz+‘mm2 CU/PVC</div><div class="ris" style="margin-top:4px;font-size:10px;color:var(--tx2)">Cable Ties: ‘+tie.d+’ | Qty: ‘+tieQty+’ nos = ‘+tiePkt+’ pkt(s) of 100</div>’}
+h+=’</div></div>’;document.getElementById(“ibox”).innerHTML=h}
 
-function addRoute(){_ri++;ROUTES.push({id:_ri,nm:"Route "+_ri,dist:20,eqIds:[],type:"tray"});rRoutes()}
+function addRoute(){_ri++;ROUTES.push({id:*ri,nm:“Route “+*ri,dist:20,eqIds:[],type:“tray”});rRoutes()}
 function rmRoute(id){ROUTES=ROUTES.filter(function(r){return r.id!==id});rRoutes()}
 function togRE(rid,key){var r=ROUTES.find(function(x){return x.id===rid});if(!r)return;var i=r.eqIds.indexOf(key);if(i>=0)r.eqIds.splice(i,1);else r.eqIds.push(key);rRoutes()}
 function rRoutes(){var allEq=[];
 // Add incomer cable as a selectable item for tray routing
-var isz=parseFloat(INC.sz);if(isz){allEq.push({nm:"MAIN INCOMER",os:INC.sz,ct:INC.ct,co:INC.co,ru:parseInt(INC.ru)||1,esz:"",sid:"INC",eid:"0"})}
-for(var i=0;i<SY.length;i++)for(var j=0;j<SY[i].eq.length;j++){var e=SY[i].eq[j];allEq.push({nm:e.nm||("E"+e.id),os:e.os,ct:e.ct,co:e.co,ru:e.ru,esz:e.esz,sid:SY[i].id,eid:e.id})}
-var h="";for(var i=0;i<ROUTES.length;i++){var r=ROUTES[i];var cables=[];for(var j=0;j<r.eqIds.length;j++){var p=r.eqIds[j].split("_");var eq=allEq.find(function(x){return x.sid==p[0]&&x.eid==p[1]});if(eq&&eq.os){var sz=parseFloat(eq.os),od=gOD(eq.ct,eq.co,sz),esz2=(eq.esz&&parseFloat(eq.esz))?parseFloat(eq.esz):eCalc(sz),eod=SOD[esz2]||5,ru=parseInt(eq.ru)||1;cables.push({sz:sz,od:od,esz:esz2,eod:eod,ru:ru,co:eq.co})}}
-var result="",supports="",sizing="";
+var isz=parseFloat(INC.sz);if(isz){allEq.push({nm:“MAIN INCOMER”,os:INC.sz,ct:INC.ct,co:INC.co,ru:parseInt(INC.ru)||1,esz:””,sid:“INC”,eid:“0”})}
+for(var i=0;i<SY.length;i++)for(var j=0;j<SY[i].eq.length;j++){var e=SY[i].eq[j];allEq.push({nm:e.nm||(“E”+e.id),os:e.os,ct:e.ct,co:e.co,ru:e.ru,esz:e.esz,sid:SY[i].id,eid:e.id})}
+var h=””;for(var i=0;i<ROUTES.length;i++){var r=ROUTES[i];var cables=[];for(var j=0;j<r.eqIds.length;j++){var p=r.eqIds[j].split(”*”);var eq=allEq.find(function(x){return x.sid==p[0]&&x.eid==p[1]});if(eq&&eq.os){var sz=parseFloat(eq.os),od=gOD(eq.ct,eq.co,sz),esz2=(eq.esz&&parseFloat(eq.esz))?parseFloat(eq.esz):eCalc(sz),eod=SOD[esz2]||5,ru=parseInt(eq.ru)||1;cables.push({sz:sz,od:od,esz:esz2,eod:eod,ru:ru,co:eq.co})}}
+var result=””,supports=””,sizing=””;
 if(cables.length&&r.dist){var numSup=Math.floor(r.dist/1.5)+1;
-if(r.type==="tray"){var cabs=[];var odList=[];for(var j=0;j<cables.length;j++){cabs.push({od:cables[j].od,cnt:cables[j].ru});cabs.push({od:cables[j].eod,cnt:cables[j].ru});for(var rr=0;rr<cables[j].ru;rr++){odList.push({t:"Power",od:cables[j].od});odList.push({t:"Earth",od:cables[j].eod})}}var t=calcTray(cabs);var itemW=t.w;var chW=itemW+60;var totalRodM=numSup*1.6;var rodStock=Math.ceil(totalRodM/3);var chTotalM=(numSup*chW)/1000;var chStock=Math.ceil(chTotalM/3);var spNut=itemW<=100?1:2;var trayLenM=Math.ceil(r.dist*1.1);var numPieces=Math.ceil(trayLenM/3);var roofBolt12=numPieces*2;var numConn=numPieces>0?numPieces-1:0;var trayConn=numConn*2;var earthLinks=numConn;var earthLinkPkt=Math.ceil(earthLinks/25);
-sizing='<div class="trb" style="margin-top:4px"><strong>Tray Sizing Calculation:</strong><br>';
-for(var j=0;j<odList.length;j++)sizing+=odList[j].t+': '+odList[j].od.toFixed(1)+'mm'+(j<odList.length-1?' + ':'');
-sizing+='<br>Sum OD: <strong>'+t.rawOD.toFixed(1)+'mm</strong> + 30% free space = <strong>'+t.with30+'mm</strong> &rarr; Standard tray: <strong>'+itemW+'mm</strong></div>';
-result='<div class="trb"><strong>Cable Tray:</strong> '+t.model+' ('+itemW+'mm W x 50mm H) — SFSP HCT Perforated HDG<br>Length: '+r.dist+'m (+10% = '+trayLenM+'m) — '+numPieces+' pcs (3m stock)</div>';
-supports='<div class="trb" style="margin-top:4px"><strong>Tray Supports (incl. both ends) @ 1.5m = '+numSup+' supports:</strong><br>10mm Threaded Rod (0.8m x 2/support, 3m stock): <strong>'+rodStock+'</strong> nos | 10mm Nut (3x2): <strong>'+(numSup*6)+'</strong> nos | 10mm Washer (3x2): <strong>'+(numSup*6)+'</strong> nos<br>6mm Spring Nut ('+spNut+'/sup): <strong>'+(numSup*spNut)+'</strong> | 6x16mm Roofing Bolt: <strong>'+(numSup*spNut)+'</strong> | 6x12mm Roofing Bolt: <strong>'+roofBolt12+'</strong> <span style="color:var(--tx2)">('+numPieces+' trays x 2)</span><br>Tray Connector (2/joint): <strong>'+trayConn+'</strong> nos <span style="color:var(--tx2)">('+numConn+' joints x 2)</span> | Earth Link FURSE RC104 6mm Cu: <strong>'+earthLinks+'</strong> nos ('+earthLinkPkt+' pkt of 25)<br>C-Channel '+chW+'mm ('+itemW+'+60mm), 3m stock: <strong>'+chStock+'</strong> nos</div>'}
+if(r.type===“tray”){var cabs=[];var odList=[];for(var j=0;j<cables.length;j++){cabs.push({od:cables[j].od,cnt:cables[j].ru});cabs.push({od:cables[j].eod,cnt:cables[j].ru});for(var rr=0;rr<cables[j].ru;rr++){odList.push({t:“Power”,od:cables[j].od});odList.push({t:“Earth”,od:cables[j].eod})}}var t=calcTray(cabs);var itemW=t.w;var chW=itemW+60;var totalRodM=numSup*1.6;var rodStock=Math.ceil(totalRodM/3);var chTotalM=(numSup*chW)/1000;var chStock=Math.ceil(chTotalM/3);var spNut=itemW<=100?1:2;var trayLenM=Math.ceil(r.dist*1.1);var numPieces=Math.ceil(trayLenM/3);var roofBolt12=numPieces*2;var numConn=numPieces>0?numPieces-1:0;var trayConn=numConn*2;var earthLinks=numConn;var earthLinkPkt=Math.ceil(earthLinks/25);
+sizing=’<div class="trb" style="margin-top:4px"><strong>Tray Sizing Calculation:</strong><br>’;
+for(var j=0;j<odList.length;j++)sizing+=odList[j].t+’: ‘+odList[j].od.toFixed(1)+‘mm’+(j<odList.length-1?’ + ‘:’’);
+sizing+=’<br>Sum OD: <strong>’+t.rawOD.toFixed(1)+‘mm</strong> + 30% free space = <strong>’+t.with30+‘mm</strong> → Standard tray: <strong>’+itemW+‘mm</strong></div>’;
+result=’<div class="trb"><strong>Cable Tray:</strong> ‘+t.model+’ (’+itemW+‘mm W x 50mm H) — SFSP HCT Perforated HDG<br>Length: ‘+r.dist+‘m (+10% = ‘+trayLenM+‘m) — ‘+numPieces+’ pcs (3m stock)</div>’;
+supports=’<div class="trb" style="margin-top:4px"><strong>Tray Supports (incl. both ends) @ 1.5m = ‘+numSup+’ supports:</strong><br>10mm Threaded Rod (0.8m x 2/support, 3m stock): <strong>’+rodStock+’</strong> nos | 10mm Nut (3x2): <strong>’+(numSup*6)+’</strong> nos | 10mm Washer (3x2): <strong>’+(numSup*6)+’</strong> nos<br>6mm Spring Nut (’+spNut+’/sup): <strong>’+(numSup*spNut)+’</strong> | 6x16mm Roofing Bolt: <strong>’+(numSup*spNut)+’</strong> | 6x12mm Roofing Bolt: <strong>’+roofBolt12+’</strong> <span style="color:var(--tx2)">(’+numPieces+’ trays x 2)</span><br>Tray Connector (2/joint): <strong>’+trayConn+’</strong> nos <span style="color:var(--tx2)">(’+numConn+’ joints x 2)</span> | Earth Link FURSE RC104 6mm Cu: <strong>’+earthLinks+’</strong> nos (’+earthLinkPkt+’ pkt of 25)<br>C-Channel ‘+chW+‘mm (’+itemW+’+60mm), 3m stock: <strong>’+chStock+’</strong> nos</div>’}
 else{var cabs=[];for(var j=0;j<cables.length;j++){var cn=parseInt(cables[j].co)||1;cabs.push({sz:cables[j].sz,cnt:cn*cables[j].ru});cabs.push({sz:cables[j].esz,cnt:cables[j].ru})}var t=calcTrunk(cabs);var tkW=parseInt(t.s)||100;var chW=tkW+60;var totalRodM=numSup*1.6;var rodStock=Math.ceil(totalRodM/3);var chTotalM=(numSup*chW)/1000;var chStock=Math.ceil(chTotalM/3);var spNut=tkW<=100?1:2;var tkLenM=Math.ceil(r.dist*1.1);var numPieces=Math.ceil(tkLenM/3);var roofBolt12=numPieces*2;var numConn=numPieces>0?numPieces-1:0;var tkConn=numConn*2;var earthLinks=numConn;var earthLinkPkt=Math.ceil(earthLinks/25);
-result='<div class="trb"><strong>Trunking:</strong> '+t.s+'mm SFSP SCT BS EN 50085 | Factor:'+t.used.toFixed(0)+'/'+t.cap+'<br>Length: '+r.dist+'m (+10% = '+tkLenM+'m) — '+numPieces+' pcs (3m stock)</div>';
-supports='<div class="trb" style="margin-top:4px"><strong>Trunking Supports (incl. both ends) @ 1.5m = '+numSup+' supports:</strong><br>10mm Threaded Rod (0.8m x 2/support, 3m stock): <strong>'+rodStock+'</strong> nos | 10mm Nut (3x2): <strong>'+(numSup*6)+'</strong> nos | 10mm Washer (3x2): <strong>'+(numSup*6)+'</strong> nos<br>6mm Spring Nut ('+spNut+'/sup): <strong>'+(numSup*spNut)+'</strong> | 6x16mm Roofing Bolt: <strong>'+(numSup*spNut)+'</strong> | 6x12mm Roofing Bolt: <strong>'+roofBolt12+'</strong> <span style="color:var(--tx2)">('+numPieces+' pcs x 2)</span><br>Trunking Connector (2/joint): <strong>'+tkConn+'</strong> nos <span style="color:var(--tx2)">('+numConn+' joints x 2)</span> | Earth Link FURSE RC104 6mm Cu: <strong>'+earthLinks+'</strong> nos ('+earthLinkPkt+' pkt of 25)<br>C-Channel '+chW+'mm ('+tkW+'+60mm), 3m stock: <strong>'+chStock+'</strong> nos</div>'}}
-h+='<div class="route"><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px"><strong style="color:var(--cy)">Route '+(i+1)+'</strong>';
-h+='<input class="fi" style="max-width:140px;padding:4px 8px;font-size:12px" value="'+r.nm+'" onchange="ROUTES['+i+'].nm=this.value">';
-h+='<div class="fg" style="width:70px"><label class="fl">Dist</label><input class="fi" type="number" min="1" value="'+r.dist+'" style="padding:4px 8px" onchange="ROUTES['+i+'].dist=parseInt(this.value);rRoutes()"></div>';
-h+='<select class="fs" style="width:90px;padding:4px 20px 4px 6px;font-size:10px" onchange="ROUTES['+i+'].type=this.value;rRoutes()"><option value="tray"'+(r.type==="tray"?" selected":"")+'>Tray</option><option value="trunking"'+(r.type==="trunking"?" selected":"")+'>Trunking</option></select>';
-h+='<button class="b br bs" onclick="rmRoute('+r.id+')">x</button></div><div style="margin-bottom:4px">';
-for(var j=0;j<allEq.length;j++){var e=allEq[j];var key=e.sid+"_"+e.eid;h+='<div class="rchip'+(r.eqIds.indexOf(key)>=0?" sel":"")+'" onclick="togRE('+r.id+',\''+key+'\')">'+e.nm+(e.os?" ("+e.os+"mm2)":"")+'</div>'}
-h+='</div>'+result+sizing+supports+'</div>'}document.getElementById("rcon").innerHTML=h}
+result=’<div class="trb"><strong>Trunking:</strong> ‘+t.s+‘mm SFSP SCT BS EN 50085 | Factor:’+t.used.toFixed(0)+’/’+t.cap+’<br>Length: ‘+r.dist+‘m (+10% = ‘+tkLenM+‘m) — ‘+numPieces+’ pcs (3m stock)</div>’;
+supports=’<div class="trb" style="margin-top:4px"><strong>Trunking Supports (incl. both ends) @ 1.5m = ‘+numSup+’ supports:</strong><br>10mm Threaded Rod (0.8m x 2/support, 3m stock): <strong>’+rodStock+’</strong> nos | 10mm Nut (3x2): <strong>’+(numSup*6)+’</strong> nos | 10mm Washer (3x2): <strong>’+(numSup*6)+’</strong> nos<br>6mm Spring Nut (’+spNut+’/sup): <strong>’+(numSup*spNut)+’</strong> | 6x16mm Roofing Bolt: <strong>’+(numSup*spNut)+’</strong> | 6x12mm Roofing Bolt: <strong>’+roofBolt12+’</strong> <span style="color:var(--tx2)">(’+numPieces+’ pcs x 2)</span><br>Trunking Connector (2/joint): <strong>’+tkConn+’</strong> nos <span style="color:var(--tx2)">(’+numConn+’ joints x 2)</span> | Earth Link FURSE RC104 6mm Cu: <strong>’+earthLinks+’</strong> nos (’+earthLinkPkt+’ pkt of 25)<br>C-Channel ‘+chW+‘mm (’+tkW+’+60mm), 3m stock: <strong>’+chStock+’</strong> nos</div>’}}
+h+=’<div class="route"><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px"><strong style="color:var(--cy)">Route ‘+(i+1)+’</strong>’;
+h+=’<input class="fi" style="max-width:140px;padding:4px 8px;font-size:12px" value="'+r.nm+'" onchange="ROUTES['+i+'].nm=this.value">’;
+h+=’<div class="fg" style="width:70px"><label class="fl">Dist</label><input class="fi" type="number" min="1" value="'+r.dist+'" style="padding:4px 8px" onchange="ROUTES['+i+'].dist=parseInt(this.value);rRoutes()"></div>’;
+h+=’<select class="fs" style="width:90px;padding:4px 20px 4px 6px;font-size:10px" onchange="ROUTES['+i+'].type=this.value;rRoutes()"><option value=“tray”’+(r.type===“tray”?” selected”:””)+’>Tray</option><option value=“trunking”’+(r.type===“trunking”?” selected”:””)+’>Trunking</option></select>’;
+h+=’<button class="b br bs" onclick="rmRoute('+r.id+')">x</button></div><div style="margin-bottom:4px">’;
+for(var j=0;j<allEq.length;j++){var e=allEq[j];var key=e.sid+”*”+e.eid;h+=’<div class=“rchip’+(r.eqIds.indexOf(key)>=0?” sel”:””)+’” onclick=“togRE(’+r.id+’,'’+key+’')”>’+e.nm+(e.os?” (”+e.os+“mm2)”:””)+’</div>’}
+h+=’</div>’+result+sizing+supports+’</div>’}document.getElementById(“rcon”).innerHTML=h}
 
 // ===== VD SCHEDULE =====
-function vdForSelection(amp,sz,dist,volt,ph){var vdi=cVD(amp,sz,dist,volt,ph);var basis=ph==="3"?"3P 400V":(ph==="1"?"1P 230V":"DC "+volt+"V");return{v:vdi.vd.toFixed(2),p:vdi.pc.toFixed(1),ok:vdi.ok,b:basis}}
+function vdForSelection(amp,sz,dist,volt,ph){var vdi=cVD(amp,sz,dist,volt,ph);var basis=ph===“3”?“3P 400V”:(ph===“1”?“1P 230V”:“DC “+volt+“V”);return{v:vdi.vd.toFixed(2),p:vdi.pc.toFixed(1),ok:vdi.ok,b:basis}}
 function rVD(){var rows=[];
-var isz=parseFloat(INC.sz);if(isz){var ikw=parseFloat(INC.kw)||0;var iamp=ikw?cAmp(ikw,INC.ph):0;var di=parseFloat(INC.di)||30;var esz=eCalc(isz);var incPh=INC.ph==="230"?"1":"3";var vd=vdForSelection(iamp,isz,di,INC.ph,incPh);
-rows.push({eq:"MAIN INCOMER",cable:INC.co+"x"+isz+"mm2 "+tSh(INC.ct),earth:"1Cx"+esz+"mm2 G/Y",kw:ikw,amp:iamp.toFixed(1),dist:di,v:vd.v,p:vd.p,ok:vd.ok,basis:vd.b})}
+var isz=parseFloat(INC.sz);if(isz){var ikw=parseFloat(INC.kw)||0;var iamp=ikw?cAmp(ikw,INC.ph):0;var di=parseFloat(INC.di)||30;var esz=eCalc(isz);var incPh=INC.ph===“230”?“1”:“3”;var vd=vdForSelection(iamp,isz,di,INC.ph,incPh);
+rows.push({eq:“MAIN INCOMER”,cable:INC.co+“x”+isz+“mm2 “+tSh(INC.ct),earth:“1Cx”+esz+“mm2 G/Y”,kw:ikw,amp:iamp.toFixed(1),dist:di,v:vd.v,p:vd.p,ok:vd.ok,basis:vd.b})}
 for(var i=0;i<SY.length;i++){for(var j=0;j<SY[i].eq.length;j++){var e=SY[i].eq[j];var sz=parseFloat(e.os);if(!sz)continue;var kw=parseFloat(e.kw)||0;var vi=VOLTS.find(function(x){return x.v===e.volt})||VOLTS[1];var amp=kw?cAmp(kw,e.volt):0;var di=parseFloat(e.di)||0;var esz=(e.esz&&parseFloat(e.esz))?parseFloat(e.esz):eCalc(sz);var vd=vdForSelection(amp,sz,di,e.volt,vi.ph);
-rows.push({eq:(e.nm||"E"+e.id),cable:e.co+"x"+sz+"mm2 "+tSh(e.ct),earth:"1Cx"+esz+"mm2 G/Y",kw:kw,amp:amp.toFixed(1),dist:di,v:vd.v,p:vd.p,ok:vd.ok,basis:vd.b})}}
-var h='<div style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--r2);overflow:hidden"><div style="overflow-x:auto"><table class="tb"><thead><tr><th>Equipment</th><th>Cable</th><th>Earth</th><th>kW</th><th>FLA</th><th>Dist(m)</th><th>Basis</th><th>VD (V)</th><th>VD (%)</th><th>Status</th></tr></thead><tbody>';
+rows.push({eq:(e.nm||“E”+e.id),cable:e.co+“x”+sz+“mm2 “+tSh(e.ct),earth:“1Cx”+esz+“mm2 G/Y”,kw:kw,amp:amp.toFixed(1),dist:di,v:vd.v,p:vd.p,ok:vd.ok,basis:vd.b})}}
+var h=’<div style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--r2);overflow:hidden"><div style="overflow-x:auto"><table class="tb"><thead><tr><th>Equipment</th><th>Cable</th><th>Earth</th><th>kW</th><th>FLA</th><th>Dist(m)</th><th>Basis</th><th>VD (V)</th><th>VD (%)</th><th>Status</th></tr></thead><tbody>’;
 for(var i=0;i<rows.length;i++){var r=rows[i];
-h+='<tr><td><strong>'+r.eq+'</strong></td><td>'+r.cable+'</td><td>'+r.earth+'</td><td>'+r.kw+'</td><td>'+r.amp+'A</td><td>'+r.dist+'</td><td>'+r.basis+'</td><td>'+r.v+'</td><td>'+r.p+'%</td><td style="color:'+(r.ok?"var(--gn)":"var(--rd)")+'"><strong>'+(r.ok?"OK":"FAIL")+'</strong></td></tr>'}
-h+='</tbody></table></div></div>';
-h+='<div style="margin-top:8px;font-size:10px;color:var(--tx2)">Voltage drop is shown only for the selected circuit type and operating voltage. DEWA Max: 4%</div>';
-document.getElementById("vdcon").innerHTML=h}
+h+=’<tr><td><strong>’+r.eq+’</strong></td><td>’+r.cable+’</td><td>’+r.earth+’</td><td>’+r.kw+’</td><td>’+r.amp+‘A</td><td>’+r.dist+’</td><td>’+r.basis+’</td><td>’+r.v+’</td><td>’+r.p+’%</td><td style=“color:’+(r.ok?“var(–gn)”:“var(–rd)”)+’”><strong>’+(r.ok?“OK”:“FAIL”)+’</strong></td></tr>’}
+h+=’</tbody></table></div></div>’;
+h+=’<div style="margin-top:8px;font-size:10px;color:var(--tx2)">Voltage drop is shown only for the selected circuit type and operating voltage. DEWA Max: 4%</div>’;
+document.getElementById(“vdcon”).innerHTML=h}
 
 function xVDXLS(){rVD();var rows=[];
-var isz=parseFloat(INC.sz);if(isz){var ikw=parseFloat(INC.kw)||0;var iamp=ikw?cAmp(ikw,INC.ph):0;var di=parseFloat(INC.di)||30;var esz=eCalc(isz);var incPh=INC.ph==="230"?"1":"3";var vd=vdForSelection(iamp,isz,di,INC.ph,incPh);rows.push(["MAIN INCOMER",INC.co+"x"+isz+"mm2","1Cx"+esz+"mm2 G/Y",ikw,iamp.toFixed(1),di,vd.b,vd.v,vd.p,vd.ok?"OK":"FAIL"])}
-for(var i=0;i<SY.length;i++){for(var j=0;j<SY[i].eq.length;j++){var e=SY[i].eq[j];var sz=parseFloat(e.os);if(!sz)continue;var kw=parseFloat(e.kw)||0;var vi=VOLTS.find(function(x){return x.v===e.volt})||VOLTS[1];var amp=kw?cAmp(kw,e.volt):0;var di=parseFloat(e.di)||0;var esz=(e.esz&&parseFloat(e.esz))?parseFloat(e.esz):eCalc(sz);var vd=vdForSelection(amp,sz,di,e.volt,vi.ph);rows.push([(e.nm||"E"+e.id),e.co+"x"+sz+"mm2","1Cx"+esz+"mm2 G/Y",kw,amp.toFixed(1),di,vd.b,vd.v,vd.p,vd.ok?"OK":"FAIL"])}}
-var x='<?xml version="1.0" encoding="UTF-8"?>\n<?mso-application progid="Excel.Sheet"?>\n<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">\n<Styles><Style ss:ID="hdr"><Font ss:Bold="1" ss:Color="#FFFFFF" ss:Size="10"/><Interior ss:Color="#C89530" ss:Pattern="Solid"/></Style><Style ss:ID="ok"><Font ss:Color="#228B22"/></Style><Style ss:ID="fail"><Font ss:Color="#DC143C" ss:Bold="1"/></Style><Style ss:ID="def"></Style></Styles>\n<Worksheet ss:Name="VD Schedule"><Table>\n<Column ss:Width="120"/><Column ss:Width="140"/><Column ss:Width="110"/><Column ss:Width="50"/><Column ss:Width="50"/><Column ss:Width="50"/><Column ss:Width="80"/><Column ss:Width="60"/><Column ss:Width="55"/><Column ss:Width="50"/>\n';
-x+='<Row ss:StyleID="hdr"><Cell><Data ss:Type="String">Equipment</Data></Cell><Cell><Data ss:Type="String">Cable</Data></Cell><Cell><Data ss:Type="String">Earth</Data></Cell><Cell><Data ss:Type="String">kW</Data></Cell><Cell><Data ss:Type="String">FLA</Data></Cell><Cell><Data ss:Type="String">Dist(m)</Data></Cell><Cell><Data ss:Type="String">Basis</Data></Cell><Cell><Data ss:Type="String">VD (V)</Data></Cell><Cell><Data ss:Type="String">VD (%)</Data></Cell><Cell><Data ss:Type="String">Status</Data></Cell></Row>\n';
-for(var i=0;i<rows.length;i++){var r=rows[i];var st=r[9]==="OK"?"ok":"fail";x+='<Row><Cell><Data ss:Type="String">'+r[0]+'</Data></Cell><Cell><Data ss:Type="String">'+r[1]+'</Data></Cell><Cell><Data ss:Type="String">'+r[2]+'</Data></Cell><Cell><Data ss:Type="Number">'+r[3]+'</Data></Cell><Cell><Data ss:Type="String">'+r[4]+'</Data></Cell><Cell><Data ss:Type="Number">'+r[5]+'</Data></Cell><Cell><Data ss:Type="String">'+r[6]+'</Data></Cell><Cell><Data ss:Type="Number">'+r[7]+'</Data></Cell><Cell><Data ss:Type="Number">'+r[8]+'</Data></Cell><Cell ss:StyleID="'+st+'"><Data ss:Type="String">'+r[9]+'</Data></Cell></Row>\n'}
-x+='</Table></Worksheet></Workbook>';dlF(x,"application/vnd.ms-excel","VD_Schedule.xls")}
+var isz=parseFloat(INC.sz);if(isz){var ikw=parseFloat(INC.kw)||0;var iamp=ikw?cAmp(ikw,INC.ph):0;var di=parseFloat(INC.di)||30;var esz=eCalc(isz);var incPh=INC.ph===“230”?“1”:“3”;var vd=vdForSelection(iamp,isz,di,INC.ph,incPh);rows.push([“MAIN INCOMER”,INC.co+“x”+isz+“mm2”,“1Cx”+esz+“mm2 G/Y”,ikw,iamp.toFixed(1),di,vd.b,vd.v,vd.p,vd.ok?“OK”:“FAIL”])}
+for(var i=0;i<SY.length;i++){for(var j=0;j<SY[i].eq.length;j++){var e=SY[i].eq[j];var sz=parseFloat(e.os);if(!sz)continue;var kw=parseFloat(e.kw)||0;var vi=VOLTS.find(function(x){return x.v===e.volt})||VOLTS[1];var amp=kw?cAmp(kw,e.volt):0;var di=parseFloat(e.di)||0;var esz=(e.esz&&parseFloat(e.esz))?parseFloat(e.esz):eCalc(sz);var vd=vdForSelection(amp,sz,di,e.volt,vi.ph);rows.push([(e.nm||“E”+e.id),e.co+“x”+sz+“mm2”,“1Cx”+esz+“mm2 G/Y”,kw,amp.toFixed(1),di,vd.b,vd.v,vd.p,vd.ok?“OK”:“FAIL”])}}
+var x=’<?xml version="1.0" encoding="UTF-8"?>\n<?mso-application progid="Excel.Sheet"?>\n<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">\n<Styles><Style ss:ID="hdr"><Font ss:Bold="1" ss:Color="#FFFFFF" ss:Size="10"/><Interior ss:Color="#C89530" ss:Pattern="Solid"/></Style><Style ss:ID="ok"><Font ss:Color="#228B22"/></Style><Style ss:ID="fail"><Font ss:Color="#DC143C" ss:Bold="1"/></Style><Style ss:ID="def"></Style></Styles>\n<Worksheet ss:Name="VD Schedule"><Table>\n<Column ss:Width="120"/><Column ss:Width="140"/><Column ss:Width="110"/><Column ss:Width="50"/><Column ss:Width="50"/><Column ss:Width="50"/><Column ss:Width="80"/><Column ss:Width="60"/><Column ss:Width="55"/><Column ss:Width="50"/>\n’;
+x+=’<Row ss:StyleID="hdr"><Cell><Data ss:Type="String">Equipment</Data></Cell><Cell><Data ss:Type="String">Cable</Data></Cell><Cell><Data ss:Type="String">Earth</Data></Cell><Cell><Data ss:Type="String">kW</Data></Cell><Cell><Data ss:Type="String">FLA</Data></Cell><Cell><Data ss:Type="String">Dist(m)</Data></Cell><Cell><Data ss:Type="String">Basis</Data></Cell><Cell><Data ss:Type="String">VD (V)</Data></Cell><Cell><Data ss:Type="String">VD (%)</Data></Cell><Cell><Data ss:Type="String">Status</Data></Cell></Row>\n’;
+for(var i=0;i<rows.length;i++){var r=rows[i];var st=r[9]===“OK”?“ok”:“fail”;x+=’<Row><Cell><Data ss:Type="String">’+r[0]+’</Data></Cell><Cell><Data ss:Type="String">’+r[1]+’</Data></Cell><Cell><Data ss:Type="String">’+r[2]+’</Data></Cell><Cell><Data ss:Type="Number">’+r[3]+’</Data></Cell><Cell><Data ss:Type="String">’+r[4]+’</Data></Cell><Cell><Data ss:Type="Number">’+r[5]+’</Data></Cell><Cell><Data ss:Type="String">’+r[6]+’</Data></Cell><Cell><Data ss:Type="Number">’+r[7]+’</Data></Cell><Cell><Data ss:Type="Number">’+r[8]+’</Data></Cell><Cell ss:StyleID="'+st+'"><Data ss:Type="String">’+r[9]+’</Data></Cell></Row>\n’}
+x+=’</Table></Worksheet></Workbook>’;dlF(x,“application/vnd.ms-excel”,“VD_Schedule.xls”)}
 
 // ===== SUMMARY =====
 function gAll(sf){var R=[];var sz=parseFloat(INC.sz);
-if(sz&&!sf){var ru=parseInt(INC.ru)||1,di=parseFloat(INC.di)||30,tl=Math.ceil(di*1.1)*ru,cn=parseInt(INC.co)||1;var ia=INC.ct==="armoured",g=ia?pCW(gOD(INC.ct,INC.co,sz)):pPG(gOD(INC.ct,INC.co,sz)),gt=ia?"CW Brass":"PG Nylon",gs=g.s,gh=ia?"M"+g.t:g.s;var lg=mLug(sz),lp=cn*ru;var fromS=INC.src==="smdb";var locs=fromS?(INC.iso?["SMDB","MIso In","MIso Out","Panel"]:["SMDB","Panel"]):(INC.iso?["MIso Out","Panel"]:["Panel"]);var autoEsz=eCalc(sz);var esz=(INC.iesz&&parseFloat(INC.iesz))?parseFloat(INC.iesz):autoEsz;var eg=pPG(SOD[esz]||5),el=mLug(esz);var ikw=parseFloat(INC.kw)||0;var iamp=ikw?cAmp(ikw,INC.ph):0;
-var EN="MAIN INCOMER";
-R.push({sys:"INCOMER",cat:"Cable",d:tN(INC.ct)+" "+INC.co+"x"+sz+"mm2 ("+tSh(INC.ct)+")",p:"For "+EN,br:brandVal(INC.cBrand,INC.cBrandO),q:tl,u:"mtr",k:"cable_inc",o:1});
-R.push({sys:"INCOMER",cat:"Earth Cable",d:"Earth G/Y 1Cx"+esz+"mm2 CU/PVC",p:"For "+EN,br:brandVal(INC.cBrand,INC.cBrandO),q:tl,u:"mtr",k:"earth_inc",o:1});
-if(INC.iso){var selI=INC.isoModel||sugIso(iamp,"4P").m;var iObj=ALL_ISO.find(function(x){return x.m===selI})||{m:selI,a:"?",p:"4P"};R.push({sys:"INCOMER",cat:"Isolator",d:iObj.m+" "+iObj.a+"A "+iObj.p+" IP65",p:"For "+EN,br:brandVal(INC.iBrand,INC.iBrandO),q:ru,u:"nos",k:"iso_inc",o:2})}
-for(var i=0;i<locs.length;i++){R.push({sys:"INCOMER",cat:"Gland",d:gt+" "+gs+" ("+gh+")",p:EN+" — "+locs[i],br:brandVal(INC.gBrand,INC.gBrandO),q:ru,u:"nos",k:"gland_inc_"+locs[i],o:3});R.push({sys:"INCOMER",cat:"Gland",d:"PG Nylon "+eg.s+" (Earth)",p:EN+" — "+locs[i],br:brandVal(INC.gBrand,INC.gBrandO),q:ru,u:"nos",k:"egland_inc_"+locs[i],o:3})}
-for(var i=0;i<locs.length;i++)R.push({sys:"INCOMER",cat:"Lug",d:lg.c+" ("+lg.st+")",p:EN+" — "+locs[i],q:lp,u:"nos",k:"lug_inc_"+locs[i],o:4});
-R.push({sys:"INCOMER",cat:"Lug",d:el.c+" ("+el.st+") Earth",p:"For "+EN,q:ru*2,u:"nos",k:"lug_inc_earth",o:4});
+if(sz&&!sf){var ru=parseInt(INC.ru)||1,di=parseFloat(INC.di)||30,tl=Math.ceil(di*1.1)*ru,cn=parseInt(INC.co)||1;var ia=INC.ct===“armoured”,g=ia?pCW(gOD(INC.ct,INC.co,sz)):pPG(gOD(INC.ct,INC.co,sz)),gt=ia?“CW Brass”:“PG Nylon”,gs=g.s,gh=ia?“M”+g.t:g.s;var lg=mLug(sz),lp=cn*ru;var fromS=INC.src===“smdb”;var locs=fromS?(INC.iso?[“SMDB”,“MIso In”,“MIso Out”,“Panel”]:[“SMDB”,“Panel”]):(INC.iso?[“MIso Out”,“Panel”]:[“Panel”]);var autoEsz=eCalc(sz);var esz=(INC.iesz&&parseFloat(INC.iesz))?parseFloat(INC.iesz):autoEsz;var eg=pPG(SOD[esz]||5),el=mLug(esz);var ikw=parseFloat(INC.kw)||0;var iamp=ikw?cAmp(ikw,INC.ph):0;
+var EN=“MAIN INCOMER”;
+R.push({sys:“INCOMER”,cat:“Cable”,d:tN(INC.ct)+” “+INC.co+“x”+sz+“mm2 (”+tSh(INC.ct)+”)”,p:“For “+EN,br:brandVal(INC.cBrand,INC.cBrandO),q:tl,u:“mtr”,k:“cable_inc”,o:1});
+R.push({sys:“INCOMER”,cat:“Earth Cable”,d:“Earth G/Y 1Cx”+esz+“mm2 CU/PVC”,p:“For “+EN,br:brandVal(INC.cBrand,INC.cBrandO),q:tl,u:“mtr”,k:“earth_inc”,o:1});
+if(INC.iso){var selI=INC.isoModel||sugIso(iamp,“4P”).m;var iObj=ALL_ISO.find(function(x){return x.m===selI})||{m:selI,a:”?”,p:“4P”};R.push({sys:“INCOMER”,cat:“Isolator”,d:iObj.m+” “+iObj.a+“A “+iObj.p+” IP65”,p:“For “+EN,br:brandVal(INC.iBrand,INC.iBrandO),q:ru,u:“nos”,k:“iso_inc”,o:2})}
+for(var i=0;i<locs.length;i++){R.push({sys:“INCOMER”,cat:“Gland”,d:gt+” “+gs+” (”+gh+”)”,p:EN+” — “+locs[i],br:brandVal(INC.gBrand,INC.gBrandO),q:ru,u:“nos”,k:“gland_inc_”+locs[i],o:3});R.push({sys:“INCOMER”,cat:“Gland”,d:“PG Nylon “+eg.s+” (Earth)”,p:EN+” — “+locs[i],br:brandVal(INC.gBrand,INC.gBrandO),q:ru,u:“nos”,k:“egland_inc_”+locs[i],o:3})}
+for(var i=0;i<locs.length;i++)R.push({sys:“INCOMER”,cat:“Lug”,d:lg.c+” (”+lg.st+”)”,p:EN+” — “+locs[i],q:lp,u:“nos”,k:“lug_inc_”+locs[i],o:4});
+R.push({sys:“INCOMER”,cat:“Lug”,d:el.c+” (”+el.st+”) Earth”,p:“For “+EN,q:ru*2,u:“nos”,k:“lug_inc_earth”,o:4});
 var tieInc=cableTieSpec(gOD(INC.ct,INC.co,sz));
-R.push({sys:"INCOMER",cat:"Engraved Label (2-hole)",d:"MAIN INCOMER "+INC.co+"x"+sz+"mm2",p:"Cable Tag",q:ru,u:"set",k:"desc_inc",o:5});
-R.push({sys:"INCOMER",cat:"Cable Tie",d:tieInc.d,p:"For "+EN,br:"EDGE TAIWAN",q:packet100(tl),u:"pkt",k:"tie_inc",o:6})}
+R.push({sys:“INCOMER”,cat:“Engraved Label (2-hole)”,d:“MAIN INCOMER “+INC.co+“x”+sz+“mm2”,p:“Cable Tag”,q:ru,u:“set”,k:“desc_inc”,o:5});
+R.push({sys:“INCOMER”,cat:“Cable Tie”,d:tieInc.d,p:“For “+EN,br:“EDGE TAIWAN”,q:packet100(tl),u:“pkt”,k:“tie_inc”,o:6})}
 for(var si=0;si<SY.length;si++){var s=SY[si];var sn=s.cn||s.name;if(sf&&sn!==sf)continue;
 for(var j=0;j<s.eq.length;j++){var e=s.eq[j];var esz2=parseFloat(e.os);if(!esz2)continue;var ru=parseInt(e.ru)||1,di=parseFloat(e.di)||0,tl=Math.ceil(di*1.1)*ru;var cn2=parseInt(e.co)||1;var earthSz=(e.esz&&parseFloat(e.esz))?parseFloat(e.esz):eCalc(esz2);var od=gOD(e.ct,e.co,esz2);
-var EN=(e.nm||"Equipment").toUpperCase();var ek=s.id+"_"+e.id;
-R.push({sys:sn,cat:"Cable",d:tN(e.ct)+" "+e.co+"x"+esz2+"mm2 ("+tSh(e.ct)+")",p:"For "+EN,br:brandVal(e.cBrand,e.cBrandO),q:tl,u:"mtr",k:"cable_"+ek,o:1});
-R.push({sys:sn,cat:"Earth Cable",d:"Earth G/Y 1Cx"+earthSz+"mm2 CU/PVC",p:"For "+EN,br:brandVal(e.cBrand,e.cBrandO),q:tl,u:"mtr",k:"earth_"+ek,o:1});
-if(e.iso){var amp=cAmp(parseFloat(e.kw)||0,e.volt);var poles=gIP(e);var selI=e.isoModel||sugIso(amp,poles).m;var iObj=ALL_ISO.find(function(x){return x.m===selI})||{m:selI,a:"?",p:poles};R.push({sys:sn,cat:"Isolator",d:iObj.m+" "+iObj.a+"A "+iObj.p+" IP65",p:"For "+EN,br:brandVal(e.iBrand,e.iBrandO),q:ru,u:"nos",k:"iso_"+ek,o:2})}
-var ia=e.ct==="armoured",g=ia?pCW(od):pPG(od),gt=ia?"CW Brass":"PG Nylon",gs=g.s,gh=ia?"M"+g.t:g.s;
-var glLocs=e.iso?["Panel","Iso In","Iso Out","Equipment"]:["Panel","Equipment"];
-for(var l=0;l<glLocs.length;l++)R.push({sys:sn,cat:"Gland",d:gt+" "+gs+" ("+gh+")",p:EN+" — "+glLocs[l],br:brandVal(e.gBrand,e.gBrandO),q:ru,u:"nos",k:"gland_"+ek+"_"+glLocs[l],o:3});
+var EN=(e.nm||“Equipment”).toUpperCase();var ek=s.id+”*”+e.id;
+R.push({sys:sn,cat:“Cable”,d:tN(e.ct)+” “+e.co+“x”+esz2+“mm2 (”+tSh(e.ct)+”)”,p:“For “+EN,br:brandVal(e.cBrand,e.cBrandO),q:tl,u:“mtr”,k:“cable*”+ek,o:1});
+R.push({sys:sn,cat:“Earth Cable”,d:“Earth G/Y 1Cx”+earthSz+“mm2 CU/PVC”,p:“For “+EN,br:brandVal(e.cBrand,e.cBrandO),q:tl,u:“mtr”,k:“earth_”+ek,o:1});
+if(e.iso){var amp=cAmp(parseFloat(e.kw)||0,e.volt);var poles=gIP(e);var selI=e.isoModel||sugIso(amp,poles).m;var iObj=ALL_ISO.find(function(x){return x.m===selI})||{m:selI,a:”?”,p:poles};R.push({sys:sn,cat:“Isolator”,d:iObj.m+” “+iObj.a+“A “+iObj.p+” IP65”,p:“For “+EN,br:brandVal(e.iBrand,e.iBrandO),q:ru,u:“nos”,k:“iso_”+ek,o:2})}
+var ia=e.ct===“armoured”,g=ia?pCW(od):pPG(od),gt=ia?“CW Brass”:“PG Nylon”,gs=g.s,gh=ia?“M”+g.t:g.s;
+var glLocs=e.iso?[“Panel”,“Iso In”,“Iso Out”,“Equipment”]:[“Panel”,“Equipment”];
+for(var l=0;l<glLocs.length;l++)R.push({sys:sn,cat:“Gland”,d:gt+” “+gs+” (”+gh+”)”,p:EN+” — “+glLocs[l],br:brandVal(e.gBrand,e.gBrandO),q:ru,u:“nos”,k:“gland_”+ek+”*”+glLocs[l],o:3});
 var eod=SOD[earthSz]||5;var eg=pPG(eod);
-R.push({sys:sn,cat:"Gland",d:"PG Nylon "+eg.s+" (Earth)",p:EN+" — Panel",br:brandVal(e.gBrand,e.gBrandO),q:ru,u:"nos",k:"egland_"+ek+"_p",o:3});
-R.push({sys:sn,cat:"Gland",d:"PG Nylon "+eg.s+" (Earth)",p:EN+" — Equipment",br:brandVal(e.gBrand,e.gBrandO),q:ru,u:"nos",k:"egland_"+ek+"_e",o:3});
-var lg=mLug(esz2),lp2=cn2*ru;var luLocs=e.iso?["Panel","Iso In","Iso Out","Equipment"]:["Panel","Equipment"];
-for(var l=0;l<luLocs.length;l++)R.push({sys:sn,cat:"Lug",d:lg.c+" ("+lg.st+")",p:EN+" — "+luLocs[l],q:lp2,u:"nos",k:"lug_"+ek+"_"+luLocs[l],o:4});
-var el=mLug(earthSz);R.push({sys:sn,cat:"Lug",d:el.c+" ("+el.st+") Earth",p:"For "+EN,q:ru*2,u:"nos",k:"elug_"+ek,o:4});
+R.push({sys:sn,cat:“Gland”,d:“PG Nylon “+eg.s+” (Earth)”,p:EN+” — Panel”,br:brandVal(e.gBrand,e.gBrandO),q:ru,u:“nos”,k:“egland*”+ek+”*p”,o:3});
+R.push({sys:sn,cat:“Gland”,d:“PG Nylon “+eg.s+” (Earth)”,p:EN+” — Equipment”,br:brandVal(e.gBrand,e.gBrandO),q:ru,u:“nos”,k:“egland*”+ek+”_e”,o:3});
+var lg=mLug(esz2),lp2=cn2*ru;var luLocs=e.iso?[“Panel”,“Iso In”,“Iso Out”,“Equipment”]:[“Panel”,“Equipment”];
+for(var l=0;l<luLocs.length;l++)R.push({sys:sn,cat:“Lug”,d:lg.c+” (”+lg.st+”)”,p:EN+” — “+luLocs[l],q:lp2,u:“nos”,k:“lug_”+ek+”_”+luLocs[l],o:4});
+var el=mLug(earthSz);R.push({sys:sn,cat:“Lug”,d:el.c+” (”+el.st+”) Earth”,p:“For “+EN,q:ru*2,u:“nos”,k:“elug_”+ek,o:4});
 var tieEq=cableTieSpec(od);
-R.push({sys:sn,cat:"Engraved Label (2-hole)",d:"TO "+EN+" "+e.co+"x"+esz2+"mm2",p:"Cable Tag",q:ru,u:"set",k:"desc_"+ek,o:5});
-if(e.nm)R.push({sys:sn,cat:"Engraved Label (no hole)",d:EN,p:"Equipment Label",q:1,u:"nos",k:"eqdesc_"+ek,o:5});
-R.push({sys:sn,cat:"Cable Tie",d:tieEq.d,p:"For "+EN,br:"EDGE TAIWAN",q:packet100(tl),u:"pkt",k:"tie_"+ek,o:6})}}
+R.push({sys:sn,cat:“Engraved Label (2-hole)”,d:“TO “+EN+” “+e.co+“x”+esz2+“mm2”,p:“Cable Tag”,q:ru,u:“set”,k:“desc_”+ek,o:5});
+if(e.nm)R.push({sys:sn,cat:“Engraved Label (no hole)”,d:EN,p:“Equipment Label”,q:1,u:“nos”,k:“eqdesc_”+ek,o:5});
+R.push({sys:sn,cat:“Cable Tie”,d:tieEq.d,p:“For “+EN,br:“EDGE TAIWAN”,q:packet100(tl),u:“pkt”,k:“tie_”+ek,o:6})}}
 // Tray/Trunking/Support materials from routes
 for(var ri=0;ri<ROUTES.length;ri++){var r=ROUTES[ri];if(!r.dist)continue;
-var allEqR=[];if(parseFloat(INC.sz))allEqR.push({os:INC.sz,ct:INC.ct,co:INC.co,ru:parseInt(INC.ru)||1,esz:"",sid:"INC",eid:"0"});
+var allEqR=[];if(parseFloat(INC.sz))allEqR.push({os:INC.sz,ct:INC.ct,co:INC.co,ru:parseInt(INC.ru)||1,esz:””,sid:“INC”,eid:“0”});
 for(var si2=0;si2<SY.length;si2++)for(var j2=0;j2<SY[si2].eq.length;j2++){var e2=SY[si2].eq[j2];allEqR.push({os:e2.os,ct:e2.ct,co:e2.co,ru:e2.ru,esz:e2.esz,sid:SY[si2].id,eid:e2.id})}
-var rCabs=[];for(var j2=0;j2<r.eqIds.length;j2++){var p2=r.eqIds[j2].split("_");var eq2=allEqR.find(function(x){return String(x.sid)==p2[0]&&String(x.eid)==p2[1]});if(eq2&&eq2.os){var sz2=parseFloat(eq2.os),od2=gOD(eq2.ct,eq2.co,sz2),esz3=(eq2.esz&&parseFloat(eq2.esz))?parseFloat(eq2.esz):eCalc(sz2),eod2=SOD[esz3]||5,ru2=parseInt(eq2.ru)||1;rCabs.push({sz:sz2,od:od2,esz:esz3,eod:eod2,ru:ru2,co:eq2.co})}}
+var rCabs=[];for(var j2=0;j2<r.eqIds.length;j2++){var p2=r.eqIds[j2].split(”*”);var eq2=allEqR.find(function(x){return String(x.sid)==p2[0]&&String(x.eid)==p2[1]});if(eq2&&eq2.os){var sz2=parseFloat(eq2.os),od2=gOD(eq2.ct,eq2.co,sz2),esz3=(eq2.esz&&parseFloat(eq2.esz))?parseFloat(eq2.esz):eCalc(sz2),eod2=SOD[esz3]||5,ru2=parseInt(eq2.ru)||1;rCabs.push({sz:sz2,od:od2,esz:esz3,eod:eod2,ru:ru2,co:eq2.co})}}
 if(rCabs.length){
 var numSup2=Math.floor(r.dist/1.5)+1;var trayLen=Math.ceil(r.dist*1.1);
-if(r.type==="tray"){
+if(r.type===“tray”){
 var tc=[];for(var j2=0;j2<rCabs.length;j2++){tc.push({od:rCabs[j2].od,cnt:rCabs[j2].ru});tc.push({od:rCabs[j2].eod,cnt:rCabs[j2].ru})}
 var tt=calcTray(tc);var itemW2=tt.w;var chW2=itemW2+60;var totalRodM2=numSup2*1.6;var rodStock2=Math.ceil(totalRodM2/3);var chTotalM2=(numSup2*chW2)/1000;var chStock2=Math.ceil(chTotalM2/3);var spNut2=itemW2<=100?1:2;var numPcs2=Math.ceil(trayLen/3);var roofB12=numPcs2*2;var numConn2=numPcs2>0?numPcs2-1:0;var earthL2=numConn2;var earthLPkt2=Math.ceil(earthL2/25);
-R.push({sys:"TRAY: "+r.nm,cat:"Cable Tray",d:tt.model+" Perforated HDG BS EN 61537 ("+itemW2+"mm W)",q:trayLen,u:"mtr",k:"tray_"+itemW2+"_"+ri,o:7});
-R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"10mm Full Threaded Rod, 3m Stock (0.8m x 2/support)",q:rodStock2,u:"nos",k:"rod3m_"+ri,o:7});
-R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"10mm Nut (3/rod x 2 rods)",q:numSup2*6,u:"nos",k:"nut10_"+ri,o:7});
-R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"10mm Washer (3/rod x 2 rods)",q:numSup2*6,u:"nos",k:"wash10_"+ri,o:7});
-R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"6mm Spring Nut",q:numSup2*spNut2,u:"nos",k:"spnut6_"+ri,o:7});
-R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"6mm x 16mm Roofing Bolt",q:numSup2*spNut2,u:"nos",k:"rb616_"+ri,o:7});
-R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"6mm x 12mm Roofing Bolt (tray connection)",q:roofB12,u:"nos",k:"rb612_"+ri,o:7});
-R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"Tray Connector (2/joint)",q:numConn2*2,u:"nos",k:"tconn_"+ri,o:7});
-R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"C-Channel Slotted "+chW2+"mm ("+itemW2+"+60mm), 3m Stock",q:chStock2,u:"nos",k:"cchan_"+chW2+"_"+ri,o:7});
-R.push({sys:"TRAY: "+r.nm,cat:"Earth Link",d:"EARTH LINK: COPPER, 6MM, RC104, FURSE (25nos/pkt)",q:earthLPkt2,u:"pkt",k:"earthlink_"+ri,o:8});
+R.push({sys:“TRAY: “+r.nm,cat:“Cable Tray”,d:tt.model+” Perforated HDG BS EN 61537 (”+itemW2+“mm W)”,q:trayLen,u:“mtr”,k:“tray*”+itemW2+”*”+ri,o:7});
+R.push({sys:“TRAY: “+r.nm,cat:“Tray Support”,d:“10mm Full Threaded Rod, 3m Stock (0.8m x 2/support)”,q:rodStock2,u:“nos”,k:“rod3m*”+ri,o:7});
+R.push({sys:“TRAY: “+r.nm,cat:“Tray Support”,d:“10mm Nut (3/rod x 2 rods)”,q:numSup2*6,u:“nos”,k:“nut10_”+ri,o:7});
+R.push({sys:“TRAY: “+r.nm,cat:“Tray Support”,d:“10mm Washer (3/rod x 2 rods)”,q:numSup2*6,u:“nos”,k:“wash10_”+ri,o:7});
+R.push({sys:“TRAY: “+r.nm,cat:“Tray Support”,d:“6mm Spring Nut”,q:numSup2*spNut2,u:“nos”,k:“spnut6_”+ri,o:7});
+R.push({sys:“TRAY: “+r.nm,cat:“Tray Support”,d:“6mm x 16mm Roofing Bolt”,q:numSup2*spNut2,u:“nos”,k:“rb616_”+ri,o:7});
+R.push({sys:“TRAY: “+r.nm,cat:“Tray Support”,d:“6mm x 12mm Roofing Bolt (tray connection)”,q:roofB12,u:“nos”,k:“rb612_”+ri,o:7});
+R.push({sys:“TRAY: “+r.nm,cat:“Tray Support”,d:“Tray Connector (2/joint)”,q:numConn2*2,u:“nos”,k:“tconn_”+ri,o:7});
+R.push({sys:“TRAY: “+r.nm,cat:“Tray Support”,d:“C-Channel Slotted “+chW2+“mm (”+itemW2+”+60mm), 3m Stock”,q:chStock2,u:“nos”,k:“cchan_”+chW2+”*”+ri,o:7});
+R.push({sys:“TRAY: “+r.nm,cat:“Earth Link”,d:“EARTH LINK: COPPER, 6MM, RC104, FURSE (25nos/pkt)”,q:earthLPkt2,u:“pkt”,k:“earthlink*”+ri,o:8});
 }else{
 var tkc=[];for(var j2=0;j2<rCabs.length;j2++){var cn3=parseInt(rCabs[j2].co)||1;tkc.push({sz:rCabs[j2].sz,cnt:cn3*rCabs[j2].ru});tkc.push({sz:rCabs[j2].esz,cnt:rCabs[j2].ru})}
 var tk2=calcTrunk(tkc);var tkW2=parseInt(tk2.s)||100;var chW2t=tkW2+60;var totalRodM2t=numSup2*1.6;var rodStock2t=Math.ceil(totalRodM2t/3);var chTotalM2t=(numSup2*chW2t)/1000;var chStock2t=Math.ceil(chTotalM2t/3);var spNut2t=tkW2<=100?1:2;var numPcs2t=Math.ceil(trayLen/3);var roofB12t=numPcs2t*2;var numConn2t=numPcs2t>0?numPcs2t-1:0;var earthL2t=numConn2t;var earthLPkt2t=Math.ceil(earthL2t/25);
-R.push({sys:"TRAY: "+r.nm,cat:"Cable Trunking",d:"Trunking "+tk2.s+"mm SFSP SCT BS EN 50085",q:trayLen,u:"mtr",k:"trunk_"+tk2.s+"_"+ri,o:7});
-R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"10mm Full Threaded Rod, 3m Stock (0.8m x 2/support)",q:rodStock2t,u:"nos",k:"rod3m_tk_"+ri,o:7});
-R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"10mm Nut (3/rod x 2 rods)",q:numSup2*6,u:"nos",k:"nut10_tk_"+ri,o:7});
-R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"10mm Washer (3/rod x 2 rods)",q:numSup2*6,u:"nos",k:"wash10_tk_"+ri,o:7});
-R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"6mm Spring Nut",q:numSup2*spNut2t,u:"nos",k:"spnut6_tk_"+ri,o:7});
-R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"6mm x 16mm Roofing Bolt",q:numSup2*spNut2t,u:"nos",k:"rb616_tk_"+ri,o:7});
-R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"6mm x 12mm Roofing Bolt (trunking connection)",q:roofB12t,u:"nos",k:"rb612_tk_"+ri,o:7});
-R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"Trunking Connector (2/joint)",q:numConn2t*2,u:"nos",k:"tkconn_"+ri,o:7});
-R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"C-Channel Slotted "+chW2t+"mm ("+tkW2+"+60mm), 3m Stock",q:chStock2t,u:"nos",k:"cchan_"+chW2t+"_tk_"+ri,o:7});
-R.push({sys:"TRAY: "+r.nm,cat:"Earth Link",d:"EARTH LINK: COPPER, 6MM, RC104, FURSE (25nos/pkt)",q:earthLPkt2t,u:"pkt",k:"earthlink_tk_"+ri,o:8});
+R.push({sys:“TRAY: “+r.nm,cat:“Cable Trunking”,d:“Trunking “+tk2.s+“mm SFSP SCT BS EN 50085”,q:trayLen,u:“mtr”,k:“trunk_”+tk2.s+”*”+ri,o:7});
+R.push({sys:“TRAY: “+r.nm,cat:“Tray Support”,d:“10mm Full Threaded Rod, 3m Stock (0.8m x 2/support)”,q:rodStock2t,u:“nos”,k:“rod3m_tk*”+ri,o:7});
+R.push({sys:“TRAY: “+r.nm,cat:“Tray Support”,d:“10mm Nut (3/rod x 2 rods)”,q:numSup2*6,u:“nos”,k:“nut10_tk_”+ri,o:7});
+R.push({sys:“TRAY: “+r.nm,cat:“Tray Support”,d:“10mm Washer (3/rod x 2 rods)”,q:numSup2*6,u:“nos”,k:“wash10_tk_”+ri,o:7});
+R.push({sys:“TRAY: “+r.nm,cat:“Tray Support”,d:“6mm Spring Nut”,q:numSup2*spNut2t,u:“nos”,k:“spnut6_tk_”+ri,o:7});
+R.push({sys:“TRAY: “+r.nm,cat:“Tray Support”,d:“6mm x 16mm Roofing Bolt”,q:numSup2*spNut2t,u:“nos”,k:“rb616_tk_”+ri,o:7});
+R.push({sys:“TRAY: “+r.nm,cat:“Tray Support”,d:“6mm x 12mm Roofing Bolt (trunking connection)”,q:roofB12t,u:“nos”,k:“rb612_tk_”+ri,o:7});
+R.push({sys:“TRAY: “+r.nm,cat:“Tray Support”,d:“Trunking Connector (2/joint)”,q:numConn2t*2,u:“nos”,k:“tkconn_”+ri,o:7});
+R.push({sys:“TRAY: “+r.nm,cat:“Tray Support”,d:“C-Channel Slotted “+chW2t+“mm (”+tkW2+”+60mm), 3m Stock”,q:chStock2t,u:“nos”,k:“cchan_”+chW2t+”*tk*”+ri,o:7});
+R.push({sys:“TRAY: “+r.nm,cat:“Earth Link”,d:“EARTH LINK: COPPER, 6MM, RC104, FURSE (25nos/pkt)”,q:earthLPkt2t,u:“pkt”,k:“earthlink_tk_”+ri,o:8});
 }}}
 return R}
 
-function merge(rows){var m={};for(var i=0;i<rows.length;i++){var r=rows[i];if(!m[r.k])m[r.k]={cat:r.cat,d:r.d,p:r.p||"",br:r.br||"",q:0,u:r.u,k:r.k,o:r.o};m[r.k].q+=r.q;if(!m[r.k].br&&r.br)m[r.k].br=r.br;if(!m[r.k].p&&r.p)m[r.k].p=r.p}var arr=[];for(var k in m)arr.push(m[k]);arr.sort(function(a,b){if((a.o||9)!==(b.o||9))return(a.o||9)-(b.o||9);if(a.cat!==b.cat)return a.cat.localeCompare(b.cat);return a.d.localeCompare(b.d)});for(var i=0;i<arr.length;i++)arr[i].sl=i+1;return arr}
+function merge(rows){var m={};for(var i=0;i<rows.length;i++){var r=rows[i];if(!m[r.k])m[r.k]={cat:r.cat,d:r.d,p:r.p||””,br:r.br||””,q:0,u:r.u,k:r.k,o:r.o};m[r.k].q+=r.q;if(!m[r.k].br&&r.br)m[r.k].br=r.br;if(!m[r.k].p&&r.p)m[r.k].p=r.p}var arr=[];for(var k in m)arr.push(m[k]);arr.sort(function(a,b){if((a.o||9)!==(b.o||9))return(a.o||9)-(b.o||9);if(a.cat!==b.cat)return a.cat.localeCompare(b.cat);return a.d.localeCompare(b.d)});for(var i=0;i<arr.length;i++)arr[i].sl=i+1;return arr}
 
 var _catFilters=null; // null=all, or Set of active cats
-var ALL_CATS=["Cable","Earth Cable","Isolator","Gland","Lug","Engraved Label (2-hole)","Engraved Label (no hole)","Cable Tie","Cable Tray","Tray Support","Cable Trunking","Earth Link"];
+var ALL_CATS=[“Cable”,“Earth Cable”,“Isolator”,“Gland”,“Lug”,“Engraved Label (2-hole)”,“Engraved Label (no hole)”,“Cable Tie”,“Cable Tray”,“Tray Support”,“Cable Trunking”,“Earth Link”];
 
-function renderCatFilters(){var h='<div class="rchip sel" onclick="toggleCatFilter(null)">ALL</div>';for(var i=0;i<ALL_CATS.length;i++){var c=ALL_CATS[i];var on=!_catFilters||_catFilters.has(c);h+='<div class="rchip'+(on?' sel':'')+'" onclick="toggleCatFilter(\''+c+'\')">'+c+'</div>'}document.getElementById("catfilters").innerHTML=h}
-function toggleCatFilter(cat){if(!cat){_catFilters=null}else{if(!_catFilters){_catFilters=new Set();_catFilters.add(cat)}else if(_catFilters.has(cat)){_catFilters.delete(cat);if(_catFilters.size===0)_catFilters=null}else{_catFilters.add(cat)}}renderCatFilters();showST(_curSumTab||"ALL")}
+function renderCatFilters(){var h=’<div class="rchip sel" onclick="toggleCatFilter(null)">ALL</div>’;for(var i=0;i<ALL_CATS.length;i++){var c=ALL_CATS[i];var on=!_catFilters||_catFilters.has(c);h+=’<div class="rchip'+(on?' sel':'')+'" onclick="toggleCatFilter(\''+c+'\')">’+c+’</div>’}document.getElementById(“catfilters”).innerHTML=h}
+function toggleCatFilter(cat){if(!cat){_catFilters=null}else{if(!_catFilters){_catFilters=new Set();_catFilters.add(cat)}else if(_catFilters.has(cat)){_catFilters.delete(cat);if(_catFilters.size===0)_catFilters=null}else{_catFilters.add(cat)}}renderCatFilters();showST(_curSumTab||“ALL”)}
 function filterRows(rows){if(!_catFilters)return rows;return rows.filter(function(r){return _catFilters.has(r.cat)})}
 
-function bSum(){var sl=["ALL"];for(var i=0;i<SY.length;i++)sl.push(SY[i].cn||SY[i].name);var h="";for(var i=0;i<sl.length;i++)h+='<div class="tabn'+(sl[i]==="ALL"?" on":"")+'" onclick="showST(\''+sl[i].replace(/'/g,"\\'")+'\')">'+sl[i]+'</div>';h+='<div class="tabn" onclick="showST(\'COMBINED\')" style="border-color:var(--gd);color:var(--gd)">Combined</div>';document.getElementById("stabs").innerHTML=h;renderCatFilters();showST("ALL")}
+function bSum(){var sl=[“ALL”];for(var i=0;i<SY.length;i++)sl.push(SY[i].cn||SY[i].name);var h=””;for(var i=0;i<sl.length;i++)h+=’<div class=“tabn’+(sl[i]===“ALL”?” on”:””)+’” onclick=“showST('’+sl[i].replace(/’/g,”\’”)+’')”>’+sl[i]+’</div>’;h+=’<div class="tabn" onclick="showST(\'COMBINED\')" style="border-color:var(--gd);color:var(--gd)">Combined</div>’;document.getElementById(“stabs”).innerHTML=h;renderCatFilters();showST(“ALL”)}
 
-var _curSumTab="ALL";
-function showST(f){_curSumTab=f;var bns=document.querySelectorAll("#stabs .tabn");for(var i=0;i<bns.length;i++)bns[i].classList.toggle("on",bns[i].textContent===f);var rows=f==="COMBINED"?merge(gAll()):gAll(f==="ALL"?null:f);if(f!=="COMBINED")rows.sort(function(a,b){if((a.o||9)!==(b.o||9))return(a.o||9)-(b.o||9);if(a.cat!==b.cat)return a.cat.localeCompare(b.cat);return a.d.localeCompare(b.d)});rows=filterRows(rows);for(var i=0;i<rows.length;i++)rows[i].sl=i+1;var cn={"Cable":"tc","Earth Cable":"te","Gland":"tgl","Lug":"tlu","Isolator":"tis","Engraved Label (2-hole)":"tlb","Engraved Label (no hole)":"tlb","Description":"tlb","Cable Tie":"te","Cable Tray":"ttr","Tray Support":"ttr","Cable Trunking":"ttr","Earth Link":"tgl"};if(!rows.length){document.getElementById("scon2").innerHTML='<div class="emp">No materials'+(  _catFilters?' (check filters)':'')+'</div>';return}var h='<div style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--r2);overflow:hidden"><div style="overflow-x:auto"><table class="tb" id="sumTable"><thead><tr><th>SL</th>'+(f!=="COMBINED"?'<th>System</th>':'')+'<th>Category</th><th>Description</th><th>Purpose / Location</th><th>Brand</th><th style="text-align:right">Qty</th><th>Unit</th></tr></thead><tbody>';for(var i=0;i<rows.length;i++){var r=rows[i];h+='<tr><td style="font:500 9px var(--m);color:var(--tx3)">'+(i+1)+'</td>'+(f!=="COMBINED"?'<td style="font-size:10px;color:var(--tx2)">'+(r.sys||"")+'</td>':'')+'<td><span class="tg '+(cn[r.cat]||"tc")+'">'+r.cat+'</span></td><td>'+r.d+'</td><td>'+(r.br||"")+'</td><td style="text-align:right;font:600 11px var(--m)">'+r.q+'</td><td style="color:var(--tx2);font-size:10px">'+r.u+'</td></tr>'}h+='</tbody></table></div></div>';document.getElementById("scon2").innerHTML=h}
+var _curSumTab=“ALL”;
+function showST(f){_curSumTab=f;var bns=document.querySelectorAll(”#stabs .tabn”);for(var i=0;i<bns.length;i++)bns[i].classList.toggle(“on”,bns[i].textContent===f);var rows=f===“COMBINED”?merge(gAll()):gAll(f===“ALL”?null:f);if(f!==“COMBINED”)rows.sort(function(a,b){if((a.o||9)!==(b.o||9))return(a.o||9)-(b.o||9);if(a.cat!==b.cat)return a.cat.localeCompare(b.cat);return a.d.localeCompare(b.d)});rows=filterRows(rows);for(var i=0;i<rows.length;i++)rows[i].sl=i+1;var cn={“Cable”:“tc”,“Earth Cable”:“te”,“Gland”:“tgl”,“Lug”:“tlu”,“Isolator”:“tis”,“Engraved Label (2-hole)”:“tlb”,“Engraved Label (no hole)”:“tlb”,“Description”:“tlb”,“Cable Tie”:“te”,“Cable Tray”:“ttr”,“Tray Support”:“ttr”,“Cable Trunking”:“ttr”,“Earth Link”:“tgl”};if(!rows.length){document.getElementById(“scon2”).innerHTML=’<div class="emp">No materials’+(  _catFilters?’ (check filters)’:’’)+’</div>’;return}var h=’<div style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--r2);overflow:hidden"><div style="overflow-x:auto"><table class="tb" id="sumTable"><thead><tr><th>SL</th>’+(f!==“COMBINED”?’<th>System</th>’:’’)+’<th>Category</th><th>Description</th><th>Purpose / Location</th><th>Brand</th><th style="text-align:right">Qty</th><th>Unit</th></tr></thead><tbody>’;for(var i=0;i<rows.length;i++){var r=rows[i];h+=’<tr><td style="font:500 9px var(--m);color:var(--tx3)">’+(i+1)+’</td>’+(f!==“COMBINED”?’<td style="font-size:10px;color:var(--tx2)">’+(r.sys||””)+’</td>’:’’)+’<td><span class=“tg ‘+(cn[r.cat]||“tc”)+’”>’+r.cat+’</span></td><td>’+r.d+’</td><td style="font-size:10px;color:var(--tx2)">’+(r.p||””)+’</td><td>’+(r.br||””)+’</td><td style="text-align:right;font:600 11px var(--m)">’+r.q+’</td><td style="color:var(--tx2);font-size:10px">’+r.u+’</td></tr>’}h+=’</tbody></table></div></div>’;document.getElementById(“scon2”).innerHTML=h}
 
-function copyFiltered(){var rows=_curSumTab==="COMBINED"?merge(gAll()):gAll(_curSumTab==="ALL"?null:_curSumTab);rows=filterRows(rows);if(!rows.length){alert("No rows to copy.");return}var lines=["SL\tCategory\tDescription\tPurpose\tBrand\tQty\tUnit"];for(var i=0;i<rows.length;i++)lines.push((i+1)+"\t"+rows[i].cat+"\t"+rows[i].d+"\t"+(rows[i].p||"")+"\t"+(rows[i].br||"")+"\t"+rows[i].q+"\t"+rows[i].u);fallbackCopyText(lines.join("\n"))}
-function exportFiltered(){var rows=_curSumTab==="COMBINED"?merge(gAll()):gAll(_curSumTab==="ALL"?null:_curSumTab);rows=filterRows(rows);if(!rows.length){alert("No rows.");return}var c='"SL","Category","Description","Purpose","Brand","Qty","Unit"\n';for(var i=0;i<rows.length;i++)c+=(i+1)+','+escC(rows[i].cat)+','+escC(rows[i].d)+','+escC(rows[i].p||'')+','+escC(rows[i].br||"")+','+rows[i].q+','+escC(rows[i].u)+'\n';dlF(c,'text/csv','Filtered_Material_Order.csv')}
+function copyFiltered(){var rows=_curSumTab===“COMBINED”?merge(gAll()):gAll(_curSumTab===“ALL”?null:_curSumTab);rows=filterRows(rows);if(!rows.length){alert(“No rows to copy.”);return}var lines=[“SL\tCategory\tDescription\tPurpose\tBrand\tQty\tUnit”];for(var i=0;i<rows.length;i++)lines.push((i+1)+”\t”+rows[i].cat+”\t”+rows[i].d+”\t”+(rows[i].p||””)+”\t”+(rows[i].br||””)+”\t”+rows[i].q+”\t”+rows[i].u);fallbackCopyText(lines.join(”\n”))}
+function exportFiltered(){var rows=_curSumTab===“COMBINED”?merge(gAll()):gAll(_curSumTab===“ALL”?null:_curSumTab);rows=filterRows(rows);if(!rows.length){alert(“No rows.”);return}var c=’“SL”,“Category”,“Description”,“Purpose”,“Brand”,“Qty”,“Unit”\n’;for(var i=0;i<rows.length;i++)c+=(i+1)+’,’+escC(rows[i].cat)+’,’+escC(rows[i].d)+’,’+escC(rows[i].p||’’)+’,’+escC(rows[i].br||””)+’,’+rows[i].q+’,’+escC(rows[i].u)+’\n’;dlF(c,‘text/csv’,‘Filtered_Material_Order.csv’)}
 
-function escX(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
-function escC(s){return '"'+String(s||"").replace(/"/g,'""')+'"'}
-function rowBrand(r){return r.br||""}
-function showPrev(){bSum();var rows=merge(gAll());if(!rows.length){alert("No materials.");return}var h='<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap;margin-bottom:8px"><div><h3 style="margin-bottom:6px">Combined Material Order</h3>'+(PRJ.name||PRJ.ref?'<div style="font-size:11px;color:var(--tx2)">'+(PRJ.name?'<div><strong>Project:</strong> '+escX(PRJ.name)+'</div>':'')+(PRJ.ref?'<div><strong>Ref No:</strong> '+escX(PRJ.ref)+'</div>':'')+'</div>':'')+'</div></div><table class="tb" id="previewExportTable"><thead><tr><th>SL</th><th>Category</th><th>Description</th><th>Purpose / Location</th><th>Brand</th><th style="text-align:right">Qty</th><th>Unit</th></tr></thead><tbody>';for(var i=0;i<rows.length;i++){var bg=catBg(rows[i].cat);var fg=catColor(rows[i].cat);h+='<tr style="background:'+bg+'"><td>'+rows[i].sl+'</td><td><span style="background:'+fg+';color:#fff;padding:2px 6px;border-radius:3px;font-size:9px;font-weight:700">'+escX(rows[i].cat)+'</span></td><td>'+escX(rows[i].d)+'</td><td style="font-size:10px">'+escX(rows[i].p||"")+'</td><td>'+escX(rowBrand(rows[i]))+'</td><td style="text-align:right;font-weight:600">'+rows[i].q+'</td><td>'+escX(rows[i].u)+'</td></tr>'}h+='</tbody></table>';document.getElementById("mbody").innerHTML=h;document.getElementById("mdl").style.display="flex"}
-function previewText(rows){var lines=[];if(PRJ.name)lines.push('Project Name: '+PRJ.name);if(PRJ.ref)lines.push('Project Ref No: '+PRJ.ref);if(PRJ.name||PRJ.ref)lines.push('');lines.push(['SL','Category','Description','Purpose','Brand','Qty','Unit'].join('\t'));for(var i=0;i<rows.length;i++)lines.push([rows[i].sl,rows[i].cat,rows[i].d,rows[i].p||'',rowBrand(rows[i]),rows[i].q,rows[i].u].join('\t'));return lines.join('\n')}
-function copyPreviewTable(){var rows=merge(gAll());if(!rows.length){alert('No materials.');return}var table=document.getElementById('previewExportTable');var html='';if(table)html=table.outerHTML;var txt=previewText(rows);if(navigator.clipboard&&window.ClipboardItem&&html){var item=new ClipboardItem({'text/html':new Blob([html],{type:'text/html'}),'text/plain':new Blob([txt],{type:'text/plain'})});navigator.clipboard.write([item]).then(function(){alert('Table copied. You can paste it into email directly.');}).catch(function(){fallbackCopyText(txt)});return}fallbackCopyText(txt)}
-function fallbackCopyText(txt){var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');alert('Table copied as text.')}catch(e){alert('Copy not supported in this browser.')}document.body.removeChild(ta)}
-function xCSV(){var rows=merge(gAll());var c='';if(PRJ.name)c+='Project Name,'+escC(PRJ.name)+'\n';if(PRJ.ref)c+='Project Ref No,'+escC(PRJ.ref)+'\n';if(PRJ.name||PRJ.ref)c+='\n';c+='"SL","Category","Description","Purpose","Brand","Qty","Unit"\n';for(var i=0;i<rows.length;i++)c+=rows[i].sl+','+escC(rows[i].cat)+','+escC(rows[i].d)+','+escC(rows[i].p||'')+','+escC(rowBrand(rows[i]))+','+rows[i].q+','+escC(rows[i].u)+'\n';dlF(c,'text/csv','Material_Order.csv')}
-function catColor(cat){var m={"Cable":"#1E88E5","Earth Cable":"#43A047","Isolator":"#E53935","Gland":"#7CB342","Lug":"#F9A825","Engraved Label (2-hole)":"#8E24AA","Engraved Label (no hole)":"#5E35B1","Cable Tie":"#00897B","Cable Tray":"#EF6C00","Tray Support":"#D84315","Cable Trunking":"#FF8F00","Earth Link":"#2E7D32"};return m[cat]||"#546E7A"}
-function catBg(cat){var m={"Cable":"#E3F2FD","Earth Cable":"#E8F5E9","Isolator":"#FFEBEE","Gland":"#F1F8E9","Lug":"#FFF8E1","Engraved Label (2-hole)":"#F3E5F5","Engraved Label (no hole)":"#EDE7F6","Cable Tie":"#E0F2F1","Cable Tray":"#FFF3E0","Tray Support":"#FBE9E7","Cable Trunking":"#FFF8E1","Earth Link":"#E8F5E9"};return m[cat]||"#ECEFF1"}
+function escX(s){return String(s||””).replace(/&/g,”&”).replace(/</g,”<”).replace(/>/g,”>”)}
+function escC(s){return ‘”’+String(s||””).replace(/”/g,’””’)+’”’}
+function rowBrand(r){return r.br||””}
+function showPrev(){bSum();var rows=merge(gAll());if(!rows.length){alert(“No materials.”);return}var h=’<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap;margin-bottom:8px"><div><h3 style="margin-bottom:6px">Combined Material Order</h3>’+(PRJ.name||PRJ.ref?’<div style="font-size:11px;color:var(--tx2)">’+(PRJ.name?’<div><strong>Project:</strong> ‘+escX(PRJ.name)+’</div>’:’’)+(PRJ.ref?’<div><strong>Ref No:</strong> ‘+escX(PRJ.ref)+’</div>’:’’)+’</div>’:’’)+’</div></div><table class="tb" id="previewExportTable"><thead><tr><th>SL</th><th>Category</th><th>Description</th><th>Purpose / Location</th><th>Brand</th><th style="text-align:right">Qty</th><th>Unit</th></tr></thead><tbody>’;for(var i=0;i<rows.length;i++){var bg=catBg(rows[i].cat);var fg=catColor(rows[i].cat);h+=’<tr style="background:'+bg+'"><td>’+rows[i].sl+’</td><td><span style="background:'+fg+';color:#fff;padding:2px 6px;border-radius:3px;font-size:9px;font-weight:700">’+escX(rows[i].cat)+’</span></td><td>’+escX(rows[i].d)+’</td><td style="font-size:10px">’+escX(rows[i].p||””)+’</td><td>’+escX(rowBrand(rows[i]))+’</td><td style="text-align:right;font-weight:600">’+rows[i].q+’</td><td>’+escX(rows[i].u)+’</td></tr>’}h+=’</tbody></table>’;document.getElementById(“mbody”).innerHTML=h;document.getElementById(“mdl”).style.display=“flex”}
+function previewText(rows){var lines=[];if(PRJ.name)lines.push(‘Project Name: ‘+PRJ.name);if(PRJ.ref)lines.push(‘Project Ref No: ‘+PRJ.ref);if(PRJ.name||PRJ.ref)lines.push(’’);lines.push([‘SL’,‘Category’,‘Description’,‘Purpose’,‘Brand’,‘Qty’,‘Unit’].join(’\t’));for(var i=0;i<rows.length;i++)lines.push([rows[i].sl,rows[i].cat,rows[i].d,rows[i].p||’’,rowBrand(rows[i]),rows[i].q,rows[i].u].join(’\t’));return lines.join(’\n’)}
+function copyPreviewTable(){var rows=merge(gAll());if(!rows.length){alert(‘No materials.’);return}var table=document.getElementById(‘previewExportTable’);var html=’’;if(table)html=table.outerHTML;var txt=previewText(rows);if(navigator.clipboard&&window.ClipboardItem&&html){var item=new ClipboardItem({‘text/html’:new Blob([html],{type:‘text/html’}),‘text/plain’:new Blob([txt],{type:‘text/plain’})});navigator.clipboard.write([item]).then(function(){alert(‘Table copied. You can paste it into email directly.’);}).catch(function(){fallbackCopyText(txt)});return}fallbackCopyText(txt)}
+function fallbackCopyText(txt){var ta=document.createElement(‘textarea’);ta.value=txt;document.body.appendChild(ta);ta.select();try{document.execCommand(‘copy’);alert(‘Table copied as text.’)}catch(e){alert(‘Copy not supported in this browser.’)}document.body.removeChild(ta)}
+function xCSV(){var rows=merge(gAll());var c=’’;if(PRJ.name)c+=‘Project Name,’+escC(PRJ.name)+’\n’;if(PRJ.ref)c+=‘Project Ref No,’+escC(PRJ.ref)+’\n’;if(PRJ.name||PRJ.ref)c+=’\n’;c+=’“SL”,“Category”,“Description”,“Purpose”,“Brand”,“Qty”,“Unit”\n’;for(var i=0;i<rows.length;i++)c+=rows[i].sl+’,’+escC(rows[i].cat)+’,’+escC(rows[i].d)+’,’+escC(rows[i].p||’’)+’,’+escC(rowBrand(rows[i]))+’,’+rows[i].q+’,’+escC(rows[i].u)+’\n’;dlF(c,‘text/csv’,‘Material_Order.csv’)}
+function catColor(cat){var m={“Cable”:”#1E88E5”,“Earth Cable”:”#43A047”,“Isolator”:”#E53935”,“Gland”:”#7CB342”,“Lug”:”#F9A825”,“Engraved Label (2-hole)”:”#8E24AA”,“Engraved Label (no hole)”:”#5E35B1”,“Cable Tie”:”#00897B”,“Cable Tray”:”#EF6C00”,“Tray Support”:”#D84315”,“Cable Trunking”:”#FF8F00”,“Earth Link”:”#2E7D32”};return m[cat]||”#546E7A”}
+function catBg(cat){var m={“Cable”:”#E3F2FD”,“Earth Cable”:”#E8F5E9”,“Isolator”:”#FFEBEE”,“Gland”:”#F1F8E9”,“Lug”:”#FFF8E1”,“Engraved Label (2-hole)”:”#F3E5F5”,“Engraved Label (no hole)”:”#EDE7F6”,“Cable Tie”:”#E0F2F1”,“Cable Tray”:”#FFF3E0”,“Tray Support”:”#FBE9E7”,“Cable Trunking”:”#FFF8E1”,“Earth Link”:”#E8F5E9”};return m[cat]||”#ECEFF1”}
 function buildXLS(){var rows=merge(gAll());
 // Build unique category styles
-var catStyles={};var styleIdx=10;for(var i=0;i<rows.length;i++){if(!catStyles[rows[i].cat]){catStyles[rows[i].cat]="cat"+styleIdx;styleIdx++}}
-var x='<?xml version="1.0" encoding="UTF-8"?>\n<?mso-application progid="Excel.Sheet"?>\n<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">\n<Styles>\n<Style ss:ID="hdr"><Font ss:Bold="1" ss:Color="#FFFFFF" ss:Size="11"/><Interior ss:Color="#C89530" ss:Pattern="Solid"/><Alignment ss:Horizontal="Center"/></Style>\n<Style ss:ID="num"><Alignment ss:Horizontal="Right"/></Style>\n<Style ss:ID="def"><Alignment ss:Vertical="Top"/></Style>\n';
-for(var cat in catStyles){var sid=catStyles[cat];var bg=catBg(cat);var fg=catColor(cat);x+='<Style ss:ID="'+sid+'"><Interior ss:Color="'+bg+'" ss:Pattern="Solid"/><Alignment ss:Vertical="Top"/></Style>\n';x+='<Style ss:ID="'+sid+'c"><Font ss:Bold="1" ss:Color="#FFFFFF" ss:Size="9"/><Interior ss:Color="'+fg+'" ss:Pattern="Solid"/><Alignment ss:Horizontal="Center"/></Style>\n';x+='<Style ss:ID="'+sid+'n"><Interior ss:Color="'+bg+'" ss:Pattern="Solid"/><Alignment ss:Horizontal="Right"/><Font ss:Bold="1"/></Style>\n'}
-x+='</Styles>\n<Worksheet ss:Name="Material Order"><Table>\n<Column ss:Width="40"/><Column ss:Width="130"/><Column ss:Width="300"/><Column ss:Width="180"/><Column ss:Width="110"/><Column ss:Width="55"/><Column ss:Width="45"/>\n';
-if(PRJ.name)x+='<Row><Cell><Data ss:Type="String">Project Name</Data></Cell><Cell><Data ss:Type="String">'+escX(PRJ.name)+'</Data></Cell></Row>\n';
-if(PRJ.ref)x+='<Row><Cell><Data ss:Type="String">Project Ref No</Data></Cell><Cell><Data ss:Type="String">'+escX(PRJ.ref)+'</Data></Cell></Row>\n';
-if(PRJ.name||PRJ.ref)x+='<Row></Row>\n';
-x+='<Row ss:StyleID="hdr"><Cell><Data ss:Type="String">SL</Data></Cell><Cell><Data ss:Type="String">Category</Data></Cell><Cell><Data ss:Type="String">Description</Data></Cell><Cell><Data ss:Type="String">Purpose / Location</Data></Cell><Cell><Data ss:Type="String">Brand</Data></Cell><Cell><Data ss:Type="String">Qty</Data></Cell><Cell><Data ss:Type="String">Unit</Data></Cell></Row>\n';
-for(var i=0;i<rows.length;i++){var r=rows[i];var sid=catStyles[r.cat]||"def";x+='<Row ss:StyleID="'+sid+'"><Cell><Data ss:Type="Number">'+r.sl+'</Data></Cell><Cell ss:StyleID="'+sid+'c"><Data ss:Type="String">'+escX(r.cat)+'</Data></Cell><Cell><Data ss:Type="String">'+escX(r.d)+'</Data></Cell><Cell><Data ss:Type="String">'+escX(r.p||'')+'</Data></Cell><Cell><Data ss:Type="String">'+escX(rowBrand(r))+'</Data></Cell><Cell ss:StyleID="'+sid+'n"><Data ss:Type="Number">'+r.q+'</Data></Cell><Cell><Data ss:Type="String">'+escX(r.u)+'</Data></Cell></Row>\n'}
-x+='</Table></Worksheet></Workbook>';return x}
-function xXLS(){dlF(buildXLS(),'application/vnd.ms-excel','Material_Order.xls')}
-function openXLS(){openBlobFile(buildXLS(),'application/vnd.ms-excel')}
-function dlF(c,t,n){var b=new Blob([c],{type:t});var a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=n;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);document.body.removeChild(a)},1000)}
-function openBlobFile(c,t){var b=new Blob([c],{type:t});var u=URL.createObjectURL(b);window.open(u,'_blank');setTimeout(function(){URL.revokeObjectURL(u)},15000)}
-function zSt(){document.getElementById("zs").textContent=SY.length;document.getElementById("ze").textContent=SY.reduce(function(a,s){return a+s.eq.length},0);document.getElementById("zk").textContent=SY.reduce(function(a,s){return a+s.eq.reduce(function(b,e){return b+(parseFloat(e.kw)||0)},0)},0).toFixed(1)}
+var catStyles={};var styleIdx=10;for(var i=0;i<rows.length;i++){if(!catStyles[rows[i].cat]){catStyles[rows[i].cat]=“cat”+styleIdx;styleIdx++}}
+var x=’<?xml version="1.0" encoding="UTF-8"?>\n<?mso-application progid="Excel.Sheet"?>\n<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">\n<Styles>\n<Style ss:ID="hdr"><Font ss:Bold="1" ss:Color="#FFFFFF" ss:Size="11"/><Interior ss:Color="#C89530" ss:Pattern="Solid"/><Alignment ss:Horizontal="Center"/></Style>\n<Style ss:ID="num"><Alignment ss:Horizontal="Right"/></Style>\n<Style ss:ID="def"><Alignment ss:Vertical="Top"/></Style>\n’;
+for(var cat in catStyles){var sid=catStyles[cat];var bg=catBg(cat);var fg=catColor(cat);x+=’<Style ss:ID="'+sid+'"><Interior ss:Color="'+bg+'" ss:Pattern="Solid"/><Alignment ss:Vertical="Top"/></Style>\n’;x+=’<Style ss:ID="'+sid+'c"><Font ss:Bold="1" ss:Color="#FFFFFF" ss:Size="9"/><Interior ss:Color="'+fg+'" ss:Pattern="Solid"/><Alignment ss:Horizontal="Center"/></Style>\n’;x+=’<Style ss:ID="'+sid+'n"><Interior ss:Color="'+bg+'" ss:Pattern="Solid"/><Alignment ss:Horizontal="Right"/><Font ss:Bold="1"/></Style>\n’}
+x+=’</Styles>\n<Worksheet ss:Name="Material Order"><Table>\n<Column ss:Width="40"/><Column ss:Width="130"/><Column ss:Width="300"/><Column ss:Width="180"/><Column ss:Width="110"/><Column ss:Width="55"/><Column ss:Width="45"/>\n’;
+if(PRJ.name)x+=’<Row><Cell><Data ss:Type="String">Project Name</Data></Cell><Cell><Data ss:Type="String">’+escX(PRJ.name)+’</Data></Cell></Row>\n’;
+if(PRJ.ref)x+=’<Row><Cell><Data ss:Type="String">Project Ref No</Data></Cell><Cell><Data ss:Type="String">’+escX(PRJ.ref)+’</Data></Cell></Row>\n’;
+if(PRJ.name||PRJ.ref)x+=’<Row></Row>\n’;
+x+=’<Row ss:StyleID="hdr"><Cell><Data ss:Type="String">SL</Data></Cell><Cell><Data ss:Type="String">Category</Data></Cell><Cell><Data ss:Type="String">Description</Data></Cell><Cell><Data ss:Type="String">Purpose / Location</Data></Cell><Cell><Data ss:Type="String">Brand</Data></Cell><Cell><Data ss:Type="String">Qty</Data></Cell><Cell><Data ss:Type="String">Unit</Data></Cell></Row>\n’;
+for(var i=0;i<rows.length;i++){var r=rows[i];var sid=catStyles[r.cat]||“def”;x+=’<Row ss:StyleID="'+sid+'"><Cell><Data ss:Type="Number">’+r.sl+’</Data></Cell><Cell ss:StyleID="'+sid+'c"><Data ss:Type="String">’+escX(r.cat)+’</Data></Cell><Cell><Data ss:Type="String">’+escX(r.d)+’</Data></Cell><Cell><Data ss:Type="String">’+escX(r.p||’’)+’</Data></Cell><Cell><Data ss:Type="String">’+escX(rowBrand(r))+’</Data></Cell><Cell ss:StyleID="'+sid+'n"><Data ss:Type="Number">’+r.q+’</Data></Cell><Cell><Data ss:Type="String">’+escX(r.u)+’</Data></Cell></Row>\n’}
+x+=’</Table></Worksheet></Workbook>’;return x}
+function xXLS(){dlF(buildXLS(),‘application/vnd.ms-excel’,‘Material_Order.xls’)}
+function openXLS(){openBlobFile(buildXLS(),‘application/vnd.ms-excel’)}
+function dlF(c,t,n){var b=new Blob([c],{type:t});var a=document.createElement(“a”);a.href=URL.createObjectURL(b);a.download=n;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);document.body.removeChild(a)},1000)}
+function openBlobFile(c,t){var b=new Blob([c],{type:t});var u=URL.createObjectURL(b);window.open(u,’_blank’);setTimeout(function(){URL.revokeObjectURL(u)},15000)}
+function zSt(){document.getElementById(“zs”).textContent=SY.length;document.getElementById(“ze”).textContent=SY.reduce(function(a,s){return a+s.eq.length},0);document.getElementById(“zk”).textContent=SY.reduce(function(a,s){return a+s.eq.reduce(function(b,e){return b+(parseFloat(e.kw)||0)},0)},0).toFixed(1)}
 
 /* Click handling: toggle prevention is done via event.stopPropagation() in inline onclick on buttons inside card headers */
 
 // ===== PROJECT MANAGER =====
-var PM_KEY="elecmat_pro_projects";
+var PM_KEY=“elecmat_pro_projects”;
 var _currentProjId=null;
 var _dirty=false;
 var _storageOK=false;
 
 // Test localStorage on load
 function pmTestStorage(){
-  try{localStorage.setItem("_pm_test_","1");var v=localStorage.getItem("_pm_test_");localStorage.removeItem("_pm_test_");_storageOK=(v==="1");return _storageOK}catch(e){_storageOK=false;return false}
+try{localStorage.setItem(”*pm_test*”,“1”);var v=localStorage.getItem(”*pm_test*”);localStorage.removeItem(”*pm_test*”);_storageOK=(v===“1”);return _storageOK}catch(e){_storageOK=false;return false}
 }
 
 function pmGetAll(){
-  if(!_storageOK)return[];
-  try{var raw=localStorage.getItem(PM_KEY);if(!raw)return[];var parsed=JSON.parse(raw);return Array.isArray(parsed)?parsed:[]}catch(e){return[]}
+if(!_storageOK)return[];
+try{var raw=localStorage.getItem(PM_KEY);if(!raw)return[];var parsed=JSON.parse(raw);return Array.isArray(parsed)?parsed:[]}catch(e){return[]}
 }
 
 function pmSaveAll(list){
-  if(!_storageOK){alert("Browser storage not available. Use Export to save your project as a file.");return false}
-  try{
-    var json=JSON.stringify(list);
-    localStorage.setItem(PM_KEY,json);
-    // Verify write
-    var check=localStorage.getItem(PM_KEY);
-    if(!check||check.length<10){alert("Save verification failed. Use Export to backup.");return false}
-    return true;
-  }catch(e){alert("Save failed: "+e.message+". Storage may be full. Use Export to backup.");return false}
+if(!_storageOK){alert(“Browser storage not available. Use Export to save your project as a file.”);return false}
+try{
+var json=JSON.stringify(list);
+localStorage.setItem(PM_KEY,json);
+// Verify write
+var check=localStorage.getItem(PM_KEY);
+if(!check||check.length<10){alert(“Save verification failed. Use Export to backup.”);return false}
+return true;
+}catch(e){alert(“Save failed: “+e.message+”. Storage may be full. Use Export to backup.”);return false}
 }
 
 function pmDeepCopy(obj){return JSON.parse(JSON.stringify(obj))}
@@ -445,192 +447,192 @@ function pmDeepCopy(obj){return JSON.parse(JSON.stringify(obj))}
 function pmGetState(){return pmDeepCopy({PRJ:PRJ,SY:SY,ROUTES:ROUTES,INC:INC,_si:_si,_ei:_ei,_ri:_ri})}
 
 function pmSetState(st){
-  if(!st)st={};
-  PRJ=st.PRJ?pmDeepCopy(st.PRJ):{name:"",ref:""};
-  SY=st.SY?pmDeepCopy(st.SY):[];
-  ROUTES=st.ROUTES?pmDeepCopy(st.ROUTES):[];
-  INC=st.INC?pmDeepCopy(st.INC):{ct:"armoured",co:"4C",sz:"",di:30,ru:1,iso:true,isoModel:"",kw:"",ph:"400",src:"smdb",iesz:"",cBrand:"OMAN CABLES",cBrandO:"",gBrand:"RUPAM",gBrandO:"",iBrand:"ABB",iBrandO:""};
-  _si=st._si||0;_ei=st._ei||0;_ri=st._ri||0;
-  var pn=document.getElementById("prjName");if(pn)pn.value=PRJ.name||"";
-  var pr=document.getElementById("prjRef");if(pr)pr.value=PRJ.ref||"";
+if(!st)st={};
+PRJ=st.PRJ?pmDeepCopy(st.PRJ):{name:””,ref:””};
+SY=st.SY?pmDeepCopy(st.SY):[];
+ROUTES=st.ROUTES?pmDeepCopy(st.ROUTES):[];
+INC=st.INC?pmDeepCopy(st.INC):{ct:“armoured”,co:“4C”,sz:””,di:30,ru:1,iso:true,isoModel:””,kw:””,ph:“400”,src:“smdb”,iesz:””,cBrand:“OMAN CABLES”,cBrandO:””,gBrand:“RUPAM”,gBrandO:””,iBrand:“ABB”,iBrandO:””};
+_si=st._si||0;_ei=st._ei||0;_ri=st._ri||0;
+var pn=document.getElementById(“prjName”);if(pn)pn.value=PRJ.name||””;
+var pr=document.getElementById(“prjRef”);if(pr)pr.value=PRJ.ref||””;
 }
 
 function pmRenderList(){
-  var list=pmGetAll();
-  // Storage status
-  var ss=document.getElementById("pm-storage-status");
-  if(ss){if(_storageOK){ss.innerHTML='<span style="color:var(--gn)">&#10003; Browser storage active — '+list.length+' project(s) saved</span>'}else{ss.innerHTML='<span style="color:var(--rd)">&#10007; Browser storage unavailable — Use Export/Import JSON files to save projects</span>'}}
-  var h="";
-  if(!list.length){h='<div style="text-align:center;padding:20px;color:var(--tx3)">No saved projects. Create one or Import a JSON file.</div>'}
-  for(var i=0;i<list.length;i++){
-    var p=list[i];
-    var dt=p.updated?new Date(p.updated).toLocaleDateString()+" "+new Date(p.updated).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"}):"";
-    var eqCount=0;if(p.data&&p.data.SY)for(var j=0;j<p.data.SY.length;j++)eqCount+=p.data.SY[j].eq?p.data.SY[j].eq.length:0;
-    var sysCount=p.data&&p.data.SY?p.data.SY.length:0;
-    h+='<div class="pm-card" onclick="pmOpen(\''+p.id+'\')">';
-    h+='<div class="pm-icon">&#128196;</div>';
-    h+='<div class="pm-info"><div class="pm-name">'+(p.name||"Untitled Project")+'</div>';
-    h+='<div class="pm-meta">'+(p.data&&p.data.PRJ&&p.data.PRJ.ref?'Ref: '+p.data.PRJ.ref+' | ':'')+'Sys: '+sysCount+' | Eq: '+eqCount+' | '+dt+'</div></div>';
-    h+='<div class="pm-acts">';
-    h+='<button class="b bo bs" onclick="event.stopPropagation();pmExportOne(\''+p.id+'\')" title="Export">&#128229;</button>';
-    h+='<button class="b bo bs" onclick="event.stopPropagation();pmDuplicate(\''+p.id+'\')" title="Duplicate">&#128203;</button>';
-    h+='<button class="b br bs" onclick="event.stopPropagation();pmDelete(\''+p.id+'\')" title="Delete">x</button>';
-    h+='</div></div>';
-  }
-  document.getElementById("pm-list").innerHTML=h;
+var list=pmGetAll();
+// Storage status
+var ss=document.getElementById(“pm-storage-status”);
+if(ss){if(_storageOK){ss.innerHTML=’<span style="color:var(--gn)">✓ Browser storage active — ‘+list.length+’ project(s) saved</span>’}else{ss.innerHTML=’<span style="color:var(--rd)">✗ Browser storage unavailable — Use Export/Import JSON files to save projects</span>’}}
+var h=””;
+if(!list.length){h=’<div style="text-align:center;padding:20px;color:var(--tx3)">No saved projects. Create one or Import a JSON file.</div>’}
+for(var i=0;i<list.length;i++){
+var p=list[i];
+var dt=p.updated?new Date(p.updated).toLocaleDateString()+” “+new Date(p.updated).toLocaleTimeString([],{hour:“2-digit”,minute:“2-digit”}):””;
+var eqCount=0;if(p.data&&p.data.SY)for(var j=0;j<p.data.SY.length;j++)eqCount+=p.data.SY[j].eq?p.data.SY[j].eq.length:0;
+var sysCount=p.data&&p.data.SY?p.data.SY.length:0;
+h+=’<div class="pm-card" onclick="pmOpen(\''+p.id+'\')">’;
+h+=’<div class="pm-icon">📄</div>’;
+h+=’<div class="pm-info"><div class="pm-name">’+(p.name||“Untitled Project”)+’</div>’;
+h+=’<div class="pm-meta">’+(p.data&&p.data.PRJ&&p.data.PRJ.ref?‘Ref: ‘+p.data.PRJ.ref+’ | ‘:’’)+‘Sys: ‘+sysCount+’ | Eq: ‘+eqCount+’ | ‘+dt+’</div></div>’;
+h+=’<div class="pm-acts">’;
+h+=’<button class="b bo bs" onclick="event.stopPropagation();pmExportOne(\''+p.id+'\')" title="Export">📥</button>’;
+h+=’<button class="b bo bs" onclick="event.stopPropagation();pmDuplicate(\''+p.id+'\')" title="Duplicate">📋</button>’;
+h+=’<button class="b br bs" onclick="event.stopPropagation();pmDelete(\''+p.id+'\')" title="Delete">x</button>’;
+h+=’</div></div>’;
+}
+document.getElementById(“pm-list”).innerHTML=h;
 }
 
 function pmNew(){
-  var name=prompt("Project Name:","New Project");
-  if(!name)return;
-  var id="proj_"+Date.now()+"_"+Math.floor(Math.random()*10000);
-  PRJ={name:name,ref:""};SY=[];ROUTES=[];
-  INC={ct:"armoured",co:"4C",sz:"",di:30,ru:1,iso:true,isoModel:"",kw:"",ph:"400",src:"smdb",iesz:"",cBrand:"OMAN CABLES",cBrandO:"",gBrand:"RUPAM",gBrandO:"",iBrand:"ABB",iBrandO:""};
-  _si=0;_ei=0;_ri=0;
-  _currentProjId=id;_dirty=false;
-  // Save immediately
-  var list=pmGetAll();
-  list.push({id:id,name:name,created:Date.now(),updated:Date.now(),data:pmGetState()});
-  pmSaveAll(list);
-  pmOpenWorkspace();
+var name=prompt(“Project Name:”,“New Project”);
+if(!name)return;
+var id=“proj_”+Date.now()+”_”+Math.floor(Math.random()*10000);
+PRJ={name:name,ref:””};SY=[];ROUTES=[];
+INC={ct:“armoured”,co:“4C”,sz:””,di:30,ru:1,iso:true,isoModel:””,kw:””,ph:“400”,src:“smdb”,iesz:””,cBrand:“OMAN CABLES”,cBrandO:””,gBrand:“RUPAM”,gBrandO:””,iBrand:“ABB”,iBrandO:””};
+_si=0;_ei=0;_ri=0;
+_currentProjId=id;_dirty=false;
+// Save immediately
+var list=pmGetAll();
+list.push({id:id,name:name,created:Date.now(),updated:Date.now(),data:pmGetState()});
+pmSaveAll(list);
+pmOpenWorkspace();
 }
 
 function pmOpen(id){
-  var list=pmGetAll();
-  var proj=null;for(var i=0;i<list.length;i++)if(list[i].id===id){proj=list[i];break}
-  if(!proj){alert("Project not found.");return}
-  _currentProjId=id;_dirty=false;
-  pmSetState(proj.data);
-  pmOpenWorkspace();
+var list=pmGetAll();
+var proj=null;for(var i=0;i<list.length;i++)if(list[i].id===id){proj=list[i];break}
+if(!proj){alert(“Project not found.”);return}
+_currentProjId=id;_dirty=false;
+pmSetState(proj.data);
+pmOpenWorkspace();
 }
 
 function pmSave(){
-  if(!_currentProjId)return;
-  var list=pmGetAll();
-  var found=false;
-  for(var i=0;i<list.length;i++){
-    if(list[i].id===_currentProjId){
-      list[i].data=pmGetState();
-      list[i].name=PRJ.name||list[i].name||"Untitled";
-      list[i].updated=Date.now();
-      found=true;break;
-    }
-  }
-  if(!found){
-    list.push({id:_currentProjId,name:PRJ.name||"Untitled",created:Date.now(),updated:Date.now(),data:pmGetState()});
-  }
-  if(pmSaveAll(list)){_dirty=false;pmUpdateBar()}
+if(!_currentProjId)return;
+var list=pmGetAll();
+var found=false;
+for(var i=0;i<list.length;i++){
+if(list[i].id===_currentProjId){
+list[i].data=pmGetState();
+list[i].name=PRJ.name||list[i].name||“Untitled”;
+list[i].updated=Date.now();
+found=true;break;
+}
+}
+if(!found){
+list.push({id:_currentProjId,name:PRJ.name||“Untitled”,created:Date.now(),updated:Date.now(),data:pmGetState()});
+}
+if(pmSaveAll(list)){_dirty=false;pmUpdateBar()}
 }
 
 function pmAutoSave(){if(_currentProjId){_dirty=true;pmUpdateBar();clearTimeout(window._pmTimer);window._pmTimer=setTimeout(pmSave,1500)}}
 function pmMarkDirty(){_dirty=true;pmUpdateBar();pmAutoSave()}
 
 function pmDelete(id){
-  if(!confirm("Delete this project permanently?"))return;
-  var list=pmGetAll().filter(function(p){return p.id!==id});
-  pmSaveAll(list);
-  if(_currentProjId===id){_currentProjId=null;pmShowManager()}
-  pmRenderList();
+if(!confirm(“Delete this project permanently?”))return;
+var list=pmGetAll().filter(function(p){return p.id!==id});
+pmSaveAll(list);
+if(_currentProjId===id){_currentProjId=null;pmShowManager()}
+pmRenderList();
 }
 
 function pmDuplicate(id){
-  var list=pmGetAll();
-  var src=null;for(var i=0;i<list.length;i++)if(list[i].id===id){src=list[i];break}
-  if(!src)return;
-  var copy=pmDeepCopy(src);
-  copy.id="proj_"+Date.now()+"_"+Math.floor(Math.random()*10000);
-  copy.name=(src.name||"Project")+" (copy)";copy.created=Date.now();copy.updated=Date.now();
-  if(copy.data&&copy.data.PRJ)copy.data.PRJ.name=copy.name;
-  list.push(copy);pmSaveAll(list);pmRenderList();
+var list=pmGetAll();
+var src=null;for(var i=0;i<list.length;i++)if(list[i].id===id){src=list[i];break}
+if(!src)return;
+var copy=pmDeepCopy(src);
+copy.id=“proj_”+Date.now()+”_”+Math.floor(Math.random()*10000);
+copy.name=(src.name||“Project”)+” (copy)”;copy.created=Date.now();copy.updated=Date.now();
+if(copy.data&&copy.data.PRJ)copy.data.PRJ.name=copy.name;
+list.push(copy);pmSaveAll(list);pmRenderList();
 }
 
 function pmRename(){
-  var name=prompt("Rename project:",PRJ.name||"");
-  if(!name)return;
-  PRJ.name=name;
-  var pn=document.getElementById("prjName");if(pn)pn.value=name;
-  pmSave();pmUpdateBar();
+var name=prompt(“Rename project:”,PRJ.name||””);
+if(!name)return;
+PRJ.name=name;
+var pn=document.getElementById(“prjName”);if(pn)pn.value=name;
+pmSave();pmUpdateBar();
 }
 
 function pmBack(){
-  if(_dirty)pmSave();
-  _currentProjId=null;pmShowManager();
+if(_dirty)pmSave();
+_currentProjId=null;pmShowManager();
 }
 
 function pmShowManager(){
-  document.getElementById("sec-pm").style.display="block";
-  document.getElementById("workspace").classList.remove("active");
-  document.querySelector(".foot").style.display="none";
-  pmRenderList();
+document.getElementById(“sec-pm”).style.display=“block”;
+document.getElementById(“workspace”).classList.remove(“active”);
+document.querySelector(”.foot”).style.display=“none”;
+pmRenderList();
 }
 
 function pmOpenWorkspace(){
-  document.getElementById("sec-pm").style.display="none";
-  document.getElementById("workspace").classList.add("active");
-  document.querySelector(".foot").style.display="flex";
-  var pn=document.getElementById("prjName");if(pn)pn.value=PRJ.name||"";
-  var pr=document.getElementById("prjRef");if(pr)pr.value=PRJ.ref||"";
-  pmUpdateBar();
-  rSys();rInc();rRoutes();rVD();bSum();zSt();swT("sys");
+document.getElementById(“sec-pm”).style.display=“none”;
+document.getElementById(“workspace”).classList.add(“active”);
+document.querySelector(”.foot”).style.display=“flex”;
+var pn=document.getElementById(“prjName”);if(pn)pn.value=PRJ.name||””;
+var pr=document.getElementById(“prjRef”);if(pr)pr.value=PRJ.ref||””;
+pmUpdateBar();
+rSys();rInc();rRoutes();rVD();bSum();zSt();swT(“sys”);
 }
 
 function pmUpdateBar(){
-  var bn=document.getElementById("pmBarName");if(bn)bn.textContent=PRJ.name||"Untitled Project";
-  var bs=document.getElementById("pmBarStatus");
-  if(bs){if(_dirty){bs.textContent="Unsaved...";bs.className="pm-bar-unsaved"}else{bs.textContent="Saved "+new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});bs.className="pm-bar-saved"}}
+var bn=document.getElementById(“pmBarName”);if(bn)bn.textContent=PRJ.name||“Untitled Project”;
+var bs=document.getElementById(“pmBarStatus”);
+if(bs){if(_dirty){bs.textContent=“Unsaved…”;bs.className=“pm-bar-unsaved”}else{bs.textContent=“Saved “+new Date().toLocaleTimeString([],{hour:“2-digit”,minute:“2-digit”});bs.className=“pm-bar-saved”}}
 }
 
 // ===== FILE EXPORT / IMPORT =====
 function pmExportOne(id){
-  var list=pmGetAll();var proj=null;
-  for(var i=0;i<list.length;i++)if(list[i].id===id){proj=list[i];break}
-  if(!proj){alert("Project not found.");return}
-  var json=JSON.stringify(proj,null,2);
-  var fn=(proj.name||"project").replace(/[^a-zA-Z0-9_-]/g,"_")+"_"+new Date().toISOString().slice(0,10)+".json";
-  dlF(json,"application/json",fn);
+var list=pmGetAll();var proj=null;
+for(var i=0;i<list.length;i++)if(list[i].id===id){proj=list[i];break}
+if(!proj){alert(“Project not found.”);return}
+var json=JSON.stringify(proj,null,2);
+var fn=(proj.name||“project”).replace(/[^a-zA-Z0-9_-]/g,”*”)+”*”+new Date().toISOString().slice(0,10)+”.json”;
+dlF(json,“application/json”,fn);
 }
 function pmExportCurrent(){
-  if(!_currentProjId)return;
-  pmSave();
-  var list=pmGetAll();var proj=null;
-  for(var i=0;i<list.length;i++)if(list[i].id===_currentProjId){proj=list[i];break}
-  if(!proj){proj={id:_currentProjId,name:PRJ.name||"Untitled",created:Date.now(),updated:Date.now(),data:pmGetState()}}
-  var json=JSON.stringify(proj,null,2);
-  var fn=(proj.name||"project").replace(/[^a-zA-Z0-9_-]/g,"_")+"_"+new Date().toISOString().slice(0,10)+".json";
-  dlF(json,"application/json",fn);
+if(!*currentProjId)return;
+pmSave();
+var list=pmGetAll();var proj=null;
+for(var i=0;i<list.length;i++)if(list[i].id===*currentProjId){proj=list[i];break}
+if(!proj){proj={id:*currentProjId,name:PRJ.name||“Untitled”,created:Date.now(),updated:Date.now(),data:pmGetState()}}
+var json=JSON.stringify(proj,null,2);
+var fn=(proj.name||“project”).replace(/[^a-zA-Z0-9*-]/g,”*”)+”*”+new Date().toISOString().slice(0,10)+”.json”;
+dlF(json,“application/json”,fn);
 }
 function pmExportAll(){
-  var list=pmGetAll();if(!list.length){alert("No projects to export.");return}
-  var json=JSON.stringify(list,null,2);
-  dlF(json,"application/json","ElecMat_All_Projects_"+new Date().toISOString().slice(0,10)+".json");
+var list=pmGetAll();if(!list.length){alert(“No projects to export.”);return}
+var json=JSON.stringify(list,null,2);
+dlF(json,“application/json”,“ElecMat_All_Projects_”+new Date().toISOString().slice(0,10)+”.json”);
 }
 function pmImportFile(){
-  var inp=document.createElement("input");inp.type="file";inp.accept=".json";
-  inp.onchange=function(){
-    if(!inp.files||!inp.files[0])return;
-    var reader=new FileReader();
-    reader.onload=function(ev){
-      try{
-        var data=JSON.parse(ev.target.result);
-        if(Array.isArray(data)){
-          // Multiple projects
-          var list=pmGetAll();
-          for(var i=0;i<data.length;i++){
-            if(data[i].id&&data[i].data){data[i].id="proj_"+Date.now()+"_"+Math.floor(Math.random()*10000)+"_"+i;list.push(data[i])}
-          }
-          pmSaveAll(list);pmRenderList();
-          alert("Imported "+data.length+" project(s).");
-        }else if(data.id&&data.data){
-          // Single project
-          data.id="proj_"+Date.now()+"_"+Math.floor(Math.random()*10000);
-          var list=pmGetAll();list.push(data);pmSaveAll(list);pmRenderList();
-          alert("Imported: "+(data.name||"Project"));
-        }else{alert("Invalid project file format.")}
-      }catch(e){alert("Error reading file: "+e.message)}
-    };
-    reader.readAsText(inp.files[0]);
-  };
-  inp.click();
+var inp=document.createElement(“input”);inp.type=“file”;inp.accept=”.json”;
+inp.onchange=function(){
+if(!inp.files||!inp.files[0])return;
+var reader=new FileReader();
+reader.onload=function(ev){
+try{
+var data=JSON.parse(ev.target.result);
+if(Array.isArray(data)){
+// Multiple projects
+var list=pmGetAll();
+for(var i=0;i<data.length;i++){
+if(data[i].id&&data[i].data){data[i].id=“proj_”+Date.now()+”*”+Math.floor(Math.random()*10000)+”*”+i;list.push(data[i])}
+}
+pmSaveAll(list);pmRenderList();
+alert(“Imported “+data.length+” project(s).”);
+}else if(data.id&&data.data){
+// Single project
+data.id=“proj_”+Date.now()+”_”+Math.floor(Math.random()*10000);
+var list=pmGetAll();list.push(data);pmSaveAll(list);pmRenderList();
+alert(“Imported: “+(data.name||“Project”));
+}else{alert(“Invalid project file format.”)}
+}catch(e){alert(“Error reading file: “+e.message)}
+};
+reader.readAsText(inp.files[0]);
+};
+inp.click();
 }
 
 // Hook auto-save into state-changing functions
