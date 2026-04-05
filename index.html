@@ -194,6 +194,11 @@ function cVD(amp,sz,dist,volt,ph){var vn=parseFloat(volt)||400;if(ph==="3"){var 
 function gIP(e){if((e.volt||"").indexOf("DC")>=0)return"3P";if(e.conn==="sd")return"6P";if(e.co==="4C")return"4P";return"3P"}
 function calcTray(cabs){var tw=0;for(var i=0;i<cabs.length;i++)tw+=cabs[i].od*cabs[i].cnt;var raw=tw;var with30=Math.ceil(tw*1.3);for(var i=0;i<TRAYW.length;i++)if(TRAYW[i]>=with30)return{w:TRAYW[i],model:"HCT "+TRAYW[i]+"-50",rawOD:raw,with30:with30};return{w:900,model:"HCT 900-50",rawOD:raw,with30:with30}}
 function calcTrunk(cabs){var tf=0;for(var i=0;i<cabs.length;i++)tf+=(TF[cabs[i].sz]||0)*cabs[i].cnt;for(var i=0;i<TRK.length;i++)if(TRK[i].c>=tf)return{s:TRK[i].s,cap:TRK[i].c,used:tf};return{s:"300x150+",cap:19447,used:tf}}
+var CCHAN_TYPES=["HDG","GI"];
+var CCHAN_DEFAULT_TYPE="HDG";
+var CCHAN_DEFAULT_BRAND="UNITECH";
+function ensureRouteDefaults(r){if(!r)return r;r.ccType=(r.ccType==="GI")?"GI":CCHAN_DEFAULT_TYPE;r.ccBrand=CCHAN_DEFAULT_BRAND;return r}
+function cChanDesc(type){return((type==="GI")?"GI":"HDG")+" C CHANNEL, SIZE:41 X 41 X 3 MM"}
 
 var SY=[],ROUTES=[];
 var INC={ct:"armoured",co:"4C",sz:"",di:30,ru:1,iso:true,isoModel:"",kw:"",ph:"400",src:"smdb",iesz:"",conn:"dol",cBrand:"OMAN CABLES",cBrandO:"",gBrand:"RUPAM",gBrandO:"",iBrand:"ABB",iBrandO:""};
@@ -280,14 +285,14 @@ var eSzs=STD.filter(function(x){return x<=sz});h+='<div class="ebox"><strong>Ear
 h+='<div class="lbl"><strong>DESCRIPTION &amp; CABLE SIZE:</strong>\nMAIN INCOMER CABLE '+INC.co+'x'+sz+'mm2 '+tSh(INC.ct)+'\nEARTH CABLE : G/Y 1Cx'+esz+'mm2 CU/PVC</div><div class="ris" style="margin-top:4px;font-size:10px;color:var(--tx2)">Cable Ties: '+tie.d+' | Qty: '+tieQty+' nos = '+tiePkt+' pkt(s) of 100</div>'}
 h+='</div></div>';document.getElementById("ibox").innerHTML=h}
 
-function addRoute(){_ri++;ROUTES.push({id:_ri,nm:"Route "+_ri,dist:20,eqIds:[],type:"tray"});rRoutes()}
+function addRoute(){_ri++;ROUTES.push({id:_ri,nm:"Route "+_ri,dist:20,eqIds:[],type:"tray",ccType:CCHAN_DEFAULT_TYPE,ccBrand:CCHAN_DEFAULT_BRAND});rRoutes()}
 function rmRoute(id){ROUTES=ROUTES.filter(function(r){return r.id!==id});rRoutes()}
 function togRE(rid,key){var r=ROUTES.find(function(x){return x.id===rid});if(!r)return;var i=r.eqIds.indexOf(key);if(i>=0)r.eqIds.splice(i,1);else r.eqIds.push(key);rRoutes()}
 function rRoutes(){var allEq=[];
 // Add incomer cable as a selectable item for tray routing
 var isz=parseFloat(INC.sz);if(isz){allEq.push({nm:"MAIN INCOMER",os:INC.sz,ct:INC.ct,co:INC.co,ru:parseInt(INC.ru)||1,esz:"",sid:"INC",eid:"0"})}
 for(var i=0;i<SY.length;i++)for(var j=0;j<SY[i].eq.length;j++){var e=SY[i].eq[j];allEq.push({nm:e.nm||("E"+e.id),os:e.os,ct:e.ct,co:e.co,ru:e.ru,esz:e.esz,sid:SY[i].id,eid:e.id})}
-var h="";for(var i=0;i<ROUTES.length;i++){var r=ROUTES[i];var cables=[];for(var j=0;j<r.eqIds.length;j++){var p=r.eqIds[j].split("_");var eq=allEq.find(function(x){return x.sid==p[0]&&x.eid==p[1]});if(eq&&eq.os){var sz=parseFloat(eq.os),od=gOD(eq.ct,eq.co,sz),esz2=(eq.esz&&parseFloat(eq.esz))?parseFloat(eq.esz):eCalc(sz),eod=SOD[esz2]||5,ru=parseInt(eq.ru)||1;cables.push({sz:sz,od:od,esz:esz2,eod:eod,ru:ru,co:eq.co})}}
+var h="";for(var i=0;i<ROUTES.length;i++){var r=ensureRouteDefaults(ROUTES[i]);var ccDesc=cChanDesc(r.ccType);var ccBrand=r.ccBrand||CCHAN_DEFAULT_BRAND;var cables=[];for(var j=0;j<r.eqIds.length;j++){var p=r.eqIds[j].split("_");var eq=allEq.find(function(x){return x.sid==p[0]&&x.eid==p[1]});if(eq&&eq.os){var sz=parseFloat(eq.os),od=gOD(eq.ct,eq.co,sz),esz2=(eq.esz&&parseFloat(eq.esz))?parseFloat(eq.esz):eCalc(sz),eod=SOD[esz2]||5,ru=parseInt(eq.ru)||1;cables.push({sz:sz,od:od,esz:esz2,eod:eod,ru:ru,co:eq.co})}}
 var result="",supports="",sizing="";
 if(cables.length&&r.dist){var numSup=Math.floor(r.dist/1.5)+1;
 if(r.type==="tray"){var cabs=[];var odList=[];for(var j=0;j<cables.length;j++){cabs.push({od:cables[j].od,cnt:cables[j].ru});cabs.push({od:cables[j].eod,cnt:cables[j].ru});for(var rr=0;rr<cables[j].ru;rr++){odList.push({t:"Power",od:cables[j].od});odList.push({t:"Earth",od:cables[j].eod})}}var t=calcTray(cabs);var itemW=t.w;var chW=itemW+60;var totalRodM=numSup*1.6;var rodStock=Math.ceil(totalRodM/3);var chTotalM=(numSup*chW)/1000;var chStock=Math.ceil(chTotalM/3);var spNut=itemW<=100?1:2;var trayLenM=Math.ceil(r.dist*1.1);var numPieces=Math.ceil(trayLenM/3);var roofBolt12=numPieces*2;var numConn=numPieces>0?numPieces-1:0;var trayConn=numConn*2;var earthLinks=numConn;var earthLinkPkt=Math.ceil(earthLinks/25);
@@ -295,14 +300,16 @@ sizing='<div class="trb" style="margin-top:4px"><strong>Tray Sizing Calculation:
 for(var j=0;j<odList.length;j++)sizing+=odList[j].t+': '+odList[j].od.toFixed(1)+'mm'+(j<odList.length-1?' + ':'');
 sizing+='<br>Sum OD: <strong>'+t.rawOD.toFixed(1)+'mm</strong> + 30% free space = <strong>'+t.with30+'mm</strong> &rarr; Standard tray: <strong>'+itemW+'mm</strong></div>';
 result='<div class="trb"><strong>Cable Tray:</strong> '+t.model+' ('+itemW+'mm W x 50mm H) — SFSP HCT Perforated HDG<br>Length: '+r.dist+'m (+10% = '+trayLenM+'m) — '+numPieces+' pcs (3m stock)</div>';
-supports='<div class="trb" style="margin-top:4px"><strong>Tray Supports (incl. both ends) @ 1.5m = '+numSup+' supports:</strong><br>10mm Threaded Rod (0.8m x 2/support, 3m stock): <strong>'+rodStock+'</strong> nos | 10mm Nut (3x2): <strong>'+(numSup*6)+'</strong> nos | 10mm Washer (3x2): <strong>'+(numSup*6)+'</strong> nos<br>6mm Spring Nut ('+spNut+'/sup): <strong>'+(numSup*spNut)+'</strong> | 6x16mm Roofing Bolt: <strong>'+(numSup*spNut)+'</strong> | 6x12mm Roofing Bolt: <strong>'+roofBolt12+'</strong> <span style="color:var(--tx2)">('+numPieces+' trays x 2)</span><br>Tray Connector (2/joint): <strong>'+trayConn+'</strong> nos <span style="color:var(--tx2)">('+numConn+' joints x 2)</span> | Earth Link FURSE RC104 6mm Cu: <strong>'+earthLinks+'</strong> nos ('+earthLinkPkt+' pkt of 25)<br>C-Channel '+chW+'mm ('+itemW+'+60mm), 3m stock: <strong>'+chStock+'</strong> nos</div>'}
+supports='<div class="trb" style="margin-top:4px"><strong>Tray Supports (incl. both ends) @ 1.5m = '+numSup+' supports:</strong><br>10mm Threaded Rod (0.8m x 2/support, 3m stock): <strong>'+rodStock+'</strong> nos | 10mm Nut (3x2): <strong>'+(numSup*6)+'</strong> nos | 10mm Washer (3x2): <strong>'+(numSup*6)+'</strong> nos<br>6mm Spring Nut ('+spNut+'/sup): <strong>'+(numSup*spNut)+'</strong> | 6x16mm Roofing Bolt: <strong>'+(numSup*spNut)+'</strong> | 6x12mm Roofing Bolt: <strong>'+roofBolt12+'</strong> <span style="color:var(--tx2)">('+numPieces+' trays x 2)</span><br>Tray Connector (2/joint): <strong>'+trayConn+'</strong> nos <span style="color:var(--tx2)">('+numConn+' joints x 2)</span> | Earth Link FURSE RC104 6mm Cu: <strong>'+earthLinks+'</strong> nos ('+earthLinkPkt+' pkt of 25)<br>'+ccDesc+' | Brand/Model: '+ccBrand+' | Cut Length: '+chW+'mm ('+itemW+'+60mm) | 3m stock: <strong>'+chStock+'</strong> nos</div>'}
 else{var cabs=[];for(var j=0;j<cables.length;j++){var cn=parseInt(cables[j].co)||1;cabs.push({sz:cables[j].sz,cnt:cn*cables[j].ru});cabs.push({sz:cables[j].esz,cnt:cables[j].ru})}var t=calcTrunk(cabs);var tkW=parseInt(t.s)||100;var chW=tkW+60;var totalRodM=numSup*1.6;var rodStock=Math.ceil(totalRodM/3);var chTotalM=(numSup*chW)/1000;var chStock=Math.ceil(chTotalM/3);var spNut=tkW<=100?1:2;var tkLenM=Math.ceil(r.dist*1.1);var numPieces=Math.ceil(tkLenM/3);var roofBolt12=numPieces*2;var numConn=numPieces>0?numPieces-1:0;var tkConn=numConn*2;var earthLinks=numConn;var earthLinkPkt=Math.ceil(earthLinks/25);
 result='<div class="trb"><strong>Trunking:</strong> '+t.s+'mm SFSP SCT BS EN 50085 | Factor:'+t.used.toFixed(0)+'/'+t.cap+'<br>Length: '+r.dist+'m (+10% = '+tkLenM+'m) — '+numPieces+' pcs (3m stock)</div>';
-supports='<div class="trb" style="margin-top:4px"><strong>Trunking Supports (incl. both ends) @ 1.5m = '+numSup+' supports:</strong><br>10mm Threaded Rod (0.8m x 2/support, 3m stock): <strong>'+rodStock+'</strong> nos | 10mm Nut (3x2): <strong>'+(numSup*6)+'</strong> nos | 10mm Washer (3x2): <strong>'+(numSup*6)+'</strong> nos<br>6mm Spring Nut ('+spNut+'/sup): <strong>'+(numSup*spNut)+'</strong> | 6x16mm Roofing Bolt: <strong>'+(numSup*spNut)+'</strong> | 6x12mm Roofing Bolt: <strong>'+roofBolt12+'</strong> <span style="color:var(--tx2)">('+numPieces+' pcs x 2)</span><br>Trunking Connector (2/joint): <strong>'+tkConn+'</strong> nos <span style="color:var(--tx2)">('+numConn+' joints x 2)</span> | Earth Link FURSE RC104 6mm Cu: <strong>'+earthLinks+'</strong> nos ('+earthLinkPkt+' pkt of 25)<br>C-Channel '+chW+'mm ('+tkW+'+60mm), 3m stock: <strong>'+chStock+'</strong> nos</div>'}}
+supports='<div class="trb" style="margin-top:4px"><strong>Trunking Supports (incl. both ends) @ 1.5m = '+numSup+' supports:</strong><br>10mm Threaded Rod (0.8m x 2/support, 3m stock): <strong>'+rodStock+'</strong> nos | 10mm Nut (3x2): <strong>'+(numSup*6)+'</strong> nos | 10mm Washer (3x2): <strong>'+(numSup*6)+'</strong> nos<br>6mm Spring Nut ('+spNut+'/sup): <strong>'+(numSup*spNut)+'</strong> | 6x16mm Roofing Bolt: <strong>'+(numSup*spNut)+'</strong> | 6x12mm Roofing Bolt: <strong>'+roofBolt12+'</strong> <span style="color:var(--tx2)">('+numPieces+' pcs x 2)</span><br>Trunking Connector (2/joint): <strong>'+tkConn+'</strong> nos <span style="color:var(--tx2)">('+numConn+' joints x 2)</span> | Earth Link FURSE RC104 6mm Cu: <strong>'+earthLinks+'</strong> nos ('+earthLinkPkt+' pkt of 25)<br>'+ccDesc+' | Brand/Model: '+ccBrand+' | Cut Length: '+chW+'mm ('+tkW+'+60mm) | 3m stock: <strong>'+chStock+'</strong> nos</div>'}}
 h+='<div class="route"><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px"><strong style="color:var(--cy)">Route '+(i+1)+'</strong>';
 h+='<input class="fi" style="max-width:140px;padding:4px 8px;font-size:12px" value="'+r.nm+'" onchange="ROUTES['+i+'].nm=this.value">';
 h+='<div class="fg" style="width:70px"><label class="fl">Dist</label><input class="fi" type="number" min="1" value="'+r.dist+'" style="padding:4px 8px" onchange="ROUTES['+i+'].dist=parseInt(this.value);rRoutes()"></div>';
 h+='<select class="fs" style="width:90px;padding:4px 20px 4px 6px;font-size:10px" onchange="ROUTES['+i+'].type=this.value;rRoutes()"><option value="tray"'+(r.type==="tray"?" selected":"")+'>Tray</option><option value="trunking"'+(r.type==="trunking"?" selected":"")+'>Trunking</option></select>';
+h+='<div class="fg" style="width:120px"><label class="fl">C-Channel Type</label><select class="fs" style="padding:4px 20px 4px 6px;font-size:10px" onchange="ROUTES['+i+'].ccType=this.value;rRoutes()"><option value="HDG"'+(r.ccType==="HDG"?" selected":"")+'>HDG</option><option value="GI"'+(r.ccType==="GI"?" selected":"")+'>GI</option></select></div>';
+h+='<div class="fg" style="width:120px"><label class="fl">Brand/Model</label><input class="fi" value="'+ccBrand+'" readonly style="padding:4px 8px;font-size:10px"></div>';
 h+='<button class="b br bs" onclick="rmRoute('+r.id+')">x</button></div><div style="margin-bottom:4px">';
 for(var j=0;j<allEq.length;j++){var e=allEq[j];var key=e.sid+"_"+e.eid;h+='<div class="rchip'+(r.eqIds.indexOf(key)>=0?" sel":"")+'" onclick="togRE('+r.id+',\''+key+'\')">'+e.nm+(e.os?" ("+e.os+"mm2)":"")+'</div>'}
 h+='</div>'+result+sizing+supports+'</div>'}document.getElementById("rcon").innerHTML=h}
@@ -362,7 +369,7 @@ R.push({sys:sn,cat:"Engraved Label (2-hole)",d:"TO "+EN+" "+e.co+"x"+esz2+"mm2",
 if(e.nm)R.push({sys:sn,cat:"Engraved Label (no hole)",d:EN,p:"Equipment Label",q:1,u:"nos",k:"eqdesc_"+ek,o:5});
 R.push({sys:sn,cat:"Cable Tie",d:tieEq.d,p:"For "+EN,br:"EDGE TAIWAN",q:packet100(tl),u:"pkt",k:"tie_"+ek,o:6})}}
 // Tray/Trunking/Support materials from routes
-for(var ri=0;ri<ROUTES.length;ri++){var r=ROUTES[ri];if(!r.dist)continue;
+for(var ri=0;ri<ROUTES.length;ri++){var r=ensureRouteDefaults(ROUTES[ri]);var ccDesc=cChanDesc(r.ccType);var ccBrand=r.ccBrand||CCHAN_DEFAULT_BRAND;if(!r.dist)continue;
 var allEqR=[];if(parseFloat(INC.sz))allEqR.push({os:INC.sz,ct:INC.ct,co:INC.co,ru:parseInt(INC.ru)||1,esz:"",sid:"INC",eid:"0"});
 for(var si2=0;si2<SY.length;si2++)for(var j2=0;j2<SY[si2].eq.length;j2++){var e2=SY[si2].eq[j2];allEqR.push({os:e2.os,ct:e2.ct,co:e2.co,ru:e2.ru,esz:e2.esz,sid:SY[si2].id,eid:e2.id})}
 var rCabs=[];for(var j2=0;j2<r.eqIds.length;j2++){var p2=r.eqIds[j2].split("_");var eq2=allEqR.find(function(x){return String(x.sid)==p2[0]&&String(x.eid)==p2[1]});if(eq2&&eq2.os){var sz2=parseFloat(eq2.os),od2=gOD(eq2.ct,eq2.co,sz2),esz3=(eq2.esz&&parseFloat(eq2.esz))?parseFloat(eq2.esz):eCalc(sz2),eod2=SOD[esz3]||5,ru2=parseInt(eq2.ru)||1;rCabs.push({sz:sz2,od:od2,esz:esz3,eod:eod2,ru:ru2,co:eq2.co})}}
@@ -379,7 +386,7 @@ R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"6mm Spring Nut",q:numSup2*spNut2
 R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"6mm x 16mm Roofing Bolt",q:numSup2*spNut2,u:"nos",k:"rb616_"+ri,o:7});
 R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"6mm x 12mm Roofing Bolt (tray connection)",q:roofB12,u:"nos",k:"rb612_"+ri,o:7});
 R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"Tray Connector (2/joint)",q:numConn2*2,u:"nos",k:"tconn_"+ri,o:7});
-R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"C-Channel Slotted "+chW2+"mm ("+itemW2+"+60mm), 3m Stock",q:chStock2,u:"nos",k:"cchan_"+chW2+"_"+ri,o:7});
+R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:ccDesc,p:"C-Channel support for "+r.nm+" | Cut Length: "+chW2+"mm ("+itemW2+"+60mm)",br:ccBrand,q:chStock2,u:"nos",k:"cchan_"+r.ccType+"_"+ri,o:7});
 R.push({sys:"TRAY: "+r.nm,cat:"Earth Link",d:"EARTH LINK: COPPER, 6MM, RC104, FURSE (25nos/pkt)",q:earthLPkt2,u:"pkt",k:"earthlink_"+ri,o:8});
 }else{
 var tkc=[];for(var j2=0;j2<rCabs.length;j2++){var cn3=parseInt(rCabs[j2].co)||1;tkc.push({sz:rCabs[j2].sz,cnt:cn3*rCabs[j2].ru});tkc.push({sz:rCabs[j2].esz,cnt:rCabs[j2].ru})}
@@ -392,7 +399,7 @@ R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"6mm Spring Nut",q:numSup2*spNut2
 R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"6mm x 16mm Roofing Bolt",q:numSup2*spNut2t,u:"nos",k:"rb616_tk_"+ri,o:7});
 R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"6mm x 12mm Roofing Bolt (trunking connection)",q:roofB12t,u:"nos",k:"rb612_tk_"+ri,o:7});
 R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"Trunking Connector (2/joint)",q:numConn2t*2,u:"nos",k:"tkconn_"+ri,o:7});
-R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:"C-Channel Slotted "+chW2t+"mm ("+tkW2+"+60mm), 3m Stock",q:chStock2t,u:"nos",k:"cchan_"+chW2t+"_tk_"+ri,o:7});
+R.push({sys:"TRAY: "+r.nm,cat:"Tray Support",d:ccDesc,p:"C-Channel support for "+r.nm+" | Cut Length: "+chW2t+"mm ("+tkW2+"+60mm)",br:ccBrand,q:chStock2t,u:"nos",k:"cchan_"+r.ccType+"_tk_"+ri,o:7});
 R.push({sys:"TRAY: "+r.nm,cat:"Earth Link",d:"EARTH LINK: COPPER, 6MM, RC104, FURSE (25nos/pkt)",q:earthLPkt2t,u:"pkt",k:"earthlink_tk_"+ri,o:8});
 }}}
 return R}
@@ -484,6 +491,7 @@ function pmSetState(st){
   PRJ=st.PRJ?pmDeepCopy(st.PRJ):{name:"",ref:""};
   SY=st.SY?pmDeepCopy(st.SY):[];
   ROUTES=st.ROUTES?pmDeepCopy(st.ROUTES):[];
+  for(var ri=0;ri<ROUTES.length;ri++)ensureRouteDefaults(ROUTES[ri]);
   INC=st.INC?pmDeepCopy(st.INC):{ct:"armoured",co:"4C",sz:"",di:30,ru:1,iso:true,isoModel:"",kw:"",ph:"400",src:"smdb",iesz:"",conn:"dol",cBrand:"OMAN CABLES",cBrandO:"",gBrand:"RUPAM",gBrandO:"",iBrand:"ABB",iBrandO:""};
   _si=st._si||0;_ei=st._ei||0;_ri=st._ri||0;
   var pn=document.getElementById("prjName");if(pn)pn.value=PRJ.name||"";
